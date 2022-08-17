@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block topcontent %}
+{% load crispy_forms_tags %}  
+    <header class="masthead">
+        <div class="container px-4 px-lg-5 h-100">
+            <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>	
+                {% endfor %}
+                {% endif %}
+                <div class="col-lg-8 align-self-top">
+                    {% block h1topcontent %}
+                        <h2 class="text-white-75">Entrez vos nouvelles informations</h2>
+                        <br>
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit">Enregistrer les changements</button>
+                            </div>    
+                            <br>
+                            {{ form.errors }}
+                            {{ form.non_field_errors }}             
+                        </form>
+                    {% endblock h1topcontent %}
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock topcontent %}
