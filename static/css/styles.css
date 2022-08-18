@@ -1,0 +1,23 @@
+#expand-button {
+    border-color: transparent;
+}
+
+.masthead {
+    padding: 3rem;
+}
+
+header {
+    padding: 1rem;
+}
+
+footer {
+    padding: 1rem;
+}
+
+.form-group {
+    padding-bottom: 1rem;
+}
+
+.asteriskField{
+    visibility: hidden;
+}

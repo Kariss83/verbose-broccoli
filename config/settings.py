@@ -137,10 +137,11 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom user model
-
 AUTH_USER_MODEL = 'accounts.CustomUser'
-
 
 # Handling redirection from decorator @loginrequired
 LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/users/login/'
+
+# Setting Email for password Reset
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

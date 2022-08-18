@@ -46,27 +46,22 @@ class CustomUserChangeForm(auth_forms.UserChangeForm):
 	"""
 	A form to allow modification of the profile email adress and name.
 	"""
-	Username = base_form.CharField(max_length=30,
-							   label="Nom d'utilisateur",
-						   	   required=True,
-						   	   widget=base_form.TextInput(
-							   attrs={'class': 'form-control'})
-						  )
-	name = base_form.CharField(max_length=100,
-							   label='Nom',
-						   	   required=True,
-						   	   widget=base_form.TextInput(
-							   attrs={'class': 'form-control'})
-						  )
+	username = base_form.CharField(max_length=30,
+							   	   label="Username",
+						   	   	   required=True,
+						   	   	   widget=base_form.TextInput(
+							   	   attrs={'class': 'form-control'})
+						  		  )
+
 	email = base_form.EmailField(required=True,
-								 label='Adresse Mail',
+								 label='Email address',
 							 	 widget=base_form.TextInput(
 								 attrs={'class': 'form-control'})
-							)
+								)
 	password = None
 	class Meta(auth_forms.UserChangeForm.Meta):
 		model = CustomUser
-		fields = ("email", "name")
+		fields = ("email", "username")
 		field_classes = {"email": auth_forms.UsernameField}
 
 
@@ -79,43 +74,45 @@ class CustomUserCreationForm(auth_forms.UserCreationForm):
 	error_messages = {
 		"password_mismatch": _("The two password fields didn’t match."),
 	}
-	name = base_form.CharField(max_length=100,
-							   label='Nom',
+	username = base_form.CharField(max_length=100,
+							   label='Username :',
 							   required=True,
 							   widget=base_form.TextInput(
 							   attrs={'class': 'form-control',
-							   		  'placeholder': 'Nom'})
+							   		  'placeholder': 'Enter your username'})
 						  	  )
 	email = base_form.EmailField(required=True,
-								 label='Email',
+								 label='Email :',
 								 widget=base_form.TextInput(
 								 attrs={'class': 'form-control',
-								 		'placeholder': 'Adresse mail'})
+								 		'placeholder': 'Enter a valid email address'})
 								)
 	password1 = base_form.CharField(
-		label=_("Mot de Passe"),
+		label="Password :",
 		strip=False,
 		widget=base_form.PasswordInput(attrs={
 										"autocomplete": "new-password",
 										"class": "form-control",
-										"placeholder": "Mot de Passe",
+										"placeholder": "Enter your password",
 										}),
 		help_text="",
 	)
 	password2 = base_form.CharField(
-		label=_("Confirmation du Mot de Passe"),
+		label="Password confirmation :",
 		widget=base_form.PasswordInput(attrs={
 										"autocomplete": "new-password",
 										"class": "form-control",
-										"placeholder": "Confirmez le Mot de Passe",
+										"placeholder": "Confirm your password",
 										}),
 		strip=False,
 		help_text="",
 	)
 
+	field_order = ['email', 'username', 'password1', 'password2',]
+
 	class Meta(auth_forms.UserChangeForm.Meta):
 		model = CustomUser
-		fields = ("email", "name")
+		fields = ("email",)
 		field_classes = {"email": auth_forms.UsernameField}
 
 class CustomPasswordResetForm(auth_forms.PasswordResetForm):
