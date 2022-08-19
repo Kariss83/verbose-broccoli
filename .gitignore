@@ -131,3 +131,6 @@ dmypy.json
 
 # Django staticfiles
 /staticfiles
+
+# Personnal notes
+notes.txt

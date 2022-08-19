@@ -16,10 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-import accounts.urls
+import accounts.urls, barcode.urls
 
 urlpatterns = [
     path('', accounts.views.login_user, name='registerhome'),
     path('admin/', admin.site.urls),
     path('accounts/', include(accounts.urls, namespace='accounts')),
+    path('barcode/', include(barcode.urls, namespace='barcode')),
+    path('collection/',
+        include(collection.urls,namespace='collection')),
+    path('datafetcher/',
+        include(datafetcher.urls, namespace='datafetcher')),
 ]

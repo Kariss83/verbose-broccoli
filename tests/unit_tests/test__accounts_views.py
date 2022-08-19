@@ -1,5 +1,5 @@
 """ This module is designed to host all the unit tests for the part of the
-program in charge of parsing the sentence the user will pass to GrandPy.
+program in charge of handling user accounts.
 """
 import random
 from unittest import mock
@@ -28,8 +28,7 @@ def create_an_user(number):
 
 
 class TestAccountsViewsModule(TestCase):
-	""" Main class testing all the actions the parser is supposed to be able to
-	achieve.
+	""" Main class testing hosting the tests.
 	"""
 	@classmethod
 	def setUpTestData(cls):
