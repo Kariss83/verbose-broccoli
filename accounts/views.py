@@ -120,7 +120,7 @@ def edit_profile(request):
 			return redirect('/accounts/profile')
 		else:
 			messages.error(request, (
-				'There was an error in the for you filled, try again.'))
+				'There was an error in the form you filled, try again.'))
 			return redirect('/accounts/edit')
 	else:
 		form = CustomUserChangeForm(instance= request.user)

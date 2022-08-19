@@ -13,7 +13,7 @@ from django.urls import reverse
 from accounts.forms import CustomAuthenticationForm
 
 from accounts.models import CustomUser
-from products.models import Categories, Favorites, Products
+
 
 def mocked_send_mail():
 	raise BadHeaderError
@@ -22,7 +22,7 @@ def mocked_send_mail():
 def create_an_user(number):
 	user_test = CustomUser.objects.create(
 			email=f"test{number}@gmail.com",
-			name=f"MRTest{number}"
+			username=f"MRTest{number}"
 		)
 	return user_test
 
@@ -35,25 +35,26 @@ class TestAccountsViewsModule(TestCase):
 	def setUpTestData(cls):
 		cls.user = CustomUser.objects.create(
 			email="test@gmail.com",
-			name="MRTest",
+			username="MRTest",
 		)
 		cls.user.set_password('monsupermotdepasse')
 		cls.user.save()
 
 		cls.client = Client()
 
-		cls.home_url = reverse('home:home')
-		cls.register_url = reverse('users:register')
-		cls.login_url = reverse('users:login')
-		cls.logout_url = reverse('users:logout')
-		cls.profile_url = reverse('users:profile')
-		cls.edit_url = reverse('users:edit')
+		# cls.home_url = reverse('home:home')
+		cls.register_url = reverse('accounts:register')
+		cls.login_url = reverse('accounts:login')
+		cls.logout_url = reverse('accounts:logout')
+		cls.profile_url = reverse('accounts:profile')
+		cls.edit_url = reverse('accounts:edit')
+		cls.pwd_reset_url = reverse('accounts:password_reset')
 
 	def test_login_user_GET(self):
 		response = self.client.get(self.login_url)
 
 		self.assertEquals(response.status_code, 200)
-		self.assertTemplateUsed(response, 'registration/login.html')
+		self.assertTemplateUsed(response, 'accounts/login.html')
 
 	def test_login_user_POST(self):
 		response = self.client.post(
@@ -93,29 +94,30 @@ class TestAccountsViewsModule(TestCase):
 		response = self.client.get(self.register_url)
 
 		self.assertEquals(response.status_code, 200)
-		self.assertTemplateUsed(response, 'registration/register.html')
+		self.assertTemplateUsed(response, 'accounts/register.html')
 
 	def test_register_user_POST(self):
 		response = self.client.post(
 			self.register_url,
 			{'email': 'test2@gmail.com',
-			 'name': 'MRTest2',
+			 'username': 'MRTest2',
 			 'password1': 'monsupermotdepasse',
 			 'password2': 'monsupermotdepasse'
 			 },
 			follow=True
 			)
-		new_user = CustomUser.objects.get(name='MRTest2')
+		# import pdb; pdb.set_trace()
+		new_user = CustomUser.objects.get(email='test2@gmail.com')
 		self.assertEqual(
 			int(self.client.session['_auth_user_id']),
 			new_user.id
 			)
 		self.assertEquals(response.status_code, 200)  
-		self.assertTemplateUsed(response, 'home/index.html')
+		self.assertTemplateUsed(response, 'accounts/profile.html')
 
 	def test_register_user_POST_invalid_form(self):
 		response = self.client.post(
-			'/users/register/',
+			'/accounts/register/',
 			{'email': 'test2@gmail.com',
 			 'password1': 'monsupermotdepasse',
 			 },
@@ -125,9 +127,9 @@ class TestAccountsViewsModule(TestCase):
 		self.assertEqual(len(messages), 1)
 		self.assertEqual(
 			str(messages[0]),
-			'Erreur de Création de Comptes - Veuillez reéssayer...')
+			"""Account creation error (<ul class="errorlist"><li>username<ul class="errorlist"><li>Ce champ est obligatoire.</li></ul></li><li>password2<ul class="errorlist"><li>Ce champ est obligatoire.</li></ul></li></ul>)- Try Again...""")
 		self.assertEquals(response.status_code, 200)
-		self.assertTemplateUsed(response, 'registration/register.html')
+		self.assertTemplateUsed(response, 'accounts/register.html')
 
 	def test_logout_user_GET(self):
 		self.client.login(
@@ -141,9 +143,9 @@ class TestAccountsViewsModule(TestCase):
 
 		messages = list(response.context['messages'])
 		self.assertEqual(len(messages), 1)
-		self.assertEqual(str(messages[0]), 'Vous êtes déconnecté(e)...')
+		self.assertEqual(str(messages[0]), 'You are disconnected...')
 		self.assertEquals(response.status_code, 200)
-		self.assertTemplateUsed(response, 'home/index.html')
+		self.assertTemplateUsed(response, 'accounts/login.html')
 
 	def test_profile_user_logged_in_GET(self):
 		self.client.login(
@@ -192,13 +194,13 @@ class TestAccountsViewsModule(TestCase):
 		response = self.client.post(
 			self.edit_url,
 			{'email': 'test3@gmail.com',
-			 'name': 'MRTest3'
+			 'username': 'MRTest3'
 			 },
 			follow=False
 			)
 
 		user.refresh_from_db()
-		self.assertEqual(user.name, 'MRTest3')
+		self.assertEqual(user.username, 'MRTest3')
 		self.assertEqual(user.email, 'test3@gmail.com')
 		self.assertEqual(response.status_code, 302)  
 
@@ -213,18 +215,18 @@ class TestAccountsViewsModule(TestCase):
 		response = self.client.post(
 			self.edit_url,
 			{'email': 'test3@gmail.com',
-			 'name': 'MRTest3'
+			 'username': 'MRTest3'
 			 },
 			follow=True
 			)
 
 		user.refresh_from_db()
-		self.assertEqual(user.name, 'MRTest3')
+		self.assertEqual(user.username, 'MRTest3')
 		self.assertEqual(user.email, 'test3@gmail.com')
 		self.assertEqual(response.status_code, 200)  
 		messages = list(response.context['messages'])
 		self.assertEqual(len(messages), 1)
-		self.assertEqual(str(messages[0]), 'Modifications enregistrées avec succès.')
+		self.assertEqual(str(messages[0]), 'Modification successfully saved')
 
 	def test_edit_user_POST_invalid_form_no_follow(self):
 		self.client.login(
@@ -237,7 +239,7 @@ class TestAccountsViewsModule(TestCase):
 		response = self.client.post(
 			self.edit_url,
 			{'email': '',
-			 'name': 'MRTest3'
+			 'username': 'MRTest3'
 			 },
 			follow=False
 			)
@@ -254,141 +256,14 @@ class TestAccountsViewsModule(TestCase):
 		response = self.client.post(
 			self.edit_url,
 			{'email': '',
-			 'name': 'MRTest3'
+			 'username': 'MRTest3'
 			 },
 			follow=True
 			)
 		self.assertEqual(response.status_code, 200)
 		messages = list(response.context['messages'])
 		self.assertEqual(len(messages), 1)
-		self.assertEqual(str(messages[0]), 'Erreur de modification des informations, le formulaire n\'est pas valide')
-
-
-class TestProductsViewsModule(TestCase):
-	""" Main class testing all the actions the parser is supposed to be able to
-	achieve.
-	"""
-	@classmethod
-	def setUpTestData(cls):
-		cls.user = create_an_user(1)
-		cls.user.set_password('monsupermotdepasse')
-		cls.user.save()
-		cls.cat = create_a_category("Test")
-		for i in range(10):
-			create_a_product(i,
-							 random.choice(["a", "b", "c", "d", "e"]),
-							 cls.cat)
-		cls.prod1, cls.prod2 = Products.objects.all()[:2]
-		cls.fav1 = create_a_favorite(cls.user, cls.prod1, cls.prod2)
-
-		cls.client = Client()
-
-		cls.search_url = reverse('products:search')
-		cls.savefavorite_url = reverse('products:savefavorite')
-		cls.displayfavorite_url = reverse('products:displayfavorite')
-		cls.product_url = reverse('products:productinfo')
-
-	def test_search_product_GET(self):
-		response = self.client.get(self.search_url)
-
-		self.assertEquals(response.status_code, 200)
-		self.assertTemplateUsed(response, 'home/index.html')
-
-	def test_search_product_POST(self):
-		searched_prod = Products.objects.all()[0]
-		response = self.client.post(
-			self.search_url,
-			{'searched': 'test0'},
-			follow=True
-			)
-
-		self.assertEquals(response.status_code, 200)
-		self.assertTemplateUsed(response, 'search/search.html')
-		self.assertTrue('searched_prod' in response.context)
-		self.assertTrue('substitut_prods' in response.context)
-		self.assertEqual(response.context['searched_prod'], searched_prod)
-		self.assertEqual(len(response.context['substitut_prods']), 6)
-
-	def test_info_product_GET(self):
-		response = self.client.get(self.product_url)
-
-		self.assertEquals(response.status_code, 200)
-		self.assertTemplateUsed(response, 'search/search.html')
-
-	def test_info_product_POST(self):
-		searched_prod = Products.objects.all()[0]
-		response = self.client.post(
-			self.product_url,
-			{'prod_id': searched_prod.id},
-			follow=True
-			)
-
-		self.assertEquals(response.status_code, 200)
-		self.assertTemplateUsed(response, 'products/product_info.html')
-		self.assertTrue('product' in response.context)
-		self.assertEqual(response.context['product'], searched_prod)
-
-	def test_save_favorite_GET(self):
-		self.client.login(
-			email='test1@gmail.com',
-			password='monsupermotdepasse'
-			)
-		response = self.client.get(self.savefavorite_url)
-
-		self.assertEquals(response.status_code, 200)
-		self.assertTemplateUsed(response, 'search/search.html')
-
-	def test_save_favorite_POST(self):
-		self.client.login(
-			email='test1@gmail.com',
-			password='monsupermotdepasse'
-			)
-		searched_prod = Products.objects.all()[0]
-		saved_prod = Products.objects.all()[5]
-		response = self.client.post(
-			self.savefavorite_url,
-			{'favprod': saved_prod.id,
-			 'searched_prod_id': searched_prod.id,
-			 },
-			follow=True
-			)
-
-		self.assertEquals(response.status_code, 200)
-		self.assertTemplateUsed(response, 'products/my_products.html')
-
-		self.assertEqual(len(Favorites.objects.all()), 2)
-
-	def test_show_favorite_GET(self):
-		self.client.login(
-			email='test1@gmail.com',
-			password='monsupermotdepasse'
-			)
-
-		response = self.client.get(self.displayfavorite_url)
-
-		self.assertEqual(str(response.context['user']), 'test1@gmail.com')
-		self.assertEquals(response.status_code, 200)
-		self.assertTemplateUsed(response, 'products/my_products.html')
-		self.assertTrue('favorites' in response.context)
-		self.assertNotEqual(len(response.context['favorites']), 0)
-		self.assertEqual(response.context['favorites'][0], self.fav1)
-
-
-class TestHomeViewsModule(TestCase):
-	""" Class testing Home views.
-	"""
-	@classmethod
-	def setUpTestData(cls):
-		cls.user = CustomUser.objects.create(
-			email="test@gmail.com",
-			name="MRTest",
-		)
-		cls.user.set_password('monsupermotdepasse')
-		cls.user.save()
-
-		cls.client = Client()
-
-		cls.pwd_reset_url = reverse('home:password_reset')
+		self.assertEqual(str(messages[0]), 'There was an error in the form you filled, try again.')
 
 	def test_password_reset_GET(self):
 		response = self.client.get(self.pwd_reset_url)
@@ -415,10 +290,10 @@ class TestHomeViewsModule(TestCase):
 		self.assertEqual(response.status_code, 200)
 		messages = list(response.context['messages'])
 		self.assertEqual(len(messages), 1)
-		self.assertEqual(str(messages[0]), 'Cet email est invalide.')
+		self.assertEqual(str(messages[0]), 'This email is invalid.')
 	
 	def test_password_reset_POST_BadHeader(self):	
-		with mock.patch("home.views.send_mail") as mocked_send_mail:
+		with mock.patch("accounts.views.send_mail") as mocked_send_mail:
 			mocked_send_mail.side_effect = BadHeaderError
 
 			response = self.client.post(
