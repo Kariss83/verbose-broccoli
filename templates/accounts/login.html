@@ -13,16 +13,20 @@
     {% endif %}
     <br>
     <div class="d-flex flex-column justify-content-center">
-        <h2 class="mb-5">Login</h2>
-        <form method=POST action="{% url 'accounts:login' %}">
+        <h2 class="">Hello,</h2>
+        <h2 class="mb-5">Glad to see you !</h2>
+        <form class="mb-5" method=POST action="{% url 'accounts:login' %}" name='loginForm'>
             {% csrf_token %}
             {{ form|crispy }}
             <p>
-                <button type="submit" class="btn btn-secondary">Login</button>
+                <a href="/accounts/password_reset">Forgot your password ?</a>
+            </p>
+            <p>
+                <input type="submit" class="btn btn-primary" value='Login' disabled/>
             </p>
         </form>
         <p>
-            <a href="/accounts/password_reset">Forgot your password ?</a>
+            You do not have an account on GameZScan yet ?
         </p>
         <p>
             <a href="/accounts/register">Create an account</a>

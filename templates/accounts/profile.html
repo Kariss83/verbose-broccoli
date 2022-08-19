@@ -16,9 +16,11 @@
         <h2 class="text-white-75 mb-5">{{ user.username }}</h2>
         <br/>
         <h2 class="text-white-75 mb-5">Your email address is : {{ user.email }} </h2>
-        <br>
-        <a class="btn btn-primary" href="/accounts/edit">Edit your info</a>
-        <a href="/accounts/logout"> Logout </a>
+        <br/>
+        <div class='d-grid gap-2 col-6 mx-auto'>
+            <a class="btn btn-primary" href="/accounts/edit">Edit your info</a>
+            <a href="/accounts/logout"> Logout </a>
+        </div>
     </div>
 </header>
 {% endblock content %}

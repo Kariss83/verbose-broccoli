@@ -17,18 +17,18 @@ class CustomAuthenticationForm(base_form.Form):
 		widget=base_form.TextInput(
 								   attrs={
 										  "autofocus": True,
-										  "placeholder": 'Entrez votre adresse mail'
+										  "placeholder": 'Enter your email address'
 										 },					   
 								  )
 		)
 	password = base_form.CharField(
-		label=_("Mot de passe"),
+		label="Password",
 
 		strip=False,
 		widget=base_form.PasswordInput(
 									   attrs={
 										"autocomplete": "current-password",
-										"placeholder": 'Entrez votre mot de passe',
+										"placeholder": 'Enter your password',
 									   }
 									  )
 		)
@@ -122,5 +122,5 @@ class CustomPasswordResetForm(auth_forms.PasswordResetForm):
 		widget=base_form.EmailInput(attrs={
 									   "autocomplete": "email",
 									   "class": "form-control",
-									   'placeholder': 'Entrez votre adresse mail'}),
+									   'placeholder': 'Enter your email address'}),
 	)

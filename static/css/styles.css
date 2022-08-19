@@ -18,6 +18,20 @@ footer {
     padding-bottom: 1rem;
 }
 
-.asteriskField{
+.asteriskField {
     visibility: hidden;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color:rgb(73, 50, 204);
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+nav {
+    opacity: 85%;
 }

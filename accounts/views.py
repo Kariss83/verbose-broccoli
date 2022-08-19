@@ -40,18 +40,18 @@ def login_user(request):
 			user = authenticate(request, email=email, password=password)
 			if user is not None:
 				login(request, user)
-				messages.success(request, ('Vous êtes connecté(e)!'))
+				messages.success(request, ('You are logged in !'))
 				return redirect('/')
 			else:
 				messages.error(
 					request,
-					(f'Erreur de connexion ("User not found") - Veuillez reéssayer...')
+					(f'Connexion error ("User not found") - Try again...')
 					)
 				return redirect('/accounts/login')
 		else:
 			errors = form.errors
 			messages.error(request, (
-				f'Erreur de connexion ({errors}) - Veuillez reéssayer...'))
+				f'Connexion error ({errors}) - Try again...'))
 			return redirect('/accounts/login')
 	else:
 		return render(
@@ -65,7 +65,7 @@ def login_user(request):
 @login_required
 def logout_user(request):
 	logout(request)
-	messages.success(request, ('Vous êtes déconnecté(e)...'))
+	messages.success(request, ('You are disconnected...'))
 	return redirect('/')
 
 
@@ -83,12 +83,12 @@ def register_user(request):
 			# import pdb; pdb.set_trace()
 			if user is not None:
 				login(request, user)
-				messages.success(request, ('Vous êtes enregistré(e)...'))
+				messages.success(request, ('You are now signed in...'))
 				return redirect('/accounts/profile')
 		else:
 			errors = form.errors
 			messages.error(request, (
-				f'Erreur de Création de Comptes ({errors})- Veuillez reéssayer...'))
+				f'Account creation error ({errors})- Try Again...'))
 			return redirect('/accounts/register')
 	else:
 		form = CustomUserCreationForm()
@@ -116,11 +116,11 @@ def edit_profile(request):
 			email = form.data['email']
 			username = form.data['username']
 			form.save()
-			messages.success(request, ('Modifications enregistrées avec succès.'))
+			messages.success(request, ('Modification successfully saved'))
 			return redirect('/accounts/profile')
 		else:
 			messages.error(request, (
-				'Erreur de modification des informations, le formulaire n\'est pas valide'))
+				'There was an error in the for you filled, try again.'))
 			return redirect('/accounts/edit')
 	else:
 		form = CustomUserChangeForm(instance= request.user)
@@ -162,10 +162,10 @@ def password_reset_request(request):
 						send_mail(subject, email, 'root@vps-8351387e.vps.ovh.net' , [user.email], fail_silently=False)
 					except BadHeaderError:
 						return HttpResponse('Invalid header found.')
-					messages.success(request, 'Un message contenant les instructions de réinitialisation vous a été envoyé.')
+					# messages.success(request, 'A message containing instruction on how to reset you password has been sent to you.')
 					return redirect ('/accounts/password_reset/done')
 			else:
-				messages.error(request, 'Cet email est invalide.')
+				messages.error(request, 'This email is invalid.')
 				return redirect('/accounts/password_reset')
 	else :
 		password_reset_form = CustomPasswordResetForm()
