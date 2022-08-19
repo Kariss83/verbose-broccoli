@@ -48,19 +48,21 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="#">Scan a barcode</a>
                             </li>
-                            <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link disabled">Disabled</a>
-                            </li>
-                            <li class="nav-item">
-                                {% if user.is_authenticated %}
-                                <a href="/accounts/profile" class="bi bi-person-circle text-dark"></a>
-                                {% endif %}
-                            </li>
+                            {% if user.is_authenticated %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">My Collections</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/accounts/profile" class="nav-link">My Profile</a>
+                                </li>
+                            {% endif %}
+                            {% if not user.is_authenticated %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/accounts/login">Log In/Sign In</a>
+                                </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>   
