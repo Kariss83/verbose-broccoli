@@ -1,7 +1,15 @@
-from django.urls import path
-from django.contrib.auth import views as auth_views #import this
+# future
 
+# standard library
+
+# third-party
+
+# Django
+from django.urls import path
+
+# local Django
 from . import views
+
 
 app_name = 'barcode'
 

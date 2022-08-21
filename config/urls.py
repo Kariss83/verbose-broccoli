@@ -16,7 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-import accounts.urls, barcode.urls, collection.urls, datafetcher.urls
+import accounts.urls
+import barcode.urls
+import collection.urls
+import datafetcher.urls
 
 urlpatterns = [
     path('', accounts.views.login_user, name='registerhome'),

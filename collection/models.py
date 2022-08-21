@@ -1,9 +1,17 @@
 """
 
 """
+# future
+# standard library
+# third-party
 from djmoney.models.fields import MoneyField
+
+# Django
 from django.db import models
+
+# local Django
 from accounts.models import CustomUser
+
 
 # Create your models here.
 class Games(models.Model):
