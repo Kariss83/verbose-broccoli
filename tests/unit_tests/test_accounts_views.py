@@ -125,10 +125,7 @@ class TestAccountsViewsModule(TestCase):
         self.assertEqual(len(messages), 1)
         self.assertEqual(
             str(messages[0]),
-            """Account creation error (<ul class="errorlist"><li>usern
-            ame<ul class="errorlist"><li>Ce champ est obligatoire.</li>
-            </ul></li><li>password2<ul class="errorlist"><li>Ce champ
-            est obligatoire.</li></ul></li></ul>)- Try Again...""")
+            """Account creation error (<ul class="errorlist"><li>username<ul class="errorlist"><li>Ce champ est obligatoire.</li></ul></li><li>password2<ul class="errorlist"><li>Ce champ est obligatoire.</li></ul></li></ul>)- Try Again...""")
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'accounts/register.html')
 
@@ -265,8 +262,7 @@ class TestAccountsViewsModule(TestCase):
         messages = list(response.context['messages'])
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]),
-                         """There was an error in the form you filled,
-                         try again.""")
+                         """There was an error in the form you filled, try again.""")
 
     def test_password_reset_GET(self):
         response = self.client.get(self.pwd_reset_url)
