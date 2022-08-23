@@ -13,7 +13,7 @@ from accounts.models import CustomUser
 
 
 # Create your models here.
-class Games(models.Model):
+class Game(models.Model):
     """_summary_
 
     Args:
@@ -61,7 +61,7 @@ class Collection(models.Model):
     """
     name = models.CharField(max_length=50)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    game = models.ManyToManyField(Games)
+    games = models.ManyToManyField(Game)
 
     def __str__(self):
         return self.name

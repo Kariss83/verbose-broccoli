@@ -53,7 +53,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         error_messages={
             "unique": _("A user with that email already exists."),
         },)
-    name = models.CharField(_("first name"), max_length=150, blank=True)
     username = models.CharField(
         _("username"),
         max_length=30,

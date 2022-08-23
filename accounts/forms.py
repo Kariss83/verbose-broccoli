@@ -109,7 +109,7 @@ class CustomUserCreationForm(auth_forms.UserCreationForm):
 
     class Meta(auth_forms.UserChangeForm.Meta):
         model = CustomUser
-        fields = ("email",)
+        fields = ("email", "username")
         field_classes = {"email": auth_forms.UsernameField}
 
 

@@ -29,3 +29,6 @@ class APICommunicator():
         def_url = self.ean_lookup_url + str(ean)
         response = requests.request("GET", def_url, headers=headers)
         return response
+
+    def fill_name_info_to_game(self):
+        pass

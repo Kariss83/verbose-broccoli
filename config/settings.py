@@ -149,8 +149,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # Handling redirection from decorator @loginrequired
-LOGIN_URL = '/users/login/'
-LOGIN_REDIRECT_URL = '/users/login/'
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/accounts/login/'
 
 # Setting Email for password Reset
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
