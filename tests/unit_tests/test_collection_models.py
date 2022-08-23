@@ -5,7 +5,7 @@ from djmoney.money import Money
 from django.test import TestCase
 
 from accounts.models import CustomUser
-from collection.models import Collection, Games
+from collection.models import Collection, Game
 
 def create_an_user(number):
     user_test = CustomUser.objects.create(
@@ -15,7 +15,7 @@ def create_an_user(number):
     return user_test
 
 def create_a_game(name, avg_price, barcode):
-    game = Games.objects.create(
+    game = Game.objects.create(
             name=f"test{name}",
             avg_price=avg_price,
             barcode=barcode
@@ -61,7 +61,7 @@ class TestDatafetcher(TestCase):
 
         cls.collection = create_a_collection("mycollection", cls.user)
         # Adding games to the collection
-        cls.collection.game.add(cls.gameLOTR, cls.game1, cls.game2)
+        cls.collection.games.add(cls.gameLOTR, cls.game1, cls.game2)
     
     def test_Game_return_correct_name(self):
         name =self.gameLOTR.__str__()

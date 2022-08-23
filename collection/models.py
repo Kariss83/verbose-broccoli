@@ -1,4 +1,4 @@
-""" This module adds the Collection and Games Models to the project
+""" This module adds the Collection and Game Models to the project
 """
 # future
 # standard library
@@ -68,6 +68,6 @@ class Collection(models.Model):
 
     def _return_total_value(self):
         prices = []
-        for game in self.game.all():
+        for game in self.games.all():
             prices.append(game.avg_price)
         return sum(prices)

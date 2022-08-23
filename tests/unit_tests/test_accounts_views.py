@@ -160,13 +160,13 @@ class TestAccountsViewsModule(TestCase):
         response = self.client.get(self.profile_url)
 
         self.assertEquals(response.status_code, 302)
-        self.assertTrue(response.url.startswith('/users/login/'))
+        self.assertTrue(response.url.startswith('/accounts/login/'))
 
     def test_edit_GET_while_not_logged_in(self):
         response = self.client.get(self.edit_url)
 
         self.assertEquals(response.status_code, 302)
-        self.assertTrue(response.url.startswith('/users/login'))
+        self.assertTrue(response.url.startswith('/accounts/login'))
 
     def test_edit_user_GET(self):
         self.client.login(
