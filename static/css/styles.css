@@ -35,3 +35,38 @@ body {
 nav {
     opacity: 85%;
 }
+
+video {
+    width: 100%;
+}
+
+.not-yet-authorized {
+    background-color: lightgray;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#my-camera {
+    height: 200px;
+    width: 100%;
+    position: relative;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+#my-upload {
+    height: 200px;
+    width: 100%;
+    position: relative;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.hidden {
+    display: none;
+}
+

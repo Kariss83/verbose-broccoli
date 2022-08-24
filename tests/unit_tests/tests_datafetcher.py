@@ -4,7 +4,7 @@ from unittest import mock
 from django.test import TestCase
 
 from datafetcher import constants
-from datafetcher import fetcher
+from datafetcher.controllers import fetcher
 from accounts.models import CustomUser
 from collection.models import Collection, Game
 
@@ -80,13 +80,13 @@ class TestDatafetcher(TestCase):
         # Adding games to the collection
         cls.collection.games.add(cls.gameLOTR, cls.game1, cls.game2)
     
-    @mock.patch('datafetcher.fetcher.requests.get', side_effect=mocked_requests_get)
+    @mock.patch('datafetcher.controllers.fetcher.requests.get', side_effect=mocked_requests_get)
     def test_can_retrieve_game_name_using_ean(self, mocked_requests_get):
         communicator = fetcher.EANAPICommunicator()
         result = communicator.request_ean_lookup(5051889074847)
         self.assertEqual(result.json_data['product']['name'], 'Le Seigneur des anneaux - La guerre du Nord')
     
-    @mock.patch('datafetcher.fetcher.requests.get', side_effect=mocked_requests_get)
+    @mock.patch('datafetcher.controllers.fetcher.requests.get', side_effect=mocked_requests_get)
     def test_can_retrieve_avg_price_on_ebay(self, mocked_requests_get):
         communicator = fetcher.EBAYCommunicator("The lord of the rings : War in the north")
         communicator.request_info()

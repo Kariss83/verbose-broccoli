@@ -10,3 +10,38 @@ inputFields.forEach(field => {
         })
     }
 )
+
+
+// Using cam on viewer device
+const webCamElement = document.getElementById('webCam');
+const canvasElement = document.getElementById('canvas');
+const webcam = new Webcam(webCamElement, "user", canvasElement);
+const cameraElement = document.querySelector('#my-camera')
+const notAuthorizedElement = document.querySelector('.not-yet-authorized')
+const scanButtonElement = document.querySelector('#scan-button')
+
+const startWebCam = () => {
+    webcam.start()
+        .then(result =>{
+            webCamElement.style = ""
+            console.log("webcam started");
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
+const takePicture = () => {
+    let picture = webcam.snap();
+}
+
+webCamElement.style = ""
+
+cameraElement.addEventListener("click", () => {
+    notAuthorizedElement.classList.add('hidden');
+    startWebCam();
+})
+
+scanButtonElement.addEventListener("click", () => {
+    takePicture()
+})

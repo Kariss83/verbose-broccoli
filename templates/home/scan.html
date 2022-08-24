@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<header class="masthead">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>	
+        {% endfor %}
+    {% endif %}
+    <br>
+    <div class="d-flex flex-column justify-content-center">
+        <h2 class="mb-5">Use your phone or computer’s camera to capture your game’s barcode</h2>
+
+        <form method=POST action="{% url 'collection:scan' %}" name='scanform'>
+            <div class="d-flex flex-column" id="my-camera">
+                <div class="not-yet-authorized">
+                    <span>click here to enable webcam</span>
+                </div>
+                <video id="webCam" autoplay playsinline height="150" class="mb-2"></video>
+                <canvas id="webCamCanvas" class="d-none hidden"></canvas>
+            
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <input type="submit" class="btn btn-primary" value="Scan your barcode" id="scan-button"/>
+                
+            </div>
+            <div class="d-flex flex-column" id="my-upload">
+                <h4 class="mb-5">If you prefer you can upload your file from your device</h4>
+                <input type="file" name="image" accept="image/*" capture="environment">
+            </div>
+        </form>
+    </div>
+
+</header>
+{% endblock content %}

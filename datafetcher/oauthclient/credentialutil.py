@@ -14,6 +14,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 
 See the License for the specific language governing permissions and
 limitations under the License.
+
+*** This file has been modified from original to be integrated in this
+app ***
+
 """
 import yaml, json
 from yaml import CLoader as Loader, CDumper as Dumper
