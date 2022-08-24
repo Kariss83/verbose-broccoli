@@ -5,6 +5,8 @@ is using.
 import requests
 import os
 
+from datafetcher.oauthclient import credentialutil, oauth2api
+from datafetcher.oauthclient.model.model import environment
 
 class EANAPICommunicator():
     """_summary_
@@ -39,17 +41,23 @@ class EBAYCommunicator():
             "q":  game_name,
             "category_ids":  139973
            }
-        self.oauth_token = None
-        self.headers = headers = {
-                   "Authorization": self.oauth_token
-                }
+        self.token = None
+        self.headers = None
         self.response = None
         self.JSON_response = None
 
-    def get_api_token(self):
-        pass
-
+    def get_oauth_token(self):
+        api_connector = oauth2api.oauth2api()
+        credentialutil.credentialutil.load('datafetcher/oauthclient/ebay-config-sample.json')
+        self.token = api_connector.get_application_token(environment.PRODUCTION, ['https://api.ebay.com/oauth/api_scope'])
+        return self.token
+    
     def request_info(self):
+        if self.token == None or self.token.token_expiry < datetime.datetime.utcnow():
+            self.get_oauth_token()
+        self.headers = {
+                   "Authorization": "Bearer" + self.token.access_token
+                }
         self.response = requests.get(self.base_url, params=self.payload, headers=self.headers)
 
     def get_avg_price(self):
@@ -58,9 +66,3 @@ class EBAYCommunicator():
         for game in self.json_response:
             values.append(float(game['price']['value']))
         return sum(values)/len(values)
-
-    # def get_avg2(self):
-
-    #     self.json_response = self.response.json()['itemSummaries']
-    #     avg = reduce(lambda x, y: x + float(y['price']['value']), self.json_response, 0) / len(self.json_response)
-    #     return avg

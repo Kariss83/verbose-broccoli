@@ -134,3 +134,9 @@ dmypy.json
 
 # Personnal notes
 notes.txt
+
+# oAuth
+ebay-config-sample.json
+ebay-config-sample-user.yaml
+test-config-sample.json
+ebay-config-sample.yaml
