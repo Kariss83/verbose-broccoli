@@ -48,6 +48,8 @@ video {
     display: flex;
     justify-content: center;
     align-items: center;
+    border: dotted;
+
 }
 
 #my-camera {
@@ -69,4 +71,9 @@ video {
 .hidden {
     display: none;
 }
+
+#my-upload > input[type=file] {
+    font-size: smaller;
+}
+
 

@@ -12,6 +12,9 @@ requests = "*"
 selenium = "*"
 bs4 = "*"
 pyyaml = "*"
+opencv-python = "*"
+pyzbar = "*"
+pillow = "*"
 
 [dev-packages]
 coverage = "*"

@@ -1,6 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    Hello World !
+    Game Name :
+    {{ game.name }}
+    <br>
+    Barcode :
+    {{ game.barcode }}
+    <br>
+    Img :
+    <img src="{{ game.image }}" alt="">
+    <br>
+    Avg Price on eBay :
+    {{ game.avg_price }}
+    <br>
+
+
+
+
+
 {% endblock content %}
 

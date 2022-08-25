@@ -6,6 +6,7 @@
 from djmoney.models.fields import MoneyField
 
 # Django
+from django.urls import reverse
 from django.db import models
 
 # local Django
@@ -48,6 +49,10 @@ class Game(models.Model):
                                 default='ND',
                                 blank=False
                                 )
+
+    def get_absolute_url(self):
+        return reverse("collection:game_detail", kwargs={"barcode": self.barcode})
+    
 
     def __str__(self):
         return self.name

@@ -87,6 +87,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -154,3 +155,7 @@ LOGIN_REDIRECT_URL = '/accounts/login/'
 
 # Setting Email for password Reset
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Handling of upload
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

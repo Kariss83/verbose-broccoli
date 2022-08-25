@@ -6,5 +6,6 @@ from . import views
 app_name = 'collection'
 
 urlpatterns = [
-    path('scan/', views.scan_barcode, name='scan'),
+    path('games/', views.GameListView.as_view(), name='games'),
+    path('games/<int:barcode>', views.GameDetailView.as_view(), name='game_detail'),
 ]

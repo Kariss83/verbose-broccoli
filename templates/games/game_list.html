@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Game List</h1>
+  {% if games_list %}
+  <ul>
+    {% for game in games_list %}
+      <li>
+        <a href="{{ game.get_absolute_url }}">{{ game.barcode }}</a> ({{game.avg_price}})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no books in the library.</p>
+  {% endif %}
+{% endblock %}
+
+{% comment %} href="{{ game.get_absolute_url }}" {% endcomment %}
+{% comment %} {% url 'collection:games' game.get_absolute_url %} {% endcomment %}

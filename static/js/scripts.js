@@ -14,7 +14,7 @@ inputFields.forEach(field => {
 
 // Using cam on viewer device
 const webCamElement = document.getElementById('webCam');
-const canvasElement = document.getElementById('canvas');
+const canvasElement = document.getElementById('webCamCanvas');
 const webcam = new Webcam(webCamElement, "user", canvasElement);
 const cameraElement = document.querySelector('#my-camera')
 const notAuthorizedElement = document.querySelector('.not-yet-authorized')
@@ -42,6 +42,8 @@ cameraElement.addEventListener("click", () => {
     startWebCam();
 })
 
-scanButtonElement.addEventListener("click", () => {
-    takePicture()
+scanButtonElement.addEventListener("click", (e) => {
+    e.preventDefault();
+    takePicture();
 })
+

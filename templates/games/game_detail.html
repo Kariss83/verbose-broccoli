@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for game in games %}
+        
+        <h1>Title: {{ game.game }}</h1>
+    
+        <p><strong>Name:</strong> {{ game.name }}</p> 
+        <p><strong>Url:</strong> {{ game.url }}</p>
+        <p><strong>Image:</strong> {{ game.image }}</p>
+        <p><strong>Average Price:</strong> {{ game.avg_price }}</p>
+        <p><strong>Barcode</strong> {{ game.barcode }}</p>
+    {% endfor %}
+
+{% endblock %}
