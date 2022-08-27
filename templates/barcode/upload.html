@@ -1,18 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    Game Name :
-    {{ game.name }}
-    <br>
-    Barcode :
-    {{ game.barcode }}
-    <br>
-    Img :
-    <img src="{{ game.image }}" alt="">
-    <br>
-    Avg Price on eBay :
-    {{ game.avg_price }}
-    <br>
+    <div class="d-flex flex-column justify-content-center">
+        Game Name :
+        {{ game.name }}
+        <br>
+        Barcode :
+        {{ game.barcode }}
+        <br>
+        Img :
+        <img src="{{ game.image }}" alt="">
+        <br>
+        Avg Price on eBay :
+        {{ game.avg_price }}
+        <br>
+
+        img url:
+        {{ data_url }}
+    
+        <a href=""> Ajouter à ma collection</a>
+    </div>
 
 
 

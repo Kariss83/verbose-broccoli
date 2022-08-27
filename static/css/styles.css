@@ -68,10 +68,6 @@ video {
     margin-bottom: 2rem;
 }
 
-.hidden {
-    display: none;
-}
-
 #my-upload > input[type=file] {
     font-size: smaller;
 }

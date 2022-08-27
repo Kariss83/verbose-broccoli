@@ -1,7 +1,8 @@
+import base64
 from django.shortcuts import render
 
 from collection.models import Game
-from barcode.controllers.barcode_reader import ImageReader
+from barcode.controllers.barcode_reader import ImageReader, Stringb64Reader
 from barcode.controllers.information_gatherer import Gatherer
 from barcode.forms import UploadFileForm
 
@@ -9,8 +10,20 @@ from barcode.forms import UploadFileForm
 # upload view
 def upload_barcode(request):
     if request.method == 'POST':
+        if request.POST.get('b64img', None) != None:
+            img_data_str = request.POST.get('b64img', '').split(',')[1]
+            while len(img_data_str) % 4 != 0:
+                img_data_str += '='
+            img_data = base64.b64decode(img_data_str)
+            with open('test_webcam.png', 'wb+') as destination:
+                destination.write(img_data)
+
+            context = {'data_url': img_data}
+
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
+            
+
             file_handler = ImageReader(request.FILES['file'])
             file_handler.handle_uploaded_file()
             barcode = file_handler.read_image()
@@ -24,9 +37,8 @@ def upload_barcode(request):
                                               name=name,
                                               image=img_url,
                                               )[0]
-
-        context = {'game': game,
-                   }
+            context = {'game': game,
+                    }
         return render(request, 'barcode/upload.html', context)
     else:
         form = UploadFileForm()

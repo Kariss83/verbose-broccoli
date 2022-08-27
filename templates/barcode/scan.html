@@ -16,20 +16,23 @@
         <p>Use your phone or computer’s camera to capture your game’s barcode<p>
 
         <form method=POST enctype="multipart/form-data" action="{% url 'barcode:upload' %}" name='scanform'>
+            {% csrf_token %}
             <div class="d-flex flex-column" id="my-camera">
                 <div class="not-yet-authorized">
                     <span>click here to enable webcam</span>
                 </div>
                 <video id="webCam" autoplay playsinline height="150" class="mb-2"></video>
                 <canvas id="webCamCanvas" class="d-none" name="taken"></canvas>
-
+                <input type="text" class="d-none" name="b64img" id="image-data">
                 <input type="submit" class="btn btn-primary" value="Take a picture of your barcode" id="scan-button"/>
                 
             </div>
+        </form>
+        <form method=POST enctype="multipart/form-data" action="{% url 'barcode:upload' %}" name='uploadform'>
             <div class="d-flex flex-column" id="my-upload">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <input type="submit" class="btn btn-primary" value="upload your barcode" id="scan-button"/>
+                <input type="submit" class="btn btn-primary" value="upload your barcode" id="upload-button"/>
             </div>
         </form>
     </div>

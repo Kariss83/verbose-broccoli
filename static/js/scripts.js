@@ -19,11 +19,13 @@ const webcam = new Webcam(webCamElement, "user", canvasElement);
 const cameraElement = document.querySelector('#my-camera')
 const notAuthorizedElement = document.querySelector('.not-yet-authorized')
 const scanButtonElement = document.querySelector('#scan-button')
+const imageDataInput = document.querySelector('#image-data')
+const scanForm = document.querySelector("form[name='scanform']")
 
 const startWebCam = () => {
     webcam.start()
         .then(result =>{
-            webCamElement.style = ""
+            // webCamElement.style = ""
             console.log("webcam started");
         })
         .catch(err => {
@@ -33,17 +35,17 @@ const startWebCam = () => {
 
 const takePicture = () => {
     let picture = webcam.snap();
+    imageDataInput.value = picture
 }
 
-webCamElement.style = ""
-
 cameraElement.addEventListener("click", () => {
-    notAuthorizedElement.classList.add('hidden');
+    notAuthorizedElement.classList.add('d-none');
     startWebCam();
 })
 
 scanButtonElement.addEventListener("click", (e) => {
     e.preventDefault();
     takePicture();
+    scanForm.requestSubmit(scanButtonElement);
 })
 
