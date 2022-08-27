@@ -39,17 +39,24 @@ class ImageReader():
         
 class Stringb64Reader():
     def __init__(self, img_data_string):
-        self.data_url = img_data_string
-    
-    def stringToRGB(self, base64_string):
-        imgdata = base64.b64decode(str(base64_string))
-        img = Image.open(io.BytesIO(imgdata))
-        opencv_img= cv2.cvtColor(np.array(img), cv2.COLOR_BGR2RGB)
-        return opencv_img
+        self.img_data_str = str(img_data_string)
+        self.image_url = None
+        self.img = None
     
     def string_to_PNG(self):
-        print(self.data_url)
-        imgdata = base64.b64decode(str(self.data_url) + '===')
+        self.img_data_str = self.img_data_str.split(',')[1]
+        missing_padding = len(self.img_data_str) % 4
+        if missing_padding:
+                self.img_data_str += '=' * (4 - missing_padding)
+        imgdata = base64.b64decode(self.img_data_str)
         with open('test_webcam.png', 'wb+') as destination:
             destination.write(imgdata)
+        self.image_url = os.path.join(os.getcwd(), 'test_webcam.png')
+        self.img = cv2.imread(self.image_url)
 
+    def read_image(self):
+        codes = []
+        for code in decode(self.img):
+            # print(code.type)
+            codes.append(code.data.decode('utf-8'))
+        return codes

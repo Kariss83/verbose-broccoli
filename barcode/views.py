@@ -11,14 +11,21 @@ from barcode.forms import UploadFileForm
 def upload_barcode(request):
     if request.method == 'POST':
         if request.POST.get('b64img', None) != None:
-            img_data_str = request.POST.get('b64img', '').split(',')[1]
-            while len(img_data_str) % 4 != 0:
-                img_data_str += '='
-            img_data = base64.b64decode(img_data_str)
-            with open('test_webcam.png', 'wb+') as destination:
-                destination.write(img_data)
+            img_data_str = request.POST.get('b64img', '')
+            string_handler = Stringb64Reader(img_data_str)
+            string_handler.string_to_PNG()
+            barcode = string_handler.read_image()
 
-            context = {'data_url': img_data}
+            gatherer = Gatherer(barcode)
+            name , img_url= gatherer.get_name_and_avg_price()
+            avg_price = gatherer.get_avg_price()
+
+            game = Game.objects.get_or_create(barcode=barcode[0],
+                                              avg_price=avg_price,
+                                              name=name,
+                                              image=img_url,
+                                              )[0]
+            context = {'game': game}
 
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
