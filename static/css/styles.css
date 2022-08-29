@@ -72,4 +72,15 @@ video {
     font-size: smaller;
 }
 
+#game-name {
+    font-weight: bolder;
+    text-align: center;
+}
 
+#game-img {
+    height : 200px;
+}
+
+#game-info {
+    font-size: small;
+}

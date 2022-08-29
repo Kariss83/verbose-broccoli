@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 
 
-from collection.models import Game
+from collection.models import Game, Collection
 from barcode.controllers.barcode_reader import ImageReader, Stringb64Reader
 from barcode.controllers.information_gatherer import Gatherer
 from barcode.forms import UploadFileForm
@@ -37,6 +37,9 @@ def upload_barcode(request):
                                                         'image': img_url,
                                                     })[0]
                 context = {'game': game}
+                if request.user.is_authenticated:
+                    collections = Collection.objects.filter(user=request.user)
+                    context = {'game': game,'collections': collections}
 
         form = UploadFileForm(request.POST, request.FILES)
 
@@ -64,6 +67,9 @@ def upload_barcode(request):
                                                         'image': img_url,
                                                     })[0]
                 context = {'game': game}
+                if request.user.is_authenticated:
+                    collections = Collection.objects.filter(user=request.user)
+                    context = {'game': game,'collections': collections}
         return render(request, 'barcode/upload.html', context)
     else:
         form = UploadFileForm()
@@ -94,3 +100,4 @@ def upload_barcode(request):
 #             'home/scan.html',
 #             {'form': form}
 #             )
+

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<header class="masthead">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>	
+        {% endfor %}
+    {% endif %}
+    <br>
+    <div class="d-flex flex-column justify-content-center">
+        utilisateur :
+        {{ user }}
+
+        <br>
+        collection :
+        {{ collection }} :
+        {% for game in games %}
+            {{ game.name }}
+        {% endfor %}
+    </div>
+
+</header>
+{% endblock content %}

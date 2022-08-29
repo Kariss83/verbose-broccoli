@@ -1,24 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="d-flex flex-column justify-content-center">
-        Game Name :
-        {{ game.name }}
-        <br>
-        Barcode :
-        {{ game.barcode }}
-        <br>
-        Img :
-        <img src="{{ game.image }}" alt="">
-        <br>
-        Avg Price on eBay :
-        {{ game.avg_price }}
-        <br>
+    <div class="masthead">
+        <div class="d-flex flex-row justify-content-center">
+            <img src="{{ game.image }}" alt="game_image" class="mb-2" id="game-img"/>
+            <div class="d-flex flex-column justify-content-center" id="game-info">
+                <p id="game-name">{{ game.name }}</p>
+                <p>
+                    <strong>
+                        Barcode :
+                    </strong>
+                    {{ game.barcode }}
+                </p>
+                <p>
+                    <strong>
+                        Average selling price on eBay :
+                    </strong>
+                    {{ game.avg_price }}
+                </p>
+            </div>  
+        </div>
+        {% if user.is_authenticated %}
+            <label for="collections">Choose a collection:</label>
 
-        img url:
-        {{ data_url }}
-    
-        <a href=""> Ajouter à ma collection</a>
+            <select name="collections" id="collections" class="mb-3" form="add-to-collec-form">
+                {% for collection in collections %}
+                    <option value="{{collection.name}}">{{collection.name}}</option>
+                {% endfor %}
+            </select> 
+
+            <form method="post" action="{% url 'collection:add_game_to_collection' %}" id="add-to-collec-form">
+                {% csrf_token %}
+                <input type="hidden" name="barcode" value="{{game.barcode}}">
+                <button type="submit" name="submit_param" value="Add to your collection" class="btn btn-link">
+                    Add to your collection
+                </button>
+            </form>
+        {% endif %}
     </div>
 
 
