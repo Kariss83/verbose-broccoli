@@ -28,10 +28,11 @@ def upload_barcode(request):
                 avg_price = gatherer.get_avg_price()
 
                 game = Game.objects.get_or_create(barcode=barcode[0],
-                                                avg_price=avg_price,
-                                                name=name,
-                                                image=img_url,
-                                                )[0]
+                                                defaults={
+                                                    'avg_price': avg_price,
+                                                    'name': name,
+                                                    'image': img_url,
+                                                })[0]
                 context = {'game': game}
 
         form = UploadFileForm(request.POST, request.FILES)
@@ -51,10 +52,11 @@ def upload_barcode(request):
                 avg_price = gatherer.get_avg_price()
 
                 game = Game.objects.get_or_create(barcode=barcode[0],
-                                                avg_price=avg_price,
-                                                name=name,
-                                                image=img_url,
-                                                )[0]
+                                                defaults={
+                                                    'avg_price': avg_price,
+                                                    'name': name,
+                                                    'image': img_url,
+                                                })[0]
                 context = {'game': game,
                         }
         return render(request, 'barcode/upload.html', context)

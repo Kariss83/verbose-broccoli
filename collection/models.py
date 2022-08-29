@@ -49,6 +49,11 @@ class Game(models.Model):
                                 default='ND',
                                 blank=False
                                 )
+    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['barcode'], name="unique_barcode")
+            ]
 
     def get_absolute_url(self):
         return reverse("collection:game_detail", kwargs={"barcode": self.barcode})
