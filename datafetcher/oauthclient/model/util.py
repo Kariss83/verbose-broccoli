@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Copyright 2019 eBay Inc.
- 
+
 Licensed under the Apache License, Version 2.0 (the "License");
 You may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -21,6 +21,7 @@ app ***
 """
 import base64
 
+
 def _generate_request_headers(credential):
 
     credentials = credential.client_id + ':' + credential.client_secret
@@ -36,13 +37,9 @@ def _generate_request_headers(credential):
 
 
 def _generate_application_request_body(credential, scopes):
-
-
     body = {
             'grant_type': 'client_credentials',
             'redirect_uri': credential.ru_name,
             'scope': scopes
     }
-    
-
     return body

@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
 from django.views import generic
 
 from .models import Game
+
 
 class GameListView(generic.ListView):
     model = Game

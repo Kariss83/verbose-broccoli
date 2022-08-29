@@ -9,12 +9,12 @@ import os
 from datafetcher.oauthclient import credentialutil, oauth2api
 from datafetcher.oauthclient.model.model import environment
 
+
 class EANAPICommunicator():
     """_summary_
     """
     def __init__(self):
         self.ean_lookup_url = """https://product-lookup-by-upc-or-ean.p.rapidapi.com/code/"""
-        
 
     def request_ean_lookup(self, ean):
         """_summary_
@@ -40,8 +40,8 @@ class EBAYCommunicator():
     def __init__(self, game_name):
         self.base_url = 'https://api.ebay.com/buy/browse/v1/item_summary/search?'
         self.payload = {
-            "q":  game_name,
-            "category_ids":  139973
+            "q": game_name,
+            "category_ids": 139973
            }
         self.token = None
         self.headers = None
@@ -51,22 +51,22 @@ class EBAYCommunicator():
     def get_oauth_token(self):
         api_connector = oauth2api.oauth2api()
         credentialutil.credentialutil.load('datafetcher/oauthclient/ebay-config-sample.json')
-        self.token = api_connector.get_application_token(environment.PRODUCTION, ['https://api.ebay.com/oauth/api_scope'])
-        print(self.token)
+        self.token = api_connector.get_application_token(
+                                                         environment.PRODUCTION,
+                                                         ['https://api.ebay.com/oauth/api_scope'])
         return self.token
-    
+
     def request_info(self):
-        if self.token == None or self.token.token_expiry < datetime.datetime.utcnow():
+        if self.token is None or self.token.token_expiry < datetime.datetime.utcnow():
             self.get_oauth_token()
         self.headers = {
                    "Authorization": "Bearer " + self.token.access_token
                 }
         self.response = requests.get(self.base_url, params=self.payload, headers=self.headers)
-        print(self.response)
 
     def get_avg_price(self):
         self.json_response = self.response.json()['itemSummaries']
         values = []
         for game in self.json_response:
             values.append(float(game['price']['value']))
-        return sum(values)/len(values)
+        return sum(values) / len(values)

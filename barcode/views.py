@@ -1,5 +1,3 @@
-import base64
-
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
@@ -9,11 +7,12 @@ from barcode.controllers.barcode_reader import ImageReader, Stringb64Reader
 from barcode.controllers.information_gatherer import Gatherer
 from barcode.forms import UploadFileForm
 
-# Create your views here. 
+
+# Create your views here.
 # upload view
 def upload_barcode(request):
     if request.method == 'POST':
-        if request.POST.get('b64img', None) != None:
+        if request.POST.get('b64img', None) is not None:
             img_data_str = request.POST.get('b64img', '')
             string_handler = Stringb64Reader(img_data_str)
             string_handler.string_to_PNG()
@@ -28,7 +27,7 @@ def upload_barcode(request):
                     game = Game.objects.get(barcode=barcode[0])
                 except Game.DoesNotExist:
                     gatherer = Gatherer(barcode)
-                    name , img_url= gatherer.get_name_and_avg_price()
+                    name, img_url = gatherer.get_name_and_avg_price()
                     avg_price = gatherer.get_avg_price()
 
                     game = Game.objects.get_or_create(barcode=barcode[0],
@@ -40,9 +39,8 @@ def upload_barcode(request):
                 context = {'game': game}
 
         form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            
 
+        if form.is_valid():
             file_handler = ImageReader(request.FILES['file'])
             file_handler.handle_uploaded_file()
             barcode = file_handler.read_image()
@@ -56,7 +54,7 @@ def upload_barcode(request):
                     game = Game.objects.get(barcode=barcode[0])
                 except Game.DoesNotExist:
                     gatherer = Gatherer(barcode)
-                    name , img_url= gatherer.get_name_and_avg_price()
+                    name, img_url = gatherer.get_name_and_avg_price()
                     avg_price = gatherer.get_avg_price()
 
                     game = Game.objects.get_or_create(barcode=barcode[0],
@@ -75,23 +73,24 @@ def upload_barcode(request):
             {'form': form}
             )
 
-def show_product(request):
-    if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            filename = str(request.FILES['file'])
-            file_extension = filename.split('.')[-1]
-            barcode = handle_uploaded_file(request.FILES['file'], file_extension)
-        context = {'barcode': barcode,
-                   'filename': filename,
-                   'extension': file_extension,
-                   'barcode': barcode,
-                   }
-        return render(request, 'barcode/scan.html', context)
-    else:
-        form = UploadFileForm()
-        return render(
-            request,
-            'home/scan.html',
-            {'form': form}
-            )
+
+# def show_product(request):
+#     if request.method == 'POST':
+#         form = UploadFileForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             filename = str(request.FILES['file'])
+#             file_extension = filename.split('.')[-1]
+#             barcode = handle_uploaded_file(request.FILES['file'], file_extension)
+#         context = {'barcode': barcode,
+#                    'filename': filename,
+#                    'extension': file_extension,
+#                    'barcode': barcode,
+#                    }
+#         return render(request, 'barcode/scan.html', context)
+#     else:
+#         form = UploadFileForm()
+#         return render(
+#             request,
+#             'home/scan.html',
+#             {'form': form}
+#             )

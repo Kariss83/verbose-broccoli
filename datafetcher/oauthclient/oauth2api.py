@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Copyright 2019 eBay Inc.
- 
+
 Licensed under the Apache License, Version 2.0 (the "License");
 You may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -19,12 +19,8 @@ limitations under the License.
 app ***
 
 """
-
 import json
-import urllib
 import requests
-
-import datafetcher.oauthclient.model.util
 
 from datetime import datetime, timedelta
 
@@ -34,51 +30,29 @@ from .model.model import oAuth_token
 
 
 class oauth2api(object):
-    
-           
-    # def generate_user_authorization_url(self, env_type, scopes, state=None):
-    #     '''
-    #         env_type = environment.SANDBOX or environment.PRODUCTION
-    #         scopes = list of strings
-    #     '''
+    """_summary_
 
-    #     credential = credentialutil.get_credentials(env_type)   
-    
-    #     scopes = ' '.join(scopes)
-    #     param = {
-    #             'client_id':credential.client_id,
-    #             'redirect_uri':credential.ru_name,
-    #             'response_type':'code',
-    #             'prompt':'login',
-    #             'scope':scopes
-    #             }
-        
-    #     if state != None:
-    #         param.update({'state':state})
-        
-       
-    #     query = urllib.parse.urlencode(param)
-    #     return env_type.web_endpoint + '?' + query
-    
-
+    Args:
+        object (_type_): _description_
+    """
     def get_application_token(self, env_type, scopes):
         """
             makes call for application token and stores result in credential object
             returns credential object
         """
-        credential = credentialutil.get_credentials(env_type)       
-        headers = model.util._generate_request_headers(credential) 
-        body = model.util._generate_application_request_body(credential, ' '.join(scopes))    
-        
+        credential = credentialutil.get_credentials(env_type)
+        headers = model.util._generate_request_headers(credential)
+        body = model.util._generate_application_request_body(credential, ' '.join(scopes))
+
         resp = requests.post(env_type.api_endpoint, data=body, headers=headers)
         content = json.loads(resp.content)
-        token = oAuth_token()     
-    
+        token = oAuth_token()
+
         if resp.status_code == requests.codes.ok:
             token.access_token = content['access_token']
             # set token expiration time 5 minutes before actual expire time
-            token.token_expiry = datetime.utcnow()+timedelta(seconds=int(content['expires_in']))-timedelta(minutes=5)
+            token.token_expiry = datetime.utcnow() + timedelta(seconds=int(content['expires_in'])) - timedelta(minutes=5)
 
         else:
             token.error = str(resp.status_code) + ': ' + content['error_description']
-        return token     
+        return token
