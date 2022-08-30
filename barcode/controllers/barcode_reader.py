@@ -2,10 +2,42 @@ import os
 import base64
 import cv2
 
+import tempfile
+
+from PIL import Image
+
 from pyzbar.pyzbar import decode
 
 
 class ImageReader():
+    """_summary_
+    """
+    def __init__(self, file):
+        self.file = file
+        self.file_extension = '.' + str(self.file).split('.')[-1]
+   
+    def get_image_barcode(self):
+        codes = []
+        img = Image.open(self.file.file)
+
+        with tempfile.NamedTemporaryFile(suffix=self.file_extension) as destination:
+            img.save(destination)
+            file_url = os.path.join(tempfile.gettempdir(), destination.name)
+            print('file url : ' + file_url)
+            read_image = cv2.imread(file_url)
+            print(read_image)
+            # import pdb; pdb.set_trace()
+            for code in decode(read_image):
+                codes.append(code.data.decode('utf-8'))
+                print(code.data.decode('utf-8'))
+        return codes
+
+
+
+
+
+
+class ImageReader2():
     """_summary_
     """
     def __init__(self, file):
@@ -25,10 +57,12 @@ class ImageReader():
         """This function is a helper for reading the uploaded file
         and extract info from it
         """
+        print(self.image_url)
         with open(f'test.{self.file_extension}', 'wb+') as destination:
             for chunk in self.file.chunks():
                 print(chunk)
                 destination.write(chunk)
+
 
 
 class Stringb64Reader():
