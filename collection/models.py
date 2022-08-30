@@ -80,3 +80,8 @@ class Collection(models.Model):
         for game in self.games.all():
             prices.append(game.avg_price)
         return sum(prices)
+    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['name', 'user'], name="unique_collec_name_for_user")
+            ]
