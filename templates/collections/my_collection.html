@@ -13,14 +13,19 @@
     {% endif %}
     <br>
     <div class="d-flex flex-column justify-content-center">
-        utilisateur :
-        {{ user }}
-
-        <br>
-        collection :
-        {{ collection }} :
+        <h2 class="mb-5">
+            Your collection :
+            <strong>{{ collection }}</strong>
+        </h2>
         {% for game in games %}
-            {{ game.name }}
+            <div class="d-flex justify-content-center">
+                <img src="{{ game.image }}" alt="game_img" class="game-img-collec">
+                <div class="d-flex flex-column justify-content-center" id="game-info">
+                    <p>{{ game.name }}</p>
+                    <p>{{ game.avg_price }}</p>
+                </div>
+            </div>
+            
         {% endfor %}
     </div>
 

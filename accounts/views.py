@@ -14,6 +14,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.contrib.auth.views import PasswordResetConfirmView
 
+from collection.models import Collection
 from accounts.models import CustomUser
 from accounts.forms import CustomPasswordResetForm
 from accounts.forms import (
@@ -68,8 +69,6 @@ def logout_user(request):
 def register_user(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
-        # print(form.errors)
-        # import pdb; pdb.set_trace()
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password1']
@@ -77,6 +76,7 @@ def register_user(request):
             user = authenticate(email=email, password=password)
             # import pdb; pdb.set_trace()
             if user is not None:
+                Collection.objects.create(name='My First Collection', user=user)
                 login(request, user)
                 messages.success(request, ('You are now signed in...'))
                 return redirect('/accounts/profile')

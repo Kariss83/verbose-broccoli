@@ -80,24 +80,9 @@ def upload_barcode(request):
             )
 
 
-# def show_product(request):
-#     if request.method == 'POST':
-#         form = UploadFileForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             filename = str(request.FILES['file'])
-#             file_extension = filename.split('.')[-1]
-#             barcode = handle_uploaded_file(request.FILES['file'], file_extension)
-#         context = {'barcode': barcode,
-#                    'filename': filename,
-#                    'extension': file_extension,
-#                    'barcode': barcode,
-#                    }
-#         return render(request, 'barcode/scan.html', context)
-#     else:
-#         form = UploadFileForm()
-#         return render(
-#             request,
-#             'home/scan.html',
-#             {'form': form}
-#             )
-
+def home_view(request):
+    return render(
+        request,
+        'home.html',
+        {}
+        )

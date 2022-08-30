@@ -3,7 +3,10 @@
 }
 
 .masthead {
-    padding: 3rem;
+    padding-top: 2rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-bottom: 3rem;
 }
 
 header {
@@ -83,4 +86,27 @@ video {
 
 #game-info {
     font-size: small;
+}
+
+.game-img-collec {
+    height: 125px;
+}
+
+#home-cta {
+    width: 120px;
+}
+
+#text-center {
+    text-align: center;
+}
+
+#explanation-img {
+    width: 40%;
+    height: auto;
+}
+
+.explanation {
+    font-style: italic;
+    font-size: small;
+    align-items: center;
 }

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<header class="masthead">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>	
+        {% endfor %}
+    {% endif %}
+    <br>
+    <div class="d-flex flex-column justify-content-center">
+        {% for collection in game_collection %}
+            <h2 class="mb-3">{{ collection.name }}</h2>
+            {% for game in collection.game_list %}
+                <div class="d-flex flex-row mb-4">
+                    <img src="{{ game.image }}" alt="game_img" class="game-img-collec">
+                    <div class="d-flex flex-column justify-content-center" id="game-info">
+                        <p>
+                            {{ game.name }}
+                        </p>
+                        <p>
+                            {{ game.avg_price }}
+                        </p>
+                        
+                    </div> 
+                </div>
+              
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+</header>
+{% endblock content %}

@@ -24,7 +24,6 @@ class GameDetailView(generic.ListView):
 @login_required
 def add_game_to_collection(request):
     if request.method == 'POST':
-        print(request.POST)
         collection_name = request.POST.get('collections', '')
         collection = Collection.objects.get(name=collection_name)
         barcode = request.POST.get('barcode', '')
@@ -39,6 +38,27 @@ def add_game_to_collection(request):
 
     return render(
             request,
-            'collections/my_collections.html',
+            'collections/my_collection.html',
+            context
+            )
+
+def see_all_collections(request):
+    user = request.user
+    collections = Collection.objects.filter(user=user)
+    game_collection = []
+    print(collections)
+    for collection in collections:
+        collection_info = {'name': collection.name,
+                           'game_list': collection.games.all()}
+        game_collection.append(collection_info)
+    print(game_collection)
+
+
+
+    context = {'game_collection': game_collection}
+
+    return render(
+            request,
+            'collections/all_collections.html',
             context
             )
