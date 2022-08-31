@@ -2,7 +2,7 @@ from django.views import generic
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.db import IntegrityError
+from django.db import IntegrityError, transaction
 from django.core.exceptions import PermissionDenied
 
 from .models import Game, Collection
@@ -62,21 +62,18 @@ def see_all_collections(request):
             )
 
 @login_required
+@transaction.atomic
 def create_new_collection(request):
     if request.method == 'POST':
         form = CreateCollectionForm(request.POST)
         collection_name = request.POST.get('name', '')
-        if form.is_valid():
-            try:
+        try:
+            with transaction.atomic():
                 Collection.objects.create(name=collection_name, user=request.user)
                 return redirect('/collection/all')
-            except IntegrityError:
-                messages.error(request, 'You already have a collection with that name')
-                return redirect('/collection/create')
-        else:
-            message.error(request, 'Your form is invalid')
-            form = CreateCollectionForm()
-            return render(request, 'collection/create_new.html', {'form': form})
+        except IntegrityError:
+            messages.error(request, 'You already have a collection with that name')
+            return redirect('/collection/create')
         
     else:
         form = CreateCollectionForm()
