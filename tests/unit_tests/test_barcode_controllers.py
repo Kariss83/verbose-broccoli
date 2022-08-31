@@ -48,7 +48,6 @@ class TestBarcodeReaderModule(TestCase):
     def test_b64Reader_can_handle_bad_padding(self):
         reader = Stringb64Reader(constants.B64STRING_MISSING_PADDING)
         missing_padding = len(reader.img_data_str.split(',')[1]) % 4
-        print(missing_padding)
         self.assertTrue(missing_padding != 0)
         reader.string_to_PNG()
         missing_padding = len(reader.img_data_str) % 4

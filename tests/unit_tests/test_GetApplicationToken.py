@@ -47,7 +47,6 @@ class TestGetApplicationCredential(TestCase):
         self.assertIsNone(app_token.error)
         self.assertIsNotNone(app_token.access_token)
         self.assertTrue(len(app_token.access_token) > 0)
-        print('\n *** test_client_credentials_grant_sandbox ***:\n', app_token)
 
     def test_client_credentials_grant_production(self):
         oauth2api_inst = oauth2api()

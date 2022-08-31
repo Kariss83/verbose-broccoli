@@ -49,7 +49,6 @@ def see_all_collections(request):
     user = request.user
     collections = Collection.objects.filter(user=user)
     game_collection = []
-    print(collections)
     for collection in collections:
         collection_info = {'name': collection.name,
                            'game_list': collection.games.all(),

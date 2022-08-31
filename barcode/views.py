@@ -45,7 +45,6 @@ def upload_barcode(request):
 
         if form.is_valid():
             file_handler = ImageReader(request.FILES['file'])
-            print(type(request.FILES['file']))
             barcode = file_handler.get_image_barcode()
 
             if len(barcode) == 0:
