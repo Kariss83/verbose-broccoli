@@ -40,35 +40,44 @@ def upload_barcode(request):
                 if request.user.is_authenticated:
                     collections = Collection.objects.filter(user=request.user)
                     context = {'game': game,'collections': collections}
+        else:
+            form = UploadFileForm(request.POST, request.FILES)
 
-        form = UploadFileForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            file_handler = ImageReader(request.FILES['file'])
-            barcode = file_handler.get_image_barcode()
-
-            if len(barcode) == 0:
-                messages.error(request, ('No barcode detected - Try again...'))
-                return redirect('/barcode/upload')
+            if (request.FILES['file'].size > 10 * 1024 * 1024):
+                messages.error(request, 'File too large. Size should not exceed 10 MiB.')
+                form = UploadFileForm()
+                return render(
+                    request,
+                    'barcode/scan.html',
+                    {'form': form}
+                )
             else:
-                # Try Except block preventing useless API calls
-                try:
-                    game = Game.objects.get(barcode=barcode[0])
-                except Game.DoesNotExist:
-                    gatherer = Gatherer(barcode)
-                    name, img_url = gatherer.get_name_and_img_url()
-                    avg_price = gatherer.get_avg_price()
+                if form.is_valid():
+                    file_handler = ImageReader(request.FILES['file'])
+                    barcode = file_handler.get_image_barcode()
 
-                    game = Game.objects.get_or_create(barcode=barcode[0],
-                                                    defaults={
-                                                        'avg_price': avg_price,
-                                                        'name': name,
-                                                        'image': img_url,
-                                                    })[0]
-                context = {'game': game}
-                if request.user.is_authenticated:
-                    collections = Collection.objects.filter(user=request.user)
-                    context = {'game': game,'collections': collections}
+                    if len(barcode) == 0:
+                        messages.error(request, ('No barcode detected - Try again...'))
+                        return redirect('/barcode/upload')
+                    else:
+                        # Try Except block preventing useless API calls
+                        try:
+                            game = Game.objects.get(barcode=barcode[0])
+                        except Game.DoesNotExist:
+                            gatherer = Gatherer(barcode)
+                            name, img_url = gatherer.get_name_and_img_url()
+                            avg_price = gatherer.get_avg_price()
+
+                            game = Game.objects.get_or_create(barcode=barcode[0],
+                                                            defaults={
+                                                                'avg_price': avg_price,
+                                                                'name': name,
+                                                                'image': img_url,
+                                                            })[0]
+                        context = {'game': game}
+                        if request.user.is_authenticated:
+                            collections = Collection.objects.filter(user=request.user)
+                            context = {'game': game,'collections': collections}
         return render(request, 'barcode/upload.html', context)
     else:
         form = UploadFileForm()
@@ -76,7 +85,7 @@ def upload_barcode(request):
             request,
             'barcode/scan.html',
             {'form': form}
-            )
+        )
 
 
 def home_view(request):

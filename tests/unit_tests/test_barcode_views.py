@@ -78,6 +78,21 @@ class TestBarcodeViewsModule(TestCase):
             )
             self.assertTrue('Le Seigneur des anneaux - La guerre du Nord' in str(response.content))
             self.assertEquals(response.status_code, 200)
+    
+    def test_upload_barcode_POST_file_too_large_not_logged_in(self):
+        cwd = os.getcwd()
+        image_path = os.path.join(cwd, 'tests/unit_tests/media_test/too_big.png')
+        with open(image_path, 'rb') as f:
+            response = self.client.post(
+                self.upload_url,
+                {'file': f},
+                follow=True
+            )
+            messages = list(response.context['messages'])
+            self.assertEqual(len(messages), 1)
+            self.assertEqual('File too large. Size should not exceed 10 MiB.', str(messages[0]))
+            self.assertEquals(response.status_code, 200)
+            self.assertEquals(response.status_code, 200)
 
     @mock.patch('datafetcher.controllers.fetcher.requests.get', side_effect=mocked_requests_get)
     def test_upload_barcode_POST_file_logged_in(self, mocked_requests_get):
