@@ -125,7 +125,7 @@ class TestAccountsViewsModule(TestCase):
         self.assertEqual(len(messages), 1)
         self.assertEqual(
             str(messages[0]),
-            """Account creation error (<ul class="errorlist"><li>username<ul class="errorlist"><li>Ce champ est obligatoire.</li></ul></li><li>password2<ul class="errorlist"><li>Ce champ est obligatoire.</li></ul></li></ul>)- Try Again...""")
+            'Account creation error (<ul class="errorlist"><li>username<ul class="errorlist"><li>Ce champ est obligatoire.</li></ul></li><li>password2<ul class="errorlist"><li>Ce champ est obligatoire.</li></ul></li></ul>)- Try Again...')
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'accounts/register.html')
 
