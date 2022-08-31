@@ -27,7 +27,7 @@ def upload_barcode(request):
                     game = Game.objects.get(barcode=barcode[0])
                 except Game.DoesNotExist:
                     gatherer = Gatherer(barcode)
-                    name, img_url = gatherer.get_name_and_avg_price()
+                    name, img_url = gatherer.get_name_and_img_url()
                     avg_price = gatherer.get_avg_price()
 
                     game = Game.objects.get_or_create(barcode=barcode[0],
@@ -45,6 +45,7 @@ def upload_barcode(request):
 
         if form.is_valid():
             file_handler = ImageReader(request.FILES['file'])
+            print(type(request.FILES['file']))
             barcode = file_handler.get_image_barcode()
 
             if len(barcode) == 0:
@@ -56,7 +57,7 @@ def upload_barcode(request):
                     game = Game.objects.get(barcode=barcode[0])
                 except Game.DoesNotExist:
                     gatherer = Gatherer(barcode)
-                    name, img_url = gatherer.get_name_and_avg_price()
+                    name, img_url = gatherer.get_name_and_img_url()
                     avg_price = gatherer.get_avg_price()
 
                     game = Game.objects.get_or_create(barcode=barcode[0],

@@ -35,7 +35,7 @@ const startWebCam = () => {
 
 const takePicture = () => {
     let picture = webcam.snap();
-    imageDataInput.value = picture
+    imageDataInput.value = picture;
 }
 
 cameraElement.addEventListener("click", () => {

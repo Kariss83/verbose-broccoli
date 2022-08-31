@@ -17,7 +17,7 @@ def mocked_requests_get(*args, **kwargs):
         def json(self):
             return self.json_data
 
-    if args[0] == 'https://product-lookup-by-upc-or-ean.p.rapidapi.com/code/5051889074847':
+    if 'https://product-lookup-by-upc-or-ean.p.rapidapi.com/code/' in args[0]:
         return MockResponse(constants.EAN_API_RETURN, 200)
     elif args[0] == 'https://api.ebay.com/buy/browse/v1/item_summary/search?':
         return MockResponse(constants.EBAY_RETURN, 200)
@@ -88,7 +88,7 @@ class TestDatafetcher(TestCase):
     def test_can_retrieve_game_name_using_ean(self, mocked_requests_get):
         communicator = fetcher.EANAPICommunicator()
         result = communicator.request_ean_lookup(5051889074847)
-        self.assertEqual(result.json_data['product']['name'], 'Le Seigneur des anneaux - La guerre du Nord')
+        self.assertEqual(result['product']['name'], 'Le Seigneur des anneaux - La guerre du Nord')
 
     @mock.patch('datafetcher.controllers.fetcher.requests.get', side_effect=mocked_requests_get)
     def test_can_retrieve_avg_price_on_ebay(self, mocked_requests_get):

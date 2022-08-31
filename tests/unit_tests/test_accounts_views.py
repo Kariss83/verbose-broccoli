@@ -29,6 +29,8 @@ def create_an_user(number):
 class TestAccountsViewsModule(TestCase):
     """ Main class testing hosting the tests.
     """
+    # self.maxDiff = None
+
     @classmethod
     def setUpTestData(cls):
         cls.user = CustomUser.objects.create(
@@ -85,8 +87,16 @@ class TestAccountsViewsModule(TestCase):
         self.assertFalse(form.is_valid())
         self.assertEqual(
             form.errors['email'],
-            ["Ce champ est obligatoire."]
+            ['This field is required.']
         )
+        response = self.client.post(
+            self.login_url,
+            {'email': '', 'password': 'monsupermotdepasse'},
+            follow=True
+            )
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertTrue('This field is required.' in str(messages[0]))
 
     def test_register_user_GET(self):
         response = self.client.get(self.register_url)
@@ -104,7 +114,6 @@ class TestAccountsViewsModule(TestCase):
              },
             follow=True
             )
-        # import pdb; pdb.set_trace()
         new_user = CustomUser.objects.get(email='test2@gmail.com')
         self.assertEqual(
             int(self.client.session['_auth_user_id']),
@@ -123,9 +132,7 @@ class TestAccountsViewsModule(TestCase):
             )
         messages = list(response.context['messages'])
         self.assertEqual(len(messages), 1)
-        self.assertEqual(
-            str(messages[0]),
-            'Account creation error (<ul class="errorlist"><li>username<ul class="errorlist"><li>Ce champ est obligatoire.</li></ul></li><li>password2<ul class="errorlist"><li>Ce champ est obligatoire.</li></ul></li></ul>)- Try Again...')
+        self.assertTrue('This field is required.' in str(messages[0]))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'accounts/register.html')
 
@@ -143,7 +150,7 @@ class TestAccountsViewsModule(TestCase):
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]), 'You are disconnected...')
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'accounts/login.html')
+        self.assertTemplateUsed(response, 'home.html')
 
     def test_profile_user_logged_in_GET(self):
         self.client.login(
@@ -303,3 +310,23 @@ class TestAccountsViewsModule(TestCase):
 
             self.assertTrue(mocked_send_mail.called)
             self.assertTrue('Invalid header found.' in str(response.content))
+
+    def test_cant_login_with_inactive_user(self):
+        inactive_user = CustomUser.objects.create(
+            email="test_inactive@gmail.com",
+            username="MRTest",
+            is_active=False,
+        )
+        inactive_user.set_password('monsupermotdepasse')
+        inactive_user.save()
+        response = self.client.post(
+            self.login_url,
+            {'email': 'test_inactive@gmail.com', 'password': 'monsupermotdepasse'},
+            follow=True
+            )
+        self.assertEquals(response.status_code, 200)
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]),
+                         'Connexion error ("Account deactivated") - Please Contact Us...')
+

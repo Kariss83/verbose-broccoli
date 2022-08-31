@@ -11,7 +11,7 @@ class Gatherer():
         self.avg_price = None
         self.image_url = None
 
-    def get_name_and_avg_price(self):
+    def get_name_and_img_url(self):
         ean_fetcher = fetcher.EANAPICommunicator()
         data = ean_fetcher.request_ean_lookup(self.barcode)
         self.game_name = data['product']['name']

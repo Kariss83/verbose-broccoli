@@ -26,9 +26,7 @@ from accounts.forms import (
 
 # login view
 def login_user(request):
-    # import pdb; pdb.set_trace()
     if request.method == 'POST':
-        # import pdb; pdb.set_trace()
         form = CustomAuthenticationForm(request.POST)
         if form.is_valid():
             email = request.POST.get('email', '')
@@ -41,7 +39,7 @@ def login_user(request):
             else:
                 messages.error(
                     request,
-                    ('Connexion error ("User not found") - Try again...')
+                    'Connexion error ("Account deactivated") - Please Contact Us...'
                     )
                 return redirect('/accounts/login')
         else:

@@ -21,7 +21,7 @@ class TestBarcodeViewsModule(TestCase):
         response = self.client.get(self.upload_url)
 
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'barcode/upload.html')
+        self.assertTemplateUsed(response, 'barcode/scan.html')
 
-    def test_upload_barcode_POST(self):
+    def test_upload_barcode_POST_file(self):
         pass

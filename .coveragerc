@@ -18,6 +18,3 @@ exclude_lines =
     if __name__ == .__main__.:
     class .*\bProtocol\):
     @(abc\.)?abstractmethod
-
-# [html]
-# directory = coverage_html_report

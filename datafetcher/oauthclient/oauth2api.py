@@ -25,6 +25,7 @@ import requests
 from datetime import datetime, timedelta
 
 from datafetcher.oauthclient import model
+from datafetcher.oauthclient.model import util
 from .credentialutil import credentialutil
 from .model.model import oAuth_token
 
@@ -41,8 +42,8 @@ class oauth2api(object):
             returns credential object
         """
         credential = credentialutil.get_credentials(env_type)
-        headers = model.util._generate_request_headers(credential)
-        body = model.util._generate_application_request_body(credential, ' '.join(scopes))
+        headers = util._generate_request_headers(credential)
+        body = util._generate_application_request_body(credential, ' '.join(scopes))
 
         resp = requests.post(env_type.api_endpoint, data=body, headers=headers)
         content = json.loads(resp.content)
