@@ -1,5 +1,0 @@
-Etapes :
-Users stories
-UML schéma DB
-TDD
-Code

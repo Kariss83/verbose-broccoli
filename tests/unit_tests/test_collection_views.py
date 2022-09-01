@@ -63,6 +63,8 @@ class TestCollectionViewsModule(TestCase):
         cls.all_collections_url = reverse('collection:all_collections')
         cls.add_game_to_collection_url = reverse('collection:add_game_to_collection')
         cls.create_collection_url = reverse('collection:create')
+        cls.remove_game_from_collection_url = reverse('collection:remove')
+        cls.delete_collection_url = reverse('collection:delete_collection')
 
     def test_add_game_to_collection_GET(self):
         self.client.login(email='test@gmail.com', password='monsupermotdepasse')
@@ -119,5 +121,40 @@ class TestCollectionViewsModule(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'collections/create_new.html')
 
+    def test_delete_collection_GET(self):
+        self.client.login(email='test@gmail.com', password='monsupermotdepasse')
+        response = self.client.get(self.delete_collection_url)
+        self.assertRaises(PermissionDenied)
 
-    
+    def test_delete_collection_POST(self):
+        self.client.login(email='test@gmail.com', password='monsupermotdepasse')
+        collections = Collection.objects.filter(user=self.user)
+        self.assertTrue(len(collections) == 1)
+        response = self.client.post(
+            self.delete_collection_url,
+            {'collection': 'My First Collection'},
+            follow=True
+        )
+        collections = Collection.objects.filter(user=self.user)
+        self.assertTrue(len(collections) == 0)
+
+    def test_remove_game_from_collection_GET(self):
+        self.client.login(email='test@gmail.com', password='monsupermotdepasse')
+        response = self.client.get(self.remove_game_from_collection_url)
+        self.assertRaises(PermissionDenied)
+
+    def test_remove_game_from_collection_GET(self):
+        self.client.login(email='test@gmail.com', password='monsupermotdepasse')
+        collection = Collection.objects.get(name='My First Collection', user=self.user)
+        game_name_list = [str(game.name) for game in collection.games.all()]
+        self.assertTrue(str(self.game1.name) in game_name_list)
+        response = self.client.post(
+            self.remove_game_from_collection_url,
+            {'collection': 'My First Collection',
+            'barcode': '505051889074846', 
+            },
+            follow=True
+        )
+        collection = Collection.objects.get(name='My First Collection', user=self.user)
+        game_name_list = [str(game.name) for game in collection.games.all()]
+        self.assertTrue(str(self.game1.name) not in game_name_list)

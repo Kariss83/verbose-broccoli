@@ -14,3 +14,5 @@ Vérifier les cohérences de formats (notamment sur les barcodes)
 Retravailler les formats des données en base
 Ajouter des validations front end pour la suppression des jeux et des 
 collections
+Offrir la possibilité d'explorer le catalogue de tous les jeux pour 
+en ajouter à une collection sans passer par les scans.
