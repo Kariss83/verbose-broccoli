@@ -12,3 +12,5 @@ TO DO dev :
 Penser à gérer les exceptions sur les mauvais retour API (TDD)
 Vérifier les cohérences de formats (notamment sur les barcodes)
 Retravailler les formats des données en base
+Ajouter des validations front end pour la suppression des jeux et des 
+collections

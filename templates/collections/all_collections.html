@@ -26,9 +26,24 @@
                         <p>
                             {{ game.avg_price }}
                         </p>
+                        <form method=POST action="{% url 'collection:remove' %}">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{ collection.name }}" name="collection">
+                            <input type="hidden" value="{{ game.barcode }}" name="barcode">
+                            <button type="submit" name="submit_param" value="Remove from collection" class="btn btn-link">
+                                Remove this game from collection
+                            </button>
+                        </form>
                     </div> 
                 </div>
             {% endfor %}
+            <form method=POST action="{% url 'collection:delete_collection' %}">
+                {% csrf_token %}
+                <input type="hidden" value="{{ collection.name }}" name="collection">
+                <button type="submit" name="submit_param" value="Delete this collection" class="btn btn-link">
+                    Delete this collection
+                </button>
+            </form>
         {% endfor %}
         <a href="{% url 'collection:create' %}" id="collec-creation-link">Create a new collection</a>
     </div>

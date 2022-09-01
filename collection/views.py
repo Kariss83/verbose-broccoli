@@ -78,3 +78,29 @@ def create_new_collection(request):
     else:
         form = CreateCollectionForm()
         return render(request, 'collections/create_new.html', {'form': form})
+
+@login_required
+def delete_collection(request):
+    if request.method == 'POST':
+        collection_name = request.POST.get('collection', '')
+        user = request.user
+        Collection.objects.get(user=user, name=collection_name).delete()
+        return redirect('collection:all_collections')
+    else:
+        raise PermissionDenied()
+
+@login_required
+def remove_from_collection(request):
+    if request.method == 'POST':
+        collection_name = request.POST.get('collection', '')
+        game_barcode = request.POST.get('barcode', '')
+        user = request.user
+        collection = Collection.objects.get(
+            user=user,
+            name=collection_name
+        )
+        game = Game.objects.get(barcode=game_barcode)
+        collection.games.remove(game)
+        return redirect('collection:all_collections')
+    else:
+        raise PermissionDenied()
