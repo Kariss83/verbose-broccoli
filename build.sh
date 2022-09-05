@@ -2,7 +2,7 @@
 # exit on error
 set -o errexit
 
-printenv
+apt-get install libzbar0
 
 pipenv install
 pipenv install --dev
