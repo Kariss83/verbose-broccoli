@@ -1,6 +1,9 @@
-[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/uses-js.svg)](https://forthebadge.com)
+[![shields](https://img.shields.io/badge/coverage-96%25-green)](https://img.shields.io)
+[![shields](https://img.shields.io/badge/uses-css-blue)](https://img.shields.io)
+[![shields](https://img.shields.io/badge/uses-bootstrap-blue)](https://img.shields.io)
+[![shields](https://img.shields.io/badge/uses-python-blue)](https://img.shields.io)
+[![shields](https://img.shields.io/badge/uses-django-blue)](https://img.shields.io)
+[![shields](https://img.shields.io/badge/uses-javascript-blue)](https://img.shields.io)
 # verbose-broccoli
 ---
 ## Repo that hosts the code for GameZScan app
