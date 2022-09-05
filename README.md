@@ -6,6 +6,8 @@ Créer une DB
 Renseigner son nom, le nom du l'utilisateur et mdp dans le fichier .env
 Rajouter le fichier de config de l'api ebay
 installer libzbar0 : sudo apt-get install libzbar0
+Mettre en place les fichiers de sample ebay et Rapid api pour que 
+la suite de tests puissent passer.
 
 
 TO DO dev :
