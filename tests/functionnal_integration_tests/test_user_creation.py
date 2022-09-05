@@ -1,5 +1,3 @@
-import random
-from django.test import LiveServerTestCase, Client
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 from selenium import webdriver
@@ -7,11 +5,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver import FirefoxOptions
 
 from accounts.models import CustomUser
-from collection.models import Collection, Game
 
 opts = FirefoxOptions()
 opts.add_argument("--headless")
-
 
 
 def create_an_user(number):
@@ -53,4 +49,3 @@ class UserLoginTest(StaticLiveServerTestCase):
 
         message = self.selenium.find_element(By.CLASS_NAME, 'alert')
         self.assertIn('You are now signed in...', message.text)
-

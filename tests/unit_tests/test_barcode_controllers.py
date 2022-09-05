@@ -5,16 +5,11 @@ the camera/webcam.
 import os
 from unittest import mock
 
-from django.core.mail import BadHeaderError
-from django.core import mail
-from django.contrib import auth
-from django.test import TestCase, Client
-from django.urls import reverse
+from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from barcode.controllers.barcode_reader import ImageReader, Stringb64Reader
 from barcode.controllers.information_gatherer import Gatherer
-from accounts.models import CustomUser
 
 from . import constants
 from datafetcher import constants as cst
@@ -41,7 +36,7 @@ class TestBarcodeReaderModule(TestCase):
 
     def test_b64Reader_can_save_string_to_png(self):
         reader = Stringb64Reader(constants.B64STRING)
-        self.assertTrue(reader.img == None)
+        self.assertTrue(reader.img is None)
         reader.string_to_PNG()
         self.assertTrue(reader.img is not None)
 
@@ -52,7 +47,7 @@ class TestBarcodeReaderModule(TestCase):
         reader.string_to_PNG()
         missing_padding = len(reader.img_data_str) % 4
         self.assertTrue(missing_padding == 0)
-    
+
     def test_b64Reader_can_retrieve_barcode(self):
         reader = Stringb64Reader(constants.B64STRING)
         reader.string_to_PNG()
@@ -75,7 +70,6 @@ def mocked_requests_get(*args, **kwargs):
         return MockResponse(cst.EBAY_RETURN, 200)
 
     return MockResponse(None, 404)
-
 
 
 class TestInformationGathererModule(TestCase):

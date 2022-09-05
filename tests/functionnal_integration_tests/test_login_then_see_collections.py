@@ -1,5 +1,3 @@
-import random
-from django.test import LiveServerTestCase, Client
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 from selenium import webdriver
@@ -7,11 +5,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver import FirefoxOptions
 
 from accounts.models import CustomUser
-from collection.models import Collection, Game
+from collection.models import Collection
 
 opts = FirefoxOptions()
 opts.add_argument("--headless")
-
 
 
 def create_an_user(number):
@@ -46,7 +43,7 @@ class UserLoginTest(StaticLiveServerTestCase):
         password_input = self.selenium.find_element(By.NAME, "password")
         password_input.send_keys('monsupermotdepasse')
         self.selenium.find_element(By.XPATH, '/html/body/header/div/form/p[2]/input').click()
-        
+
         message = self.selenium.find_element(By.CLASS_NAME, 'alert')
         self.assertIn('You are logged in !', message.text)
 
@@ -62,4 +59,3 @@ class UserLoginTest(StaticLiveServerTestCase):
 
         assert "My First Collection" in self.selenium.page_source
         assert "Total value :" in self.selenium.page_source
-

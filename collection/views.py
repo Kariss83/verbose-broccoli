@@ -6,7 +6,7 @@ from django.db import IntegrityError, transaction
 from django.core.exceptions import PermissionDenied
 
 from .models import Game, Collection
-from.forms import CreateCollectionForm
+from .forms import CreateCollectionForm
 
 
 class GameListView(generic.ListView):
@@ -23,6 +23,7 @@ class GameDetailView(generic.ListView):
     context_object_name = 'games'
 
     template_name = 'games/game_detail.html'
+
 
 @login_required
 def add_game_to_collection(request):
@@ -41,8 +42,9 @@ def add_game_to_collection(request):
                 'collections/my_collection.html',
                 context
                 )
-    else: 
+    else:
         raise PermissionDenied()
+
 
 @login_required
 def see_all_collections(request):
@@ -61,6 +63,7 @@ def see_all_collections(request):
             context
             )
 
+
 @login_required
 @transaction.atomic
 def create_new_collection(request):
@@ -74,10 +77,11 @@ def create_new_collection(request):
         except IntegrityError:
             messages.error(request, 'You already have a collection with that name')
             return redirect('/collection/create')
-        
+
     else:
         form = CreateCollectionForm()
         return render(request, 'collections/create_new.html', {'form': form})
+
 
 @login_required
 def delete_collection(request):
@@ -88,6 +92,7 @@ def delete_collection(request):
         return redirect('collection:all_collections')
     else:
         raise PermissionDenied()
+
 
 @login_required
 def remove_from_collection(request):

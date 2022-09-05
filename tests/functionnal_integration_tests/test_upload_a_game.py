@@ -1,20 +1,18 @@
 import os
 
-from django.test import LiveServerTestCase, Client
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver import FirefoxOptions
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 from accounts.models import CustomUser
-from collection.models import Collection, Game
-from datafetcher import constants as cst
+from collection.models import Collection
+
 
 opts = FirefoxOptions()
 opts.add_argument("--headless")
+
 
 def create_an_user(number):
     user_test = CustomUser.objects.create(

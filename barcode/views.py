@@ -39,7 +39,7 @@ def upload_barcode(request):
                 context = {'game': game}
                 if request.user.is_authenticated:
                     collections = Collection.objects.filter(user=request.user)
-                    context = {'game': game,'collections': collections}
+                    context = {'game': game, 'collections': collections}
         else:
             form = UploadFileForm(request.POST, request.FILES)
 
@@ -77,7 +77,7 @@ def upload_barcode(request):
                         context = {'game': game}
                         if request.user.is_authenticated:
                             collections = Collection.objects.filter(user=request.user)
-                            context = {'game': game,'collections': collections}
+                            context = {'game': game, 'collections': collections}
         return render(request, 'barcode/upload.html', context)
     else:
         form = UploadFileForm()

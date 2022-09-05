@@ -13,12 +13,11 @@ CONTENT_TYPES = ['image']
 MAX_UPLOAD_SIZE = "10485760"
 
 
-def file_size(value): # add this to some file where you can import it from
+def file_size(value):  # add this to some file where you can import it from
     limit = 10 * 1024 * 1024
     if value.size > limit:
         raise ValidationError('File too large. Size should not exceed 10 MiB.')
 
-#
+
 class UploadFileForm(forms.Form):
     file = forms.ImageField(validators=[file_size])
-    

@@ -54,7 +54,7 @@ class TestBarcodeViewsModule(TestCase):
         )
         cls.user.set_password('monsupermotdepasse')
         cls.user.save()
-        
+
         Collection.objects.create(name='My First Collection', user=cls.user)
         cls.collections = Collection.objects.filter(user=cls.user)
 
@@ -78,7 +78,7 @@ class TestBarcodeViewsModule(TestCase):
             )
             self.assertTrue('Le Seigneur des anneaux - La guerre du Nord' in str(response.content))
             self.assertEquals(response.status_code, 200)
-    
+
     def test_upload_barcode_POST_file_too_large_not_logged_in(self):
         cwd = os.getcwd()
         image_path = os.path.join(cwd, 'tests/unit_tests/media_test/too_big.png')
@@ -107,7 +107,7 @@ class TestBarcodeViewsModule(TestCase):
             )
             self.assertQuerysetEqual(self.collections, response.context[0].dicts[-1]['collections'])
             self.assertEquals(response.status_code, 200)
-    
+
     def test_upload_barcode_POST_file_not_logged_no_barcode(self):
         cwd = os.getcwd()
         image_path = os.path.join(cwd, 'tests/unit_tests/media_test/no_barcode.png')
@@ -121,7 +121,7 @@ class TestBarcodeViewsModule(TestCase):
             self.assertEqual(len(messages), 1)
             self.assertEqual('No barcode detected - Try again...', str(messages[0]))
             self.assertEquals(response.status_code, 200)
-    
+
     @mock.patch('datafetcher.controllers.fetcher.requests.get', side_effect=mocked_requests_get)
     def test_can_upload_using_webcam_not_logged_in(self, mocked_requests_get):
         response = self.client.post(
@@ -143,7 +143,7 @@ class TestBarcodeViewsModule(TestCase):
         )
         self.assertQuerysetEqual(self.collections, response.context[0].dicts[-1]['collections'])
         self.assertEquals(response.status_code, 200)
-    
+
     def test_can_upload_using_webcam_not_logged_in_no_barcode(self):
         response = self.client.post(
             self.upload_url,

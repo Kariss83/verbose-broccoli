@@ -5,9 +5,9 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.core.exceptions import PermissionDenied
 
-
 from collection.models import Game, Collection
 from accounts.models import CustomUser
+
 
 def create_a_game(name, avg_price, barcode):
     game = Game.objects.create(
@@ -42,7 +42,7 @@ class TestCollectionViewsModule(TestCase):
         )
         cls.user.set_password('monsupermotdepasse')
         cls.user.save()
-        
+
         cls.first_collection = Collection.objects.create(
             name='My First Collection',
             user=cls.user
@@ -68,16 +68,15 @@ class TestCollectionViewsModule(TestCase):
 
     def test_add_game_to_collection_GET(self):
         self.client.login(email='test@gmail.com', password='monsupermotdepasse')
-        response = self.client.get(self.add_game_to_collection_url)
+        self.client.get(self.add_game_to_collection_url)
         self.assertRaises(PermissionDenied)
-    
+
     def test_add_game_to_collection_POST(self):
         self.client.login(email='test@gmail.com', password='monsupermotdepasse')
-        response = self.client.post(
+        self.client.post(
             self.add_game_to_collection_url,
             {'collections': 'My First Collection',
-            'barcode': '5051889074847', 
-            },
+            'barcode': '5051889074847'},
             follow=True
         )
         collection = Collection.objects.get(name='My First Collection', user=self.user)
@@ -89,13 +88,13 @@ class TestCollectionViewsModule(TestCase):
         response = self.client.get(self.all_collections_url)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'collections/all_collections.html')
-    
+
     def test_create_new_collection_GET(self):
         self.client.login(email='test@gmail.com', password='monsupermotdepasse')
         response = self.client.get(self.create_collection_url)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'collections/create_new.html')
-    
+
     def test_create_new_collection_POST(self):
         self.client.login(email='test@gmail.com', password='monsupermotdepasse')
         response = self.client.post(
@@ -103,11 +102,11 @@ class TestCollectionViewsModule(TestCase):
             {'name': 'My Second Collection'},
             follow=True
         )
-        collections = Collection.objects.filter(user = self.user)
+        collections = Collection.objects.filter(user=self.user)
         self.assertTrue(len(collections) == 2)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'collections/all_collections.html')
-    
+
     def test_create_new_collection_POST_integrity_error(self):
         self.client.login(email='test@gmail.com', password='monsupermotdepasse')
         response = self.client.post(
@@ -123,14 +122,14 @@ class TestCollectionViewsModule(TestCase):
 
     def test_delete_collection_GET(self):
         self.client.login(email='test@gmail.com', password='monsupermotdepasse')
-        response = self.client.get(self.delete_collection_url)
+        self.client.get(self.delete_collection_url)
         self.assertRaises(PermissionDenied)
 
     def test_delete_collection_POST(self):
         self.client.login(email='test@gmail.com', password='monsupermotdepasse')
         collections = Collection.objects.filter(user=self.user)
         self.assertTrue(len(collections) == 1)
-        response = self.client.post(
+        self.client.post(
             self.delete_collection_url,
             {'collection': 'My First Collection'},
             follow=True
@@ -140,19 +139,18 @@ class TestCollectionViewsModule(TestCase):
 
     def test_remove_game_from_collection_GET(self):
         self.client.login(email='test@gmail.com', password='monsupermotdepasse')
-        response = self.client.get(self.remove_game_from_collection_url)
+        self.client.get(self.remove_game_from_collection_url)
         self.assertRaises(PermissionDenied)
 
-    def test_remove_game_from_collection_GET(self):
+    def test_remove_game_from_collection_POST(self):
         self.client.login(email='test@gmail.com', password='monsupermotdepasse')
         collection = Collection.objects.get(name='My First Collection', user=self.user)
         game_name_list = [str(game.name) for game in collection.games.all()]
         self.assertTrue(str(self.game1.name) in game_name_list)
-        response = self.client.post(
+        self.client.post(
             self.remove_game_from_collection_url,
             {'collection': 'My First Collection',
-            'barcode': '505051889074846', 
-            },
+            'barcode': '505051889074846'},
             follow=True
         )
         collection = Collection.objects.get(name='My First Collection', user=self.user)

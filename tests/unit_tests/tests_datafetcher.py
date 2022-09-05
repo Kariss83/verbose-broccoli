@@ -4,8 +4,6 @@ from django.test import TestCase
 
 from datafetcher import constants
 from datafetcher.controllers import fetcher
-from accounts.models import CustomUser
-from collection.models import Collection, Game
 
 
 def mocked_requests_get(*args, **kwargs):

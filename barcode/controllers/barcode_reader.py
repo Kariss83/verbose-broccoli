@@ -15,7 +15,7 @@ class ImageReader():
     def __init__(self, file):
         self.file = file
         self.file_extension = '.' + str(self.file).split('.')[-1]
-   
+
     def get_image_barcode(self):
         codes = []
         img = Image.open(self.file.file)

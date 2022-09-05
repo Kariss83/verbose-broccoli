@@ -329,4 +329,3 @@ class TestAccountsViewsModule(TestCase):
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]),
                          'Connexion error ("Account deactivated") - Please Contact Us...')
-
