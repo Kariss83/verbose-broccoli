@@ -1,0 +1,116 @@
+#expand-button {
+    border-color: transparent;
+}
+
+.masthead {
+    padding-top: 2rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-bottom: 3rem;
+}
+
+header {
+    padding: 1rem;
+}
+
+footer {
+    padding: 1rem;
+}
+
+.form-group {
+    padding-bottom: 1rem;
+}
+
+.asteriskField {
+    visibility: hidden;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color:rgb(73, 50, 204);
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+nav {
+    opacity: 85%;
+}
+
+video {
+    width: 100%;
+}
+
+.not-yet-authorized {
+    background-color: lightgray;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: dotted;
+
+}
+
+#my-camera {
+    height: 200px;
+    width: 100%;
+    position: relative;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+#my-upload {
+    height: 200px;
+    width: 100%;
+    position: relative;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+#my-upload > input[type=file] {
+    font-size: smaller;
+}
+
+#game-name {
+    font-weight: bolder;
+    text-align: center;
+}
+
+#game-img {
+    height : 200px;
+}
+
+#game-info {
+    font-size: small;
+}
+
+.game-img-collec {
+    height: 125px;
+}
+
+#home-cta {
+    width: 120px;
+}
+
+#text-center {
+    text-align: center;
+}
+
+#explanation-img {
+    width: 40%;
+    height: auto;
+}
+
+.explanation {
+    font-style: italic;
+    font-size: small;
+    align-items: center;
+}
+
+#collec-creation-link {
+    padding-top: 1rem;
+}

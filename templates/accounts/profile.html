@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<header class="masthead">
+    <div class="d-flex text-center flex-column justify-content-center">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>	
+                {% endfor %}
+            {% endif %}
+        <h1 class="font-weight-bold">Hello,</h1>
+        <hr class="divider" />
+        <h2 class="text-white-75 mb-5">{{ user.username }}</h2>
+        <br/>
+        <h2 class="text-white-75 mb-5">Your email address is : {{ user.email }} </h2>
+        <br/>
+        <div class='d-grid gap-2 col-6 mx-auto'>
+            <a class="btn btn-primary" href="/accounts/edit">Edit your info</a>
+            <a href="/accounts/logout" id="Logout"> Logout </a>
+        </div>
+    </div>
+</header>
+{% endblock content %}

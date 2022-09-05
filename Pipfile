@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+psycopg2 = "*"
+django = "*"
+django-crispy-forms = "*"
+django-money = "*"
+requests = "*"
+selenium = "*"
+bs4 = "*"
+pyyaml = "*"
+opencv-python = "*"
+pyzbar = "*"
+pillow = "*"
+
+[dev-packages]
+django-debug-toolbar = "*"
+flake8 = "*"
+coverage = "*"
+
+[requires]
+python_version = "3.9"
