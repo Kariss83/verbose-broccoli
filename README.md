@@ -108,7 +108,7 @@ TO DO dev - Version 0.2.0:
 - [ ] Web app design on non mobile browser
 - [ ] Backing up security for file upload with NginX
 - [ ] Add contact info on About and Legal Pages
-- [ ] Add a nice favicon
+- [x] Add a nice favicon
 - [ ] Add a Button to allow camera flip for mobile users
 
 ---
