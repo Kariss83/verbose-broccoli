@@ -1,4 +1,4 @@
-[![shields](https://img.shields.io/badge/coverage-96%25-green)](https://img.shields.io)
+[![shields](https://img.shields.io/badge/coverage-95%25-green)](https://img.shields.io)
 [![shields](https://img.shields.io/badge/uses-css-blue)](https://img.shields.io)
 [![shields](https://img.shields.io/badge/uses-bootstrap-blue)](https://img.shields.io)
 [![shields](https://img.shields.io/badge/uses-python-blue)](https://img.shields.io)
@@ -107,5 +107,6 @@ TO DO dev :
 - [ ] Web app design on non mobile browser
 - [ ] Backing up security for file upload with NginX
 - [ ] Add contact info on About and Legal Pages
+- [ ] Refactor Barcode views to shorten them
 
 ---
