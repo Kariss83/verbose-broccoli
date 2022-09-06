@@ -103,11 +103,8 @@ def profile(request):
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
-        # import pdb; pdb.set_trace()
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
-            email = form.data['email']
-            username = form.data['username']
             form.save()
             messages.success(request, ('Modification successfully saved'))
             return redirect('/accounts/profile')

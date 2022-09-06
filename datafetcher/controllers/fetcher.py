@@ -12,12 +12,13 @@ from datafetcher.oauthclient.model.model import environment
 from pyrate_limiter import Duration, RequestRate, Limiter
 
 rate_limits = (
-      RequestRate(10, Duration.HOUR), # 10 requests per hour
-      RequestRate(100, Duration.DAY), # 100 requests per day
-      RequestRate(4000, Duration.MONTH), # 4000 requests per month
+      RequestRate(10, Duration.HOUR),  # 10 requests per hour
+      RequestRate(100, Duration.DAY),  # 100 requests per day
+      RequestRate(4000, Duration.MONTH),  # 4000 requests per month
 )
 
 limiter = Limiter(*rate_limits)
+
 
 class EANAPICommunicator():
     """_summary_
