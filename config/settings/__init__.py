@@ -103,8 +103,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'GameZScan',
-        'USER': os.environ['DB_USER'],
-        'PASSWORD': os.environ['DB_PWD'],
+        'USER': os.environ['DB_GZS_USER'],
+        'PASSWORD': os.environ['DB_GZS_PWD'],
         'HOST': 'localhost',
         'PORT': '5432',
     }
