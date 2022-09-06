@@ -1,8 +1,8 @@
 from . import *
 
-SECRET_KEY = os.environ.get(['DJANGO-KEY'])
+SECRET_KEY = os.environ['DJANGO_KEY']
 DEBUG = False
-ALLOWED_HOSTS = ['']
+ALLOWED_HOSTS = ['51.38.234.122', 'gamezscan.gitgudat.com', 'www.gamezscan.gitgudat.com']
 
 # removing debug_toolbar of used apps
 INSTALLED_APPS = [
@@ -32,10 +32,10 @@ MIDDLEWARE = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get['DB-NAME'],  # Replace using the db name on server
-        'USER': os.environ.get['DB-USER'],  # Replace using the db user name on server
-        'PASSWORD': os.environ.get['DB-PWD'],  # Replace using the db user pwd on server
-        'HOST': '',
+        'NAME': 'gamezscan',  # Replace using the db name on server
+        'USER': os.environ['DB_GZS_USER'],  # Replace using the db user name on server
+        'PASSWORD': os.environ['DB_GZS_PWD'],  # Replace using the db user pwd on server
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
@@ -47,3 +47,15 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'GameZScan <root@vps-8351387e.vps.ovh.net>'
+
+# Setting CSRF for SSL
+CSRF_TRUSTED_ORIGINS = ['https://gamezscan.gitgudat.com']
+CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_DOMAIN = '.gitgudat.com'
+
+# Help for resolving tests errors on POST test on some views
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}

@@ -27,17 +27,18 @@ See the following links :
 
 **In order to start run the app :**
 1. Install libzbar0 : `sudo apt-get install libzbar0`
-2. Get your repo locally by running : `git clone https://github.com/Kariss83/verbose-broccoli.git`.
-3. Install all dependencies using pipenv (previously installed using pip) : `pipenv install`
+2. Install opencv for python : `sudo apt install python3-opencv`
+3. Get your repo locally by running : `git clone https://github.com/Kariss83/verbose-broccoli.git`.
+4. Install all dependencies using pipenv (previously installed using pip) : `pipenv install`
    If you want to participate in development you also have to install dev dependencies using : `pipenv install --dev`
-4. Create a postgresql DB named `GameZScan` on you computer (alternatively you could use env variable for the DB name)
-5. Set up your environnement variables in a .env file at the root of your project.
+5. Create a postgresql DB named `GameZScan` on you computer (alternatively you could use env variable for the DB name)
+6. Set up your environnement variables in a .env file at the root of your project.
     - EBAY_KEY='*your_ebay_api_key*'
     - RAPIDAPI_KEY='*your_rapid_api_key*'
     - DB_USER='*your_db_user*'
     - DB_PWD='*users_db_pwd*'
     - DJANGO_KEY='*your_secret_django_key*' -- If you are not deploying it in production you can leave that blank
-6. Inside `/datafetcher/oauthclient/` create a file named `ebay-config-sample.json` with the following structure :
+7. Inside `/datafetcher/oauthclient/` create a file named `ebay-config-sample.json` with the following structure :
 `
 {
     "api.sandbox.ebay.com" : {
@@ -99,7 +100,7 @@ Romain VACHE
 
 ---
 
-TO DO dev :
+TO DO dev - Version 0.2.0:
 - [ ] Working on handling API bad return in case something break on their side
 - [ ] Make a complete check of datastructures used (are all barcode strings for instance)
 - [ ] Rework Database Models and check if the datastructure are coherent there
@@ -107,6 +108,7 @@ TO DO dev :
 - [ ] Web app design on non mobile browser
 - [ ] Backing up security for file upload with NginX
 - [ ] Add contact info on About and Legal Pages
-- [ ] Refactor Barcode views to shorten them
+- [ ] Add a nice favicon
+- [ ] Add a Button to allow camera flip for mobile users
 
 ---

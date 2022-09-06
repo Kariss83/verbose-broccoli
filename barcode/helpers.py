@@ -50,6 +50,12 @@ def find_or_create_game_from_barcode(barcode, request):
                 (f'Limit of API calls have been reached. Please try again later... {err}')
             )
             return redirect('/barcode/upload')
+        except TypeError as err:
+            messages.error(
+                request,
+                (f'Could not retrieve a name or a picture url -- {err}')
+            )
+            return redirect('/barcode/upload')
     context = {'game': game}
     if request.user.is_authenticated:
         collections = Collection.objects.filter(user=request.user)
