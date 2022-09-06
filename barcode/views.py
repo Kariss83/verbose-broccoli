@@ -71,15 +71,21 @@ def upload_barcode(request):
                             game = Game.objects.get(barcode=barcode[0])
                         except Game.DoesNotExist:
                             gatherer = Gatherer(barcode)
-                            name, img_url = gatherer.get_name_and_img_url()
-                            avg_price = gatherer.get_avg_price()
+                            try:
+                                name, img_url = gatherer.get_name_and_img_url()
+                                avg_price = gatherer.get_avg_price()
 
-                            game = Game.objects.get_or_create(barcode=barcode[0],
-                                                            defaults={
-                                                                'avg_price': avg_price,
-                                                                'name': name,
-                                                                'image': img_url,
-                                                            })[0]
+                                game = Game.objects.get_or_create(
+                                    barcode=barcode[0],
+                                    defaults={
+                                        'avg_price': avg_price,
+                                        'name': name,
+                                        'image': img_url,
+                                    }
+                                )[0]
+                            except BucketFullException as err:
+                                messages.error(request, ('Limit of API calls have been reached. Please try again later...'))
+                                return redirect('/barcode/upload')
                         context = {'game': game}
                         if request.user.is_authenticated:
                             collections = Collection.objects.filter(user=request.user)
