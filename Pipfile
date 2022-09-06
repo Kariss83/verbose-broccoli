@@ -10,7 +10,6 @@ django-crispy-forms = "*"
 django-money = "*"
 requests = "*"
 selenium = "*"
-bs4 = "*"
 pyyaml = "*"
 opencv-python = "*"
 pyzbar = "*"
@@ -19,6 +18,7 @@ dj-database-url = "*"
 psycopg2-binary = "*"
 whitenoise = {extras = ["brotli"], version = "*"}
 gunicorn = "*"
+pyrate-limiter = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"

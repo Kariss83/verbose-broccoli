@@ -136,11 +136,14 @@ class TestBarcodeViewsModule(TestCase):
     @mock.patch('datafetcher.controllers.fetcher.requests.get', side_effect=mocked_requests_get)
     def test_can_upload_using_webcam_logged_in(self, mocked_requests_get):
         self.client.login(email='test@gmail.com', password='monsupermotdepasse')
+        # import pdb; pdb.set_trace()
         response = self.client.post(
             self.upload_url,
             {'b64img': constants.B64STRING},
             follow=True
         )
+        print(response.context)
+        print(response.context[0])
         self.assertQuerysetEqual(self.collections, response.context[0].dicts[-1]['collections'])
         self.assertEquals(response.status_code, 200)
 
