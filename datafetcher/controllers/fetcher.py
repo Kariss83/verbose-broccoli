@@ -9,6 +9,16 @@ import os
 from datafetcher.oauthclient import credentialutil, oauth2api
 from datafetcher.oauthclient.model.model import environment
 
+from pyrate_limiter import Duration, RequestRate, Limiter
+
+rate_limits = (
+      RequestRate(10, Duration.HOUR),  # 10 requests per hour
+      RequestRate(100, Duration.DAY),  # 100 requests per day
+      RequestRate(4000, Duration.MONTH),  # 4000 requests per month
+)
+
+limiter = Limiter(*rate_limits)
+
 
 class EANAPICommunicator():
     """_summary_
@@ -16,6 +26,7 @@ class EANAPICommunicator():
     def __init__(self):
         self.ean_lookup_url = """https://product-lookup-by-upc-or-ean.p.rapidapi.com/code/"""
 
+    @limiter.ratelimit('EANapicalls')
     def request_ean_lookup(self, ean):
         """_summary_
 

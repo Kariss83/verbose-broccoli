@@ -31,7 +31,7 @@ MIDDLEWARE = [
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ.get['DB-NAME'],  # Replace using the db name on server
         'USER': os.environ.get['DB-USER'],  # Replace using the db user name on server
         'PASSWORD': os.environ.get['DB-PWD'],  # Replace using the db user pwd on server
