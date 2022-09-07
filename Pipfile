@@ -19,6 +19,7 @@ psycopg2-binary = "*"
 whitenoise = {extras = ["brotli"], version = "*"}
 gunicorn = "*"
 pyrate-limiter = "*"
+sentry-sdk = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
