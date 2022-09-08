@@ -4,15 +4,16 @@ the camera/webcam.
 """
 import os
 from unittest import mock
+from datetime import datetime, timedelta
 
 from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from barcode.controllers.barcode_reader import ImageReader, Stringb64Reader
 from barcode.controllers.information_gatherer import Gatherer
-
-from . import constants
+from datafetcher.oauthclient.model.model import oAuth_token
 from datafetcher import constants as cst
+from . import constants
 
 
 class TestBarcodeReaderModule(TestCase):
@@ -72,6 +73,17 @@ def mocked_requests_get(*args, **kwargs):
     return MockResponse(None, 404)
 
 
+def mocked_get_application_token(*args, **kwargs):
+    token = oAuth_token()
+    token.access_token = 'myfaketoken'
+    token.token_expiry = datetime.utcnow() + timedelta(hours=5) - timedelta(minutes=5)
+    return token
+
+
+def mocked_credential_load(*args, **kwargs):
+    pass
+
+
 class TestInformationGathererModule(TestCase):
     """ Main class testing hosting the tests.
     """
@@ -86,8 +98,11 @@ class TestInformationGathererModule(TestCase):
             content_type='image/png'
         )
 
+
+    @mock.patch('datafetcher.oauthclient.oauth2api.oauth2api.get_application_token', side_effect=mocked_get_application_token)
+    @mock.patch('datafetcher.oauthclient.credentialutil.credentialutil.load', side_effect=mocked_credential_load)
     @mock.patch('datafetcher.controllers.fetcher.requests.get', side_effect=mocked_requests_get)
-    def test_gatherer_can_get_name_and_img_url(self, mocked_requests_get):
+    def test_gatherer_can_get_name_and_img_url(self, mocked_get_application_token, mocked_credential_load, mocked_requests_get):
         gatherer = Gatherer(['5051889074847'])
         gatherer.get_name_and_img_url()
         self.assertEqual(gatherer.game_name, 'Le Seigneur des anneaux - La guerre du Nord')

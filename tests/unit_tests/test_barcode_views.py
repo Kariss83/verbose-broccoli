@@ -3,6 +3,7 @@ the part of the program in charge of scanning and reading barcodes.
 """
 import os
 from unittest import mock
+from datetime import datetime, timedelta
 
 from django.test import TestCase, Client
 from django.urls import reverse
@@ -11,6 +12,8 @@ from . import constants
 from collection.models import Game, Collection
 from accounts.models import CustomUser
 from datafetcher import constants as cst
+from datafetcher.oauthclient.model.model import oAuth_token
+
 
 
 def create_an_user(number):
@@ -36,6 +39,17 @@ def mocked_requests_get(*args, **kwargs):
         return MockResponse(cst.EBAY_RETURN, 200)
 
     return MockResponse(None, 404)
+
+
+def mocked_get_application_token(*args, **kwargs):
+    token = oAuth_token()
+    token.access_token = 'myfaketoken'
+    token.token_expiry = datetime.utcnow() + timedelta(hours=5) - timedelta(minutes=5)
+    return token
+
+
+def mocked_credential_load(*args, **kwargs):
+    pass
 
 
 class TestBarcodeViewsModule(TestCase):
@@ -66,8 +80,10 @@ class TestBarcodeViewsModule(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'barcode/scan.html')
 
+    @mock.patch('datafetcher.oauthclient.oauth2api.oauth2api.get_application_token', side_effect=mocked_get_application_token)
+    @mock.patch('datafetcher.oauthclient.credentialutil.credentialutil.load', side_effect=mocked_credential_load)
     @mock.patch('datafetcher.controllers.fetcher.requests.get', side_effect=mocked_requests_get)
-    def test_upload_barcode_POST_file_not_logged_in(self, mocked_requests_get):
+    def test_upload_barcode_POST_file_not_logged_in(self, mocked_get_application_token, mocked_credential_load, mocked_requests_get):
         cwd = os.getcwd()
         image_path = os.path.join(cwd, 'tests/unit_tests/media_test/barcode.png')
         with open(image_path, 'rb') as f:
@@ -94,8 +110,10 @@ class TestBarcodeViewsModule(TestCase):
             self.assertEquals(response.status_code, 200)
             self.assertEquals(response.status_code, 200)
 
+    @mock.patch('datafetcher.oauthclient.oauth2api.oauth2api.get_application_token', side_effect=mocked_get_application_token)
+    @mock.patch('datafetcher.oauthclient.credentialutil.credentialutil.load', side_effect=mocked_credential_load)
     @mock.patch('datafetcher.controllers.fetcher.requests.get', side_effect=mocked_requests_get)
-    def test_upload_barcode_POST_file_logged_in(self, mocked_requests_get):
+    def test_upload_barcode_POST_file_logged_in(self, mocked_get_application_token, mocked_credential_load, mocked_requests_get):
         self.client.login(email='test@gmail.com', password='monsupermotdepasse')
         cwd = os.getcwd()
         image_path = os.path.join(cwd, 'tests/unit_tests/media_test/barcode.png')
@@ -122,8 +140,10 @@ class TestBarcodeViewsModule(TestCase):
             self.assertEqual('No barcode detected - Try again...', str(messages[0]))
             self.assertEquals(response.status_code, 200)
 
+    @mock.patch('datafetcher.oauthclient.oauth2api.oauth2api.get_application_token', side_effect=mocked_get_application_token)
+    @mock.patch('datafetcher.oauthclient.credentialutil.credentialutil.load', side_effect=mocked_credential_load)
     @mock.patch('datafetcher.controllers.fetcher.requests.get', side_effect=mocked_requests_get)
-    def test_can_upload_using_webcam_not_logged_in(self, mocked_requests_get):
+    def test_can_upload_using_webcam_not_logged_in(self, mocked_get_application_token, mocked_credential_load, mocked_requests_get):
         response = self.client.post(
             self.upload_url,
             {'b64img': constants.B64STRING},
@@ -133,8 +153,10 @@ class TestBarcodeViewsModule(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertEquals(game, response.context[0].dicts[-1]['game'])
 
+    @mock.patch('datafetcher.oauthclient.oauth2api.oauth2api.get_application_token', side_effect=mocked_get_application_token)
+    @mock.patch('datafetcher.oauthclient.credentialutil.credentialutil.load', side_effect=mocked_credential_load)
     @mock.patch('datafetcher.controllers.fetcher.requests.get', side_effect=mocked_requests_get)
-    def test_can_upload_using_webcam_logged_in(self, mocked_requests_get):
+    def test_can_upload_using_webcam_logged_in(self, mocked_get_application_token, mocked_credential_load, mocked_requests_get):
         self.client.login(email='test@gmail.com', password='monsupermotdepasse')
         response = self.client.post(
             self.upload_url,

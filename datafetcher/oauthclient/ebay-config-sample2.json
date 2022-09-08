@@ -1,0 +1,14 @@
+{
+    "api.sandbox.ebay.com" : {
+                "appid" : "RomainVA-GameZSca-SBX-990f49e48-7e582aa0",
+                "devid" : "a87c35c9-aac1-4f21-bcc9-1bb06430539b",
+                "certid" : "SBX-90f49e485c65-8039-43fa-9e8c-b437",
+                "redirecturi" : ""
+                },
+    "api.ebay.com" : {
+                    "appid" : "RomainVA-GameZSca-PRD-790e25005-47f11196",
+                    "devid" : "a87c35c9-aac1-4f21-bcc9-1bb06430539b",
+                    "certid" : "PRD-90e250054406-c31c-46b4-97ea-a7e2",
+                    "redirecturi" : ""
+                   }
+}

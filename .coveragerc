@@ -5,6 +5,7 @@ omit =
         *__init__*
         manage.py
         */migrations/*
+        */oauthclient/*
 
 [report]
 exclude_lines =
