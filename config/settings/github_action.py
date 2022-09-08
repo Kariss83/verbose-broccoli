@@ -6,7 +6,7 @@ DATABASES = {
         'NAME': 'ga_ci_test',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': '',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
