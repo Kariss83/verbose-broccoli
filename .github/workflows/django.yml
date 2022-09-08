@@ -47,9 +47,9 @@ jobs:
         sudo apt-get install python3-opencv
     - name: Install Dependencies
       run: |
-        python -m pip install --upgrade pipenv
-        pipenv install
-        pipenv install --dev
+        python -m pip install --upgrade pip
+        pip install flake8 pytest
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run migrations
       run: |
         pipenv shell
