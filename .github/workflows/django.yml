@@ -7,6 +7,7 @@ on:
     branches: [ "main" ]
 
 env:
+  DJANGO_SETTINGS_MODULE: config.settings.github_action
   EBAY_KEY: your_ebay_api_key
   RAPIDAPI_KEY: your_rapid_api_key
   DB_GZS_USER: your_db_user
