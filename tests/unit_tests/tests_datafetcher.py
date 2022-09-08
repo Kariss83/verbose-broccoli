@@ -1,9 +1,12 @@
 from unittest import mock
+from datetime import datetime, timedelta
 
 from django.test import TestCase
 
 from datafetcher import constants
 from datafetcher.controllers import fetcher
+from datafetcher.oauthclient.model.model import oAuth_token
+
 
 
 def mocked_requests_get(*args, **kwargs):
@@ -23,6 +26,17 @@ def mocked_requests_get(*args, **kwargs):
     return MockResponse(None, 404)
 
 
+def mocked_get_application_token(*args, **kwargs):
+    token = oAuth_token()
+    token.access_token = 'myfaketoken'
+    token.token_expiry = datetime.utcnow() + timedelta(hours=5) - timedelta(minutes=5)
+    return token
+
+
+def mocked_credential_load(*args, **kwargs):
+    pass
+
+
 class TestDatafetcher(TestCase):
     """ This class holds all the tests for Datafetcher
 
@@ -36,8 +50,10 @@ class TestDatafetcher(TestCase):
         result = communicator.request_ean_lookup(5051889074847)
         self.assertEqual(result['product']['name'], 'Le Seigneur des anneaux - La guerre du Nord')
 
+    @mock.patch('datafetcher.oauthclient.oauth2api.oauth2api.get_application_token', side_effect=mocked_get_application_token)
+    @mock.patch('datafetcher.oauthclient.credentialutil.credentialutil.load', side_effect=mocked_credential_load)
     @mock.patch('datafetcher.controllers.fetcher.requests.get', side_effect=mocked_requests_get)
-    def test_can_retrieve_avg_price_on_ebay(self, mocked_requests_get):
+    def test_can_retrieve_avg_price_on_ebay(self, mocked_get_application_token, mocked_credential_load, mocked_requests_get):
         communicator = fetcher.EBAYCommunicator("The lord of the rings : War in the north")
         communicator.request_info()
         # import pdb; pdb.set_trace()
