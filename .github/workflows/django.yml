@@ -7,11 +7,11 @@ on:
     branches: [ "main" ]
 
 env:
-  EBAY_KEY='your_ebay_api_key'
-  RAPIDAPI_KEY='your_rapid_api_key'
-  DB_USER='your_db_user'
-  DB_PWD='users_db_pwd'
-  DJANGO_KEY='your_secret_django_key'
+  EBAY_KEY: your_ebay_api_key
+  RAPIDAPI_KEY: your_rapid_api_key
+  DB_USER: your_db_user
+  DB_PWD: users_db_pwd
+  DJANGO_KEY: your_secret_django_key
 
 jobs:
   build:
