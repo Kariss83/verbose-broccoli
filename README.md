@@ -1,3 +1,4 @@
+[![Django CI](https://github.com/Kariss83/verbose-broccoli/actions/workflows/django.yml/badge.svg?branch=develop)](https://github.com/Kariss83/verbose-broccoli/actions/workflows/django.yml)
 [![shields](https://img.shields.io/badge/coverage-95%25-green)](https://img.shields.io)
 [![shields](https://img.shields.io/badge/uses-css-blue)](https://img.shields.io)
 [![shields](https://img.shields.io/badge/uses-bootstrap-blue)](https://img.shields.io)
@@ -8,6 +9,7 @@
 ---
 ## Repo that hosts the code for GameZScan app
 ---
+You can see live app @ : gamezscan.gitgudat.com
 
 ### How to install locally your project
 This app have been designed to be used on mobile mainly, so the best way to navigate in it is to use
