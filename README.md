@@ -1,3 +1,4 @@
+[![Django CI](https://github.com/Kariss83/verbose-broccoli/actions/workflows/django.yml/badge.svg?branch=develop)](https://github.com/Kariss83/verbose-broccoli/actions/workflows/django.yml)
 [![shields](https://img.shields.io/badge/coverage-95%25-green)](https://img.shields.io)
 [![shields](https://img.shields.io/badge/uses-css-blue)](https://img.shields.io)
 [![shields](https://img.shields.io/badge/uses-bootstrap-blue)](https://img.shields.io)
