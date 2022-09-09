@@ -19,7 +19,7 @@ def create_an_user(number):
     return user_test
 
 
-class UserLoginTest(StaticLiveServerTestCase):
+class UserLoginSeeCollectionTest(StaticLiveServerTestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -36,7 +36,7 @@ class UserLoginTest(StaticLiveServerTestCase):
         cls.selenium.quit()
         super().tearDownClass()
 
-    def test_can_login(self):
+    def test_can_login_then_see_collections(self):
         self.selenium.get(f'{self.live_server_url}/accounts/login/')
         username_input = self.selenium.find_element(By.NAME, "email")
         username_input.send_keys('test1@gmail.com')
