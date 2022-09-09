@@ -9,6 +9,7 @@
 ---
 ## Repo that hosts the code for GameZScan app
 ---
+You can see live app @ : gamezscan.gitgudat.com
 
 ### How to install locally your project
 This app have been designed to be used on mobile mainly, so the best way to navigate in it is to use
