@@ -18,7 +18,7 @@ def create_an_user(number):
     return user_test
 
 
-class UserLoginTest(StaticLiveServerTestCase):
+class UserCreationTest(StaticLiveServerTestCase):
 
     @classmethod
     def setUpClass(cls):
