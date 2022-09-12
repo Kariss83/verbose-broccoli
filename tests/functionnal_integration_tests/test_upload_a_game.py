@@ -9,10 +9,10 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver import FirefoxOptions
 
-from accounts.models import CustomUser
-from collection.models import Collection
-from datafetcher import constants
-from datafetcher.oauthclient.model.model import oAuth_token
+from gamezscan.accounts.models import CustomUser
+from gamezscan.collection.models import Collection
+from gamezscan.datafetcher import constants
+from gamezscan.datafetcher.oauthclient.model.model import oAuth_token
 
 
 opts = FirefoxOptions()
@@ -71,15 +71,15 @@ class UserUploadTest(StaticLiveServerTestCase):
         super().tearDownClass()
 
     @mock.patch(
-        "datafetcher.oauthclient.oauth2api.oauth2api.get_application_token",
+        "gamezscan.datafetcher.oauthclient.oauth2api.oauth2api.get_application_token",
         side_effect=mocked_get_application_token,
     )
     @mock.patch(
-        "datafetcher.oauthclient.credentialutil.credentialutil.load",
+        "gamezscan.datafetcher.oauthclient.credentialutil.credentialutil.load",
         side_effect=mocked_credential_load,
     )
     @mock.patch(
-        "datafetcher.controllers.fetcher.requests.get", side_effect=mocked_requests_get
+        "gamezscan.datafetcher.controllers.fetcher.requests.get", side_effect=mocked_requests_get
     )
     def test_can_upload_a_file(
         self, mocked_get_application_token, mocked_credential_load, mocked_requests_get

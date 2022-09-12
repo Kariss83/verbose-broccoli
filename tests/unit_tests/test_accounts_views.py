@@ -9,9 +9,9 @@ from django.contrib import auth
 from django.test import TestCase, Client
 from django.urls import reverse
 
-from accounts.forms import CustomAuthenticationForm
+from gamezscan.accounts.forms import CustomAuthenticationForm
 
-from accounts.models import CustomUser
+from gamezscan.accounts.models import CustomUser
 
 
 def mocked_send_mail():
@@ -246,7 +246,7 @@ class TestAccountsViewsModule(TestCase):
         self.assertEqual(str(messages[0]), "This email is invalid.")
 
     def test_password_reset_POST_BadHeader(self):
-        with mock.patch("accounts.views.send_mail") as mocked_send_mail:
+        with mock.patch("gamezscan.accounts.views.send_mail") as mocked_send_mail:
             mocked_send_mail.side_effect = BadHeaderError
 
             response = self.client.post(
@@ -274,5 +274,5 @@ class TestAccountsViewsModule(TestCase):
         self.assertEqual(len(messages), 1)
         self.assertEqual(
             str(messages[0]),
-            'Connexion error ("Account deactivated") - Please Contact Us...',
+            'Connexion error ("Bad informations") - Try again...',
         )

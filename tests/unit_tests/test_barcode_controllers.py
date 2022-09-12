@@ -9,10 +9,10 @@ from datetime import datetime, timedelta
 from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from barcode.controllers.barcode_reader import ImageReader, Stringb64Reader
-from barcode.controllers.information_gatherer import Gatherer
-from datafetcher.oauthclient.model.model import oAuth_token
-from datafetcher import constants as cst
+from gamezscan.barcode.controllers.barcode_reader import ImageReader, Stringb64Reader
+from gamezscan.barcode.controllers.information_gatherer import Gatherer
+from gamezscan.datafetcher.oauthclient.model.model import oAuth_token
+from gamezscan.datafetcher import constants as cst
 from . import constants
 
 
@@ -97,15 +97,15 @@ class TestInformationGathererModule(TestCase):
         )
 
     @mock.patch(
-        "datafetcher.oauthclient.oauth2api.oauth2api.get_application_token",
+        "gamezscan.datafetcher.oauthclient.oauth2api.oauth2api.get_application_token",
         side_effect=mocked_get_application_token,
     )
     @mock.patch(
-        "datafetcher.oauthclient.credentialutil.credentialutil.load",
+        "gamezscan.datafetcher.oauthclient.credentialutil.credentialutil.load",
         side_effect=mocked_credential_load,
     )
     @mock.patch(
-        "datafetcher.controllers.fetcher.requests.get", side_effect=mocked_requests_get
+        "gamezscan.datafetcher.controllers.fetcher.requests.get", side_effect=mocked_requests_get
     )
     def test_gatherer_can_get_name_and_img_url(
         self, mocked_get_application_token, mocked_credential_load, mocked_requests_get

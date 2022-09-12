@@ -10,7 +10,7 @@ from django.urls import reverse
 from django.db import models
 
 # local Django
-from accounts.models import CustomUser
+from gamezscan.accounts.models import CustomUser
 
 
 # Create your models here.

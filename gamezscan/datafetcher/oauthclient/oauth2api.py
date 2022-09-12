@@ -24,7 +24,7 @@ import requests
 
 from datetime import datetime, timedelta
 
-from datafetcher.oauthclient.model import util
+from gamezscan.datafetcher.oauthclient.model import util
 from .credentialutil import credentialutil
 from .model.model import oAuth_token
 

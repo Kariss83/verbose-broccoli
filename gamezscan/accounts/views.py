@@ -14,10 +14,10 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.contrib.auth.views import PasswordResetConfirmView
 
-from collection.models import Collection
-from accounts.models import CustomUser
-from accounts.forms import CustomPasswordResetForm
-from accounts.forms import (
+from gamezscan.collection.models import Collection
+from gamezscan.accounts.models import CustomUser
+from gamezscan.accounts.forms import CustomPasswordResetForm
+from gamezscan.accounts.forms import (
     CustomUserCreationForm,
     CustomAuthenticationForm,
     CustomUserChangeForm,

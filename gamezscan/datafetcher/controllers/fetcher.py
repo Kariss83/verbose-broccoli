@@ -6,8 +6,8 @@ import datetime
 import requests
 import os
 
-from datafetcher.oauthclient import credentialutil, oauth2api
-from datafetcher.oauthclient.model.model import environment
+from gamezscan.datafetcher.oauthclient import credentialutil, oauth2api
+from gamezscan.datafetcher.oauthclient.model.model import environment
 
 from pyrate_limiter import Duration, RequestRate, Limiter
 
@@ -61,7 +61,7 @@ class EBAYCommunicator:
     def get_oauth_token(self):
         api_connector = oauth2api.oauth2api()
         credentialutil.credentialutil.load(
-            "datafetcher/oauthclient/ebay-config-sample.json"
+            "gamezscan/datafetcher/oauthclient/ebay-config-sample.json"
         )
         self.token = api_connector.get_application_token(
             environment.PRODUCTION, ["https://api.ebay.com/oauth/api_scope"]

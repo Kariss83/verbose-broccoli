@@ -3,7 +3,7 @@ from django.contrib.auth import forms as auth_forms
 from django.utils.translation import gettext_lazy as _
 
 
-from accounts.models import CustomUser
+from gamezscan.accounts.models import CustomUser
 
 
 class CustomAuthenticationForm(base_form.Form):

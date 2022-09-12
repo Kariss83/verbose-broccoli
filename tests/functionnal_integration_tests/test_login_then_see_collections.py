@@ -4,8 +4,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver import FirefoxOptions
 
-from accounts.models import CustomUser
-from collection.models import Collection
+from gamezscan.accounts.models import CustomUser
+from gamezscan.collection.models import Collection
 
 opts = FirefoxOptions()
 opts.add_argument("--headless")

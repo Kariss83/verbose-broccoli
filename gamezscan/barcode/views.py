@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
-from barcode.forms import UploadFileForm
+from gamezscan.barcode.forms import UploadFileForm
 
-from barcode.helpers import convert_img_str_to_barcode
-from barcode.helpers import uploadfile_size_too_big
-from barcode.helpers import barcode_not_found
-from barcode.helpers import find_or_create_game_from_barcode
-from barcode.helpers import parse_img_to_barcode
+from gamezscan.barcode.helpers import convert_img_str_to_barcode
+from gamezscan.barcode.helpers import uploadfile_size_too_big
+from gamezscan.barcode.helpers import barcode_not_found
+from gamezscan.barcode.helpers import find_or_create_game_from_barcode
+from gamezscan.barcode.helpers import parse_img_to_barcode
 
 
 # Create your views here.

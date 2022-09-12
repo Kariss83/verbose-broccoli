@@ -16,17 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-import accounts.urls
-import barcode.urls
-import collection.urls
-import datafetcher.urls
+import gamezscan.accounts.urls
+import gamezscan.barcode.urls
+import gamezscan.collection.urls
+import gamezscan.datafetcher.urls
 
 urlpatterns = [
-    path("", barcode.views.home_view, name="home"),
+    path("", gamezscan.barcode.views.home_view, name="home"),
     path("__debug__/", include("debug_toolbar.urls")),
     path("admin/", admin.site.urls),
-    path("accounts/", include(accounts.urls, namespace="accounts")),
-    path("barcode/", include(barcode.urls, namespace="barcode")),
-    path("collection/", include(collection.urls, namespace="collection")),
-    path("datafetcher/", include(datafetcher.urls, namespace="datafetcher")),
+    path("accounts/", include(gamezscan.accounts.urls, namespace="accounts")),
+    path("barcode/", include(gamezscan.barcode.urls, namespace="barcode")),
+    path("collection/", include(gamezscan.collection.urls, namespace="collection")),
+    path("datafetcher/", include(gamezscan.datafetcher.urls, namespace="datafetcher")),
 ]

@@ -3,9 +3,9 @@ from datetime import datetime, timedelta
 
 from django.test import TestCase
 
-from datafetcher import constants
-from datafetcher.controllers import fetcher
-from datafetcher.oauthclient.model.model import oAuth_token
+from gamezscan.datafetcher import constants
+from gamezscan.datafetcher.controllers import fetcher
+from gamezscan.datafetcher.oauthclient.model.model import oAuth_token
 
 
 def mocked_requests_get(*args, **kwargs):
@@ -44,7 +44,7 @@ class TestDatafetcher(TestCase):
     """
 
     @mock.patch(
-        "datafetcher.controllers.fetcher.requests.get", side_effect=mocked_requests_get
+        "gamezscan.datafetcher.controllers.fetcher.requests.get", side_effect=mocked_requests_get
     )
     def test_can_retrieve_game_name_using_ean(self, mocked_requests_get):
         communicator = fetcher.EANAPICommunicator()
@@ -54,15 +54,15 @@ class TestDatafetcher(TestCase):
         )
 
     @mock.patch(
-        "datafetcher.oauthclient.oauth2api.oauth2api.get_application_token",
+        "gamezscan.datafetcher.oauthclient.oauth2api.oauth2api.get_application_token",
         side_effect=mocked_get_application_token,
     )
     @mock.patch(
-        "datafetcher.oauthclient.credentialutil.credentialutil.load",
+        "gamezscan.datafetcher.oauthclient.credentialutil.credentialutil.load",
         side_effect=mocked_credential_load,
     )
     @mock.patch(
-        "datafetcher.controllers.fetcher.requests.get", side_effect=mocked_requests_get
+        "gamezscan.datafetcher.controllers.fetcher.requests.get", side_effect=mocked_requests_get
     )
     def test_can_retrieve_avg_price_on_ebay(
         self, mocked_get_application_token, mocked_credential_load, mocked_requests_get

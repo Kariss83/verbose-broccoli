@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from accounts.models import CustomUser
+from gamezscan.accounts.models import CustomUser
 
 
 class CustomUserModelTest(TestCase):

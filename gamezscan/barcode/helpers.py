@@ -1,9 +1,9 @@
 from django.shortcuts import redirect
 from django.contrib import messages
 
-from collection.models import Game, Collection
-from barcode.controllers.barcode_reader import ImageReader, Stringb64Reader
-from barcode.controllers.information_gatherer import Gatherer
+from gamezscan.collection.models import Game, Collection
+from gamezscan.barcode.controllers.barcode_reader import ImageReader, Stringb64Reader
+from gamezscan.barcode.controllers.information_gatherer import Gatherer
 
 from pyrate_limiter import BucketFullException
 

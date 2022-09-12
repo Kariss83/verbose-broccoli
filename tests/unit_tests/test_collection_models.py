@@ -2,8 +2,8 @@ from djmoney.money import Money
 
 from django.test import TestCase
 
-from accounts.models import CustomUser
-from collection.models import Collection, Game
+from gamezscan.accounts.models import CustomUser
+from gamezscan.collection.models import Collection, Game
 
 
 def create_an_user(number):

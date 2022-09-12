@@ -1,4 +1,4 @@
-from datafetcher.controllers import fetcher
+from gamezscan.datafetcher.controllers import fetcher
 
 
 class Gatherer:

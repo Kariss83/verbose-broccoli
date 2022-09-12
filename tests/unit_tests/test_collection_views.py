@@ -5,8 +5,8 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.core.exceptions import PermissionDenied
 
-from collection.models import Game, Collection
-from accounts.models import CustomUser
+from gamezscan.collection.models import Game, Collection
+from gamezscan.accounts.models import CustomUser
 
 
 def create_a_game(name, avg_price, barcode):

@@ -112,5 +112,6 @@ TO DO dev - Version 0.2.0:
 - [ ] Add contact info on About and Legal Pages
 - [x] Add a nice favicon
 - [ ] Add a Button to allow camera flip for mobile users
+- [ ] Switch all to Class Based Views
 
 ---
