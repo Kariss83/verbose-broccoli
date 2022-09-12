@@ -81,13 +81,6 @@ See the following links :
 
 ### Linting with flake8
 1. If you want to check code linting on your project you can run `flake8`
-    - (optionnal) You can set up flake8 by creating a setup.cfg file with the following content :
-    ```
-    [flake8]
-    exclude = accounts/migrations,home/migrations,products/migrations
-    max-complexity = 10
-    max-line-length = 119
-    ```
 2. For a nicer visual representation of that info you can run `flake8 --format=html --outputdir=flake-report` and open the html file that's in the flake-report directory.
 
 
