@@ -29,7 +29,7 @@ class GameDetailView(generic.ListView):
 def add_game_to_collection(request):
     if request.method == "POST":
         collection_name = request.POST.get("collections", "")
-        collection = Collection.objects.get(name=collection_name)
+        collection = Collection.objects.get(name=collection_name, user=request.user)
         barcode = request.POST.get("barcode", "")
         game = Game.objects.get(barcode=barcode)
         collection.games.add(game)
