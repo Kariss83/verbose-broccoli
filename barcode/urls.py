@@ -1,9 +1,3 @@
-# future
-
-# standard library
-
-# third-party
-
 # Django
 from django.urls import path
 
@@ -11,8 +5,8 @@ from django.urls import path
 from . import views
 
 
-app_name = 'barcode'
+app_name = "barcode"
 
 urlpatterns = [
-    path('upload/', views.upload_barcode, name='upload'),
+    path("upload/", views.upload_barcode, name="upload"),
 ]

@@ -33,38 +33,39 @@ def find_or_create_game_from_barcode(barcode, request):
                 avg_price = 0
                 messages.error(
                     request,
-                    ('This item have not been found on eBay so price is set to 0.')
+                    ("This item have not been found on eBay so price is set to 0."),
                 )
 
             game = Game.objects.get_or_create(
                 barcode=barcode[0],
                 defaults={
-                    'avg_price': avg_price,
-                    'name': name,
-                    'image': img_url,
-                    }
-                )[0]
+                    "avg_price": avg_price,
+                    "name": name,
+                    "image": img_url,
+                },
+            )[0]
         except BucketFullException as err:
             messages.error(
                 request,
-                (f'Limit of API calls have been reached. Please try again later... {err}')
+                (
+                    f"Limit of API calls have been reached. Please try again later... {err}"
+                ),
             )
-            return redirect('/barcode/upload')
+            return redirect("/barcode/upload")
         except TypeError as err:
             messages.error(
-                request,
-                (f'Could not retrieve a name or a picture url -- {err}')
+                request, (f"Could not retrieve a name or a picture url -- {err}")
             )
-            return redirect('/barcode/upload')
-    context = {'game': game}
+            return redirect("/barcode/upload")
+    context = {"game": game}
     if request.user.is_authenticated:
         collections = Collection.objects.filter(user=request.user)
-        context = {'game': game, 'collections': collections}
+        context = {"game": game, "collections": collections}
     return context
 
 
 def uploadfile_size_too_big(file):
-    return (file.size > 10 * 1024 * 1024)
+    return file.size > 10 * 1024 * 1024
 
 
 def barcode_not_found(barcode):

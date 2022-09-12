@@ -15,17 +15,14 @@ from datafetcher import constants
 from datafetcher.oauthclient.model.model import oAuth_token
 
 
-
-
 opts = FirefoxOptions()
 opts.add_argument("--headless")
 
 
 def create_an_user(number):
     user_test = CustomUser.objects.create(
-            email=f"test{number}@gmail.com",
-            username=f"MRTest{number}"
-        )
+        email=f"test{number}@gmail.com", username=f"MRTest{number}"
+    )
     return user_test
 
 
@@ -38,9 +35,9 @@ def mocked_requests_get(*args, **kwargs):
         def json(self):
             return self.json_data
 
-    if 'https://product-lookup-by-upc-or-ean.p.rapidapi.com/code/' in args[0]:
+    if "https://product-lookup-by-upc-or-ean.p.rapidapi.com/code/" in args[0]:
         return MockResponse(constants.EAN_API_RETURN, 200)
-    elif args[0] == 'https://api.ebay.com/buy/browse/v1/item_summary/search?':
+    elif args[0] == "https://api.ebay.com/buy/browse/v1/item_summary/search?":
         return MockResponse(constants.EBAY_RETURN, 200)
 
     return MockResponse(None, 404)
@@ -48,7 +45,7 @@ def mocked_requests_get(*args, **kwargs):
 
 def mocked_get_application_token(*args, **kwargs):
     token = oAuth_token()
-    token.access_token = 'myfaketoken'
+    token.access_token = "myfaketoken"
     token.token_expiry = datetime.utcnow() + timedelta(hours=5) - timedelta(minutes=5)
     return token
 
@@ -58,32 +55,41 @@ def mocked_credential_load(*args, **kwargs):
 
 
 class UserUploadTest(StaticLiveServerTestCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         cls.selenium = webdriver.Firefox(options=opts)
         cls.selenium.implicitly_wait(10)
         cls.user = create_an_user(1)
-        cls.user.set_password('monsupermotdepasse')
+        cls.user.set_password("monsupermotdepasse")
         cls.user.save()
-        Collection.objects.create(name='My First Collection', user=cls.user)
+        Collection.objects.create(name="My First Collection", user=cls.user)
 
     @classmethod
     def tearDownClass(cls):
         cls.selenium.quit()
         super().tearDownClass()
 
-    @mock.patch('datafetcher.oauthclient.oauth2api.oauth2api.get_application_token', side_effect=mocked_get_application_token)
-    @mock.patch('datafetcher.oauthclient.credentialutil.credentialutil.load', side_effect=mocked_credential_load)
-    @mock.patch('datafetcher.controllers.fetcher.requests.get', side_effect=mocked_requests_get)
-    def test_can_upload_a_file(self, mocked_get_application_token, mocked_credential_load, mocked_requests_get):
+    @mock.patch(
+        "datafetcher.oauthclient.oauth2api.oauth2api.get_application_token",
+        side_effect=mocked_get_application_token,
+    )
+    @mock.patch(
+        "datafetcher.oauthclient.credentialutil.credentialutil.load",
+        side_effect=mocked_credential_load,
+    )
+    @mock.patch(
+        "datafetcher.controllers.fetcher.requests.get", side_effect=mocked_requests_get
+    )
+    def test_can_upload_a_file(
+        self, mocked_get_application_token, mocked_credential_load, mocked_requests_get
+    ):
         # getting file to upload
         cwd = os.getcwd()
-        image_path = os.path.join(cwd, 'tests/unit_tests/media_test/barcode.png')
+        image_path = os.path.join(cwd, "tests/unit_tests/media_test/barcode.png")
 
         # going to upload url
-        self.selenium.get(f'{self.live_server_url}/barcode/upload')
+        self.selenium.get(f"{self.live_server_url}/barcode/upload")
         file_input = self.selenium.find_element(By.NAME, "file")
         file_input.send_keys(image_path)
 

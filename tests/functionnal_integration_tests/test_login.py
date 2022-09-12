@@ -12,9 +12,8 @@ opts.add_argument("--headless")
 
 def create_an_user(number):
     user_test = CustomUser.objects.create(
-            email=f"test{number}@gmail.com",
-            username=f"MRTest{number}"
-        )
+        email=f"test{number}@gmail.com", username=f"MRTest{number}"
+    )
     return user_test
 
 
@@ -25,7 +24,7 @@ class UserLoginTest(StaticLiveServerTestCase):
         cls.selenium = webdriver.Firefox(options=opts)
         cls.selenium.implicitly_wait(10)
         cls.user = create_an_user(1)
-        cls.user.set_password('monsupermotdepasse')
+        cls.user.set_password("monsupermotdepasse")
         cls.user.save()
 
     @classmethod
@@ -34,16 +33,18 @@ class UserLoginTest(StaticLiveServerTestCase):
         super().tearDownClass()
 
     def test_can_login(self):
-        self.selenium.get(f'{self.live_server_url}/accounts/login/')
+        self.selenium.get(f"{self.live_server_url}/accounts/login/")
         username_input = self.selenium.find_element(By.NAME, "email")
-        username_input.send_keys('test1@gmail.com')
+        username_input.send_keys("test1@gmail.com")
         password_input = self.selenium.find_element(By.NAME, "password")
-        password_input.send_keys('monsupermotdepasse')
-        self.selenium.find_element(By.XPATH, '/html/body/header/div/form/p[2]/input').click()
+        password_input.send_keys("monsupermotdepasse")
+        self.selenium.find_element(
+            By.XPATH, "/html/body/header/div/form/p[2]/input"
+        ).click()
 
-        message = self.selenium.find_element(By.CLASS_NAME, 'alert')
-        self.assertIn('You are logged in !', message.text)
+        message = self.selenium.find_element(By.CLASS_NAME, "alert")
+        self.assertIn("You are logged in !", message.text)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pass

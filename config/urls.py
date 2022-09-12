@@ -22,11 +22,11 @@ import collection.urls
 import datafetcher.urls
 
 urlpatterns = [
-    path('', barcode.views.home_view, name='home'),
-    path('__debug__/', include('debug_toolbar.urls')),
-    path('admin/', admin.site.urls),
-    path('accounts/', include(accounts.urls, namespace='accounts')),
-    path('barcode/', include(barcode.urls, namespace='barcode')),
-    path('collection/', include(collection.urls, namespace='collection')),
-    path('datafetcher/', include(datafetcher.urls, namespace='datafetcher')),
+    path("", barcode.views.home_view, name="home"),
+    path("__debug__/", include("debug_toolbar.urls")),
+    path("admin/", admin.site.urls),
+    path("accounts/", include(accounts.urls, namespace="accounts")),
+    path("barcode/", include(barcode.urls, namespace="barcode")),
+    path("collection/", include(collection.urls, namespace="collection")),
+    path("datafetcher/", include(datafetcher.urls, namespace="datafetcher")),
 ]

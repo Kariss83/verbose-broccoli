@@ -13,49 +13,39 @@ from barcode.helpers import parse_img_to_barcode
 # Create your views here.
 # upload view
 def upload_barcode(request):
-    if request.method == 'POST':
-        if request.POST.get('b64img', None) is not None:
-            img_data_str = request.POST.get('b64img', '')
+    if request.method == "POST":
+        if request.POST.get("b64img", None) is not None:
+            img_data_str = request.POST.get("b64img", "")
             barcode = convert_img_str_to_barcode(img_data_str)
 
             if barcode_not_found(barcode):
-                messages.error(request, ('No barcode detected - Try again...'))
-                return redirect('/barcode/upload')
+                messages.error(request, ("No barcode detected - Try again..."))
+                return redirect("/barcode/upload")
             else:
                 context = find_or_create_game_from_barcode(barcode, request)
         else:
             form = UploadFileForm(request.POST, request.FILES)
 
-            if uploadfile_size_too_big(request.FILES['file']):
-                messages.error(request, 'File too large. Size should not exceed 10 MiB.')
-                form = UploadFileForm()
-                return render(
-                    request,
-                    'barcode/scan.html',
-                    {'form': form}
+            if uploadfile_size_too_big(request.FILES["file"]):
+                messages.error(
+                    request, "File too large. Size should not exceed 10 MiB."
                 )
+                form = UploadFileForm()
+                return render(request, "barcode/scan.html", {"form": form})
             else:
                 if form.is_valid():
-                    barcode = parse_img_to_barcode(request.FILES['file'])
+                    barcode = parse_img_to_barcode(request.FILES["file"])
 
                     if barcode_not_found(barcode):
-                        messages.error(request, ('No barcode detected - Try again...'))
-                        return redirect('/barcode/upload')
+                        messages.error(request, ("No barcode detected - Try again..."))
+                        return redirect("/barcode/upload")
                     else:
                         context = find_or_create_game_from_barcode(barcode, request)
-        return render(request, 'barcode/upload.html', context)
+        return render(request, "barcode/upload.html", context)
     else:
         form = UploadFileForm()
-        return render(
-            request,
-            'barcode/scan.html',
-            {'form': form}
-        )
+        return render(request, "barcode/scan.html", {"form": form})
 
 
 def home_view(request):
-    return render(
-        request,
-        'home.html',
-        {}
-        )
+    return render(request, "home.html", {})

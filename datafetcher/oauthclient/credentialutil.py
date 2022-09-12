@@ -30,25 +30,26 @@ class credentialutil(object):
     """
     credential_list: dictionary key=string, value=credentials
     """
+
     _credential_list = {}
 
     @classmethod
     def load(cls, app_config_path):
-        with open(app_config_path, 'r') as f:
-            if app_config_path.endswith('.json'):
+        with open(app_config_path, "r") as f:
+            if app_config_path.endswith(".json"):
                 content = json.loads(f.read())
             else:
-                raise ValueError('Configuration file need to be in JSON or YAML')
+                raise ValueError("Configuration file need to be in JSON or YAML")
             credentialutil._iterate(content)
 
     @classmethod
     def _iterate(cls, content):
         for key in content:
             if key in [environment.PRODUCTION.config_id, environment.SANDBOX.config_id]:
-                client_id = content[key]['appid']
-                dev_id = content[key]['devid']
-                client_secret = content[key]['certid']
-                ru_name = content[key]['redirecturi']
+                client_id = content[key]["appid"]
+                dev_id = content[key]["devid"]
+                client_secret = content[key]["certid"]
+                ru_name = content[key]["redirecturi"]
 
                 app_info = credentials(client_id, client_secret, dev_id, ru_name)
                 cls._credential_list.update({key: app_info})

@@ -10,19 +10,12 @@ from accounts.models import CustomUser
 
 
 def create_a_game(name, avg_price, barcode):
-    game = Game.objects.create(
-            name=f"test{name}",
-            avg_price=avg_price,
-            barcode=barcode
-            )
+    game = Game.objects.create(name=f"test{name}", avg_price=avg_price, barcode=barcode)
     return game
 
 
 def create_a_collection(name, user):
-    collection = Collection.objects.create(
-            name=f"test{name}",
-            user=user
-            )
+    collection = Collection.objects.create(name=f"test{name}", user=user)
     return collection
 
 
@@ -32,6 +25,7 @@ class TestCollectionViewsModule(TestCase):
     Args:
         TestCase (_type_): Default Test class
     """
+
     @classmethod
     def setUpTestData(cls):
         cls.client = Client()
@@ -40,18 +34,15 @@ class TestCollectionViewsModule(TestCase):
             email="test@gmail.com",
             username="MRTest",
         )
-        cls.user.set_password('monsupermotdepasse')
+        cls.user.set_password("monsupermotdepasse")
         cls.user.save()
 
         cls.first_collection = Collection.objects.create(
-            name='My First Collection',
-            user=cls.user
+            name="My First Collection", user=cls.user
         )
 
         cls.gameLOTR = create_a_game(
-            "Le Seigneur des anneaux - La guerre du Nord",
-            14,
-            5051889074847
+            "Le Seigneur des anneaux - La guerre du Nord", 14, 5051889074847
         )
         cls.game1 = create_a_game(1, 10, 505051889074846)
         cls.game2 = create_a_game(2, 30, 505051889074845)
@@ -60,99 +51,95 @@ class TestCollectionViewsModule(TestCase):
         # Adding games to the collection
         cls.first_collection.games.add(cls.game1)
 
-        cls.all_collections_url = reverse('collection:all_collections')
-        cls.add_game_to_collection_url = reverse('collection:add_game_to_collection')
-        cls.create_collection_url = reverse('collection:create')
-        cls.remove_game_from_collection_url = reverse('collection:remove')
-        cls.delete_collection_url = reverse('collection:delete_collection')
+        cls.all_collections_url = reverse("collection:all_collections")
+        cls.add_game_to_collection_url = reverse("collection:add_game_to_collection")
+        cls.create_collection_url = reverse("collection:create")
+        cls.remove_game_from_collection_url = reverse("collection:remove")
+        cls.delete_collection_url = reverse("collection:delete_collection")
 
     def test_add_game_to_collection_GET(self):
-        self.client.login(email='test@gmail.com', password='monsupermotdepasse')
+        self.client.login(email="test@gmail.com", password="monsupermotdepasse")
         self.client.get(self.add_game_to_collection_url)
         self.assertRaises(PermissionDenied)
 
     def test_add_game_to_collection_POST(self):
-        self.client.login(email='test@gmail.com', password='monsupermotdepasse')
+        self.client.login(email="test@gmail.com", password="monsupermotdepasse")
         self.client.post(
             self.add_game_to_collection_url,
-            {'collections': 'My First Collection',
-            'barcode': '5051889074847'},
-            follow=True
+            {"collections": "My First Collection", "barcode": "5051889074847"},
+            follow=True,
         )
-        collection = Collection.objects.get(name='My First Collection', user=self.user)
+        collection = Collection.objects.get(name="My First Collection", user=self.user)
         game_list = [game for game in collection.games.all()]
         self.assertEqual(str(self.gameLOTR.name), str(game_list[0]))
 
     def test_see_all_collections_GET(self):
-        self.client.login(email='test@gmail.com', password='monsupermotdepasse')
+        self.client.login(email="test@gmail.com", password="monsupermotdepasse")
         response = self.client.get(self.all_collections_url)
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'collections/all_collections.html')
+        self.assertTemplateUsed(response, "collections/all_collections.html")
 
     def test_create_new_collection_GET(self):
-        self.client.login(email='test@gmail.com', password='monsupermotdepasse')
+        self.client.login(email="test@gmail.com", password="monsupermotdepasse")
         response = self.client.get(self.create_collection_url)
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'collections/create_new.html')
+        self.assertTemplateUsed(response, "collections/create_new.html")
 
     def test_create_new_collection_POST(self):
-        self.client.login(email='test@gmail.com', password='monsupermotdepasse')
+        self.client.login(email="test@gmail.com", password="monsupermotdepasse")
         response = self.client.post(
-            self.create_collection_url,
-            {'name': 'My Second Collection'},
-            follow=True
+            self.create_collection_url, {"name": "My Second Collection"}, follow=True
         )
         collections = Collection.objects.filter(user=self.user)
         self.assertTrue(len(collections) == 2)
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'collections/all_collections.html')
+        self.assertTemplateUsed(response, "collections/all_collections.html")
 
     def test_create_new_collection_POST_integrity_error(self):
-        self.client.login(email='test@gmail.com', password='monsupermotdepasse')
+        self.client.login(email="test@gmail.com", password="monsupermotdepasse")
         response = self.client.post(
-            self.create_collection_url,
-            {'name': 'My First Collection'},
-            follow=True
+            self.create_collection_url, {"name": "My First Collection"}, follow=True
         )
-        messages = list(response.context['messages'])
+        messages = list(response.context["messages"])
         self.assertEqual(len(messages), 1)
-        self.assertTrue('You already have a collection with that name' in str(messages[0]))
+        self.assertTrue(
+            "You already have a collection with that name" in str(messages[0])
+        )
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'collections/create_new.html')
+        self.assertTemplateUsed(response, "collections/create_new.html")
 
     def test_delete_collection_GET(self):
-        self.client.login(email='test@gmail.com', password='monsupermotdepasse')
+        self.client.login(email="test@gmail.com", password="monsupermotdepasse")
         self.client.get(self.delete_collection_url)
         self.assertRaises(PermissionDenied)
 
     def test_delete_collection_POST(self):
-        self.client.login(email='test@gmail.com', password='monsupermotdepasse')
+        self.client.login(email="test@gmail.com", password="monsupermotdepasse")
         collections = Collection.objects.filter(user=self.user)
         self.assertTrue(len(collections) == 1)
         self.client.post(
             self.delete_collection_url,
-            {'collection': 'My First Collection'},
-            follow=True
+            {"collection": "My First Collection"},
+            follow=True,
         )
         collections = Collection.objects.filter(user=self.user)
         self.assertTrue(len(collections) == 0)
 
     def test_remove_game_from_collection_GET(self):
-        self.client.login(email='test@gmail.com', password='monsupermotdepasse')
+        self.client.login(email="test@gmail.com", password="monsupermotdepasse")
         self.client.get(self.remove_game_from_collection_url)
         self.assertRaises(PermissionDenied)
 
     def test_remove_game_from_collection_POST(self):
-        self.client.login(email='test@gmail.com', password='monsupermotdepasse')
-        collection = Collection.objects.get(name='My First Collection', user=self.user)
+        self.client.login(email="test@gmail.com", password="monsupermotdepasse")
+        collection = Collection.objects.get(name="My First Collection", user=self.user)
         game_name_list = [str(game.name) for game in collection.games.all()]
         self.assertTrue(str(self.game1.name) in game_name_list)
         self.client.post(
             self.remove_game_from_collection_url,
-            {'collection': 'My First Collection',
-            'barcode': '505051889074846'},
-            follow=True
+            {"collection": "My First Collection", "barcode": "505051889074846"},
+            follow=True,
         )
-        collection = Collection.objects.get(name='My First Collection', user=self.user)
+        collection = Collection.objects.get(name="My First Collection", user=self.user)
         game_name_list = [str(game.name) for game in collection.games.all()]
         self.assertTrue(str(self.game1.name) not in game_name_list)

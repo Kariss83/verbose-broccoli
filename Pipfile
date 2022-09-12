@@ -25,6 +25,7 @@ sentry-sdk = "*"
 django-debug-toolbar = "*"
 flake8 = "*"
 coverage = "*"
+black = "*"
 
 [requires]
 python_version = "3.9"

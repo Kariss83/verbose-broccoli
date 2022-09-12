@@ -29,8 +29,16 @@ class env_type(object):
 
 
 class environment(object):
-    PRODUCTION = env_type("api.ebay.com", "https://auth.ebay.com/oauth2/authorize", "https://api.ebay.com/identity/v1/oauth2/token")
-    SANDBOX = env_type("api.sandbox.ebay.com", "https://auth.sandbox.ebay.com/oauth2/authorize", "https://api.sandbox.ebay.com/identity/v1/oauth2/token")
+    PRODUCTION = env_type(
+        "api.ebay.com",
+        "https://auth.ebay.com/oauth2/authorize",
+        "https://api.ebay.com/identity/v1/oauth2/token",
+    )
+    SANDBOX = env_type(
+        "api.sandbox.ebay.com",
+        "https://auth.sandbox.ebay.com/oauth2/authorize",
+        "https://api.sandbox.ebay.com/identity/v1/oauth2/token",
+    )
 
 
 class credentials(object):
@@ -42,12 +50,18 @@ class credentials(object):
 
 
 class oAuth_token(object):
-
-    def __init__(self, error=None, access_token=None, refresh_token=None, refresh_token_expiry=None, token_expiry=None):
-        '''
-            token_expiry: datetime in UTC
-            refresh_token_expiry: datetime in UTC
-        '''
+    def __init__(
+        self,
+        error=None,
+        access_token=None,
+        refresh_token=None,
+        refresh_token_expiry=None,
+        token_expiry=None,
+    ):
+        """
+        token_expiry: datetime in UTC
+        refresh_token_expiry: datetime in UTC
+        """
         self.access_token = access_token
         self.token_expiry = token_expiry
         self.refresh_token = refresh_token
@@ -55,10 +69,16 @@ class oAuth_token(object):
         self.error = error
 
     def __str__(self):
-        token_str = '{'
+        token_str = "{"
         if self.error is not None:
             token_str += '"error": "' + self.error + '"'
         elif self.access_token is not None:
-            token_str += '"access_token": "' + self.access_token + '", "expires_in": "' + self.token_expiry.strftime('%Y-%m-%dT%H:%M:%S:%f') + '"'
-        token_str += '}'
+            token_str += (
+                '"access_token": "'
+                + self.access_token
+                + '", "expires_in": "'
+                + self.token_expiry.strftime("%Y-%m-%dT%H:%M:%S:%f")
+                + '"'
+            )
+        token_str += "}"
         return token_str

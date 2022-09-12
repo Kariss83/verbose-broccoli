@@ -8,7 +8,6 @@ from django.contrib.auth.models import PermissionsMixin
 
 
 class CustomUserManager(UserManager):
-
     def _create_user(self, email, password, **extra_fields):
         """
         Create and save a user with the given email, and password.
@@ -47,16 +46,15 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     admin-compliant permissions.
     Username and password are required. Other fields are optional.
     """
+
     email = models.EmailField(
         _("email address"),
         unique=True,
         error_messages={
             "unique": _("A user with that email already exists."),
-        },)
-    username = models.CharField(
-        _("username"),
-        max_length=30,
-        blank=True)
+        },
+    )
+    username = models.CharField(_("username"), max_length=30, blank=True)
     address = models.CharField(_("address"), max_length=600, blank=True)
     is_staff = models.BooleanField(
         _("staff status"),

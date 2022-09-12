@@ -6,12 +6,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('collection', '0001_initial'),
+        ("collection", "0001_initial"),
     ]
 
     operations = [
         migrations.AddConstraint(
-            model_name='game',
-            constraint=models.UniqueConstraint(fields=('barcode',), name='unique_barcode'),
+            model_name="game",
+            constraint=models.UniqueConstraint(
+                fields=("barcode",), name="unique_barcode"
+            ),
         ),
     ]
