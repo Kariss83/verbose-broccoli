@@ -9,8 +9,8 @@ from datetime import datetime, timedelta
 from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from gamezscan.barcode.controllers.barcode_reader import ImageReader, Stringb64Reader
-from gamezscan.barcode.controllers.information_gatherer import Gatherer
+from gamezscan.barcode.barcode_reader import ImageReader, Stringb64Reader
+from gamezscan.barcode.information_gatherer import Gatherer
 from gamezscan.datafetcher.oauthclient.model.model import oAuth_token
 from gamezscan.datafetcher import constants as cst
 from . import constants
@@ -105,7 +105,8 @@ class TestInformationGathererModule(TestCase):
         side_effect=mocked_credential_load,
     )
     @mock.patch(
-        "gamezscan.datafetcher.controllers.fetcher.requests.get", side_effect=mocked_requests_get
+        "gamezscan.datafetcher.fetcher.requests.get",
+        side_effect=mocked_requests_get,
     )
     def test_gatherer_can_get_name_and_img_url(
         self, mocked_get_application_token, mocked_credential_load, mocked_requests_get

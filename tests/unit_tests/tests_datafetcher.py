@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from django.test import TestCase
 
 from gamezscan.datafetcher import constants
-from gamezscan.datafetcher.controllers import fetcher
+from gamezscan.datafetcher import fetcher
 from gamezscan.datafetcher.oauthclient.model.model import oAuth_token
 
 
@@ -44,7 +44,7 @@ class TestDatafetcher(TestCase):
     """
 
     @mock.patch(
-        "gamezscan.datafetcher.controllers.fetcher.requests.get", side_effect=mocked_requests_get
+        "gamezscan.datafetcher.fetcher.requests.get", side_effect=mocked_requests_get
     )
     def test_can_retrieve_game_name_using_ean(self, mocked_requests_get):
         communicator = fetcher.EANAPICommunicator()
@@ -62,7 +62,7 @@ class TestDatafetcher(TestCase):
         side_effect=mocked_credential_load,
     )
     @mock.patch(
-        "gamezscan.datafetcher.controllers.fetcher.requests.get", side_effect=mocked_requests_get
+        "gamezscan.datafetcher.fetcher.requests.get", side_effect=mocked_requests_get
     )
     def test_can_retrieve_avg_price_on_ebay(
         self, mocked_get_application_token, mocked_credential_load, mocked_requests_get

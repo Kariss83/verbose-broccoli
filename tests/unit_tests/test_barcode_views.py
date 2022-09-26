@@ -88,7 +88,7 @@ class TestBarcodeViewsModule(TestCase):
         side_effect=mocked_credential_load,
     )
     @mock.patch(
-        "gamezscan.datafetcher.controllers.fetcher.requests.get", side_effect=mocked_requests_get
+        "gamezscan.datafetcher.fetcher.requests.get", side_effect=mocked_requests_get
     )
     def test_upload_barcode_POST_file_not_logged_in(
         self, mocked_get_application_token, mocked_credential_load, mocked_requests_get
@@ -124,7 +124,7 @@ class TestBarcodeViewsModule(TestCase):
         side_effect=mocked_credential_load,
     )
     @mock.patch(
-        "gamezscan.datafetcher.controllers.fetcher.requests.get", side_effect=mocked_requests_get
+        "gamezscan.datafetcher.fetcher.requests.get", side_effect=mocked_requests_get
     )
     def test_upload_barcode_POST_file_logged_in(
         self, mocked_get_application_token, mocked_credential_load, mocked_requests_get
@@ -158,7 +158,7 @@ class TestBarcodeViewsModule(TestCase):
         side_effect=mocked_credential_load,
     )
     @mock.patch(
-        "gamezscan.datafetcher.controllers.fetcher.requests.get", side_effect=mocked_requests_get
+        "gamezscan.datafetcher.fetcher.requests.get", side_effect=mocked_requests_get
     )
     def test_can_upload_using_webcam_not_logged_in(
         self, mocked_get_application_token, mocked_credential_load, mocked_requests_get
@@ -179,7 +179,7 @@ class TestBarcodeViewsModule(TestCase):
         side_effect=mocked_credential_load,
     )
     @mock.patch(
-        "gamezscan.datafetcher.controllers.fetcher.requests.get", side_effect=mocked_requests_get
+        "gamezscan.datafetcher.fetcher.requests.get", side_effect=mocked_requests_get
     )
     def test_can_upload_using_webcam_logged_in(
         self, mocked_get_application_token, mocked_credential_load, mocked_requests_get

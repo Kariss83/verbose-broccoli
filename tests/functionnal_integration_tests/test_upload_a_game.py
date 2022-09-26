@@ -79,7 +79,7 @@ class UserUploadTest(StaticLiveServerTestCase):
         side_effect=mocked_credential_load,
     )
     @mock.patch(
-        "gamezscan.datafetcher.controllers.fetcher.requests.get", side_effect=mocked_requests_get
+        "gamezscan.datafetcher.fetcher.requests.get", side_effect=mocked_requests_get
     )
     def test_can_upload_a_file(
         self, mocked_get_application_token, mocked_credential_load, mocked_requests_get
