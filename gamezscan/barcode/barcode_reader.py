@@ -10,7 +10,10 @@ from pyzbar.pyzbar import decode
 
 
 class ImageReader:
-    """_summary_"""
+    """Helper class scanning images from file upload for barcode
+    Handles image reading when a whole image file is uploaded
+    -- read the file, save it in a tempfile and find barcode
+    """
 
     def __init__(self, file):
         self.file = file
@@ -30,6 +33,12 @@ class ImageReader:
 
 
 class Stringb64Reader:
+    """Helper class scanning images from webcam upload for barcode
+    Handles image reading when a webcam capture image b64 string is uploaded
+    -- read the string, bring it back to image data, save it in a tempfile
+    and find barcode
+    """
+
     def __init__(self, img_data_string):
         self.img_data_str = str(img_data_string)
         self.img = None
