@@ -122,10 +122,12 @@ video {
         font-style: italic;
         font-size: small;
         align-items: center;
+        justify-content: center;
     }
     .explanation-block{
         display: flex !important;
         flex-direction: column !important;
+        padding: 2rem;
     }
     .explanation-block-reversed{
         flex-direction: column !important;
