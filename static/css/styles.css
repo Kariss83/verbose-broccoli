@@ -142,6 +142,8 @@ video {
     .explanation{
         display: flex;
         flex-direction: column;
+        align-items: center;
+        
     }
     .explanation-text{
         display: flex;
