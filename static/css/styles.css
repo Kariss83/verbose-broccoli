@@ -1,12 +1,16 @@
 #expand-button {
     border-color: transparent;
 }
+.navbar{
+    min-height : 3rem;
+}
 
 .masthead {
     padding-top: 2rem;
     padding-left: 3rem;
     padding-right: 3rem;
     padding-bottom: 3rem;
+    min-height: calc(100vh - 10rem);
 }
 
 header {
@@ -15,6 +19,8 @@ header {
 
 footer {
     padding: 1rem;
+    margin-bottom: 0px;
+    min-height: 4rem;
 }
 
 .form-group {
@@ -100,17 +106,58 @@ video {
     text-align: center;
 }
 
-#explanation-img {
-    width: 40%;
-    height: auto;
-}
 
-.explanation {
-    font-style: italic;
-    font-size: small;
-    align-items: center;
-}
+
 
 #collec-creation-link {
     padding-top: 1rem;
 }
+
+.form-control:focus{
+    border-color: rgb(73, 50, 204);
+    box-shadow: 0 0 0 0.25rem rgb(73, 50, 204);
+}
+
+@media (min-width: 992px) {
+    .explanation{
+        display: flex;
+        flex-direction: row;
+        font-style: italic;
+        font-size: small;
+        align-items: center;
+    }
+    .explanation-block{
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    .explanation-block-reversed{
+        flex-direction: column !important;
+    }
+    #explanation-img {
+        object-fit: contain;
+        height: 15rem;
+    }
+ }
+
+ @media (max-width: 992px) {
+    .explanation{
+        display: flex;
+        flex-direction: column;
+    }
+    .explanation-text{
+        display: flex;
+        font-style: italic;
+        font-size: small;
+        align-items: center;
+    }
+    .explanation-block{
+        flex-direction: row !important;
+    }
+    .explanation-block-reversed{
+        flex-direction: row-reverse !important;
+    }
+    #explanation-img {
+        object-fit: contain;
+        height: 15rem;
+    }
+ }

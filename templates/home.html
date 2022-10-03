@@ -23,17 +23,25 @@
         <p>
             See how it works below :
         </p>
-        <div class="d-flex flex-row explanation">
-            <img src="{% static 'assets/explanation_1.png' %}" alt="explanation_img_1" id="explanation-img">
-            <p>Use you camera or webcam to take a picture of a game's barcode and upload it,</p>
-        </div>
-        <div class="d-flex flex-row-reverse explanation">
-            <img src="{% static 'assets/explanation_2.png' %}" alt="explanation_img_2" id="explanation-img">
-            <p>The app will automatically detect which game it is and give you the average price at which it sells on eBay !</p>
-        </div>
-        <div class="d-flex flex-row explanation">
-            <img src="{% static 'assets/explanation_3.png' %}" alt="explanation_img_3" id="explanation-img">
-            <p>If you are logged in, you can now add this game to one of your collection.</p>
+        <div class="explanation">
+            <div class="d-flex explanation-block">
+                <img src="{% static 'assets/explanation_1.png' %}" alt="explanation_img_1" id="explanation-img">
+                <div class="explanation-text">
+                    <p>Use you camera or webcam to take a picture of a game's barcode and upload it,</p>
+                </div>
+            </div>
+            <div class="d-flex explanation-block-reversed">
+                <img src="{% static 'assets/explanation_2.png' %}" alt="explanation_img_2" id="explanation-img">
+                <div class="explanation-text">
+                    <p>The app will automatically detect which game it is and give you the average price at which it sells on eBay !</p>
+                </div>
+            </div>
+            <div class="d-flex explanation-block">
+                <img src="{% static 'assets/explanation_3.png' %}" alt="explanation_img_3" id="explanation-img">
+                <div class="explanation-text">
+                    <p>If you are logged in, you can now add this game to one of your collection.</p>
+                </div>
+            </div>
         </div>
     </div>
 
