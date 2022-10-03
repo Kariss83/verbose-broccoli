@@ -45,7 +45,3 @@ def upload_barcode(request):
     else:
         form = UploadFileForm()
         return render(request, "barcode/scan.html", {"form": form})
-
-
-def home_view(request):
-    return render(request, "home.html", {})

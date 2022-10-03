@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "gamezscan.barcode.apps.BarcodeConfig",
     "gamezscan.collection.apps.CollectionConfig",
     "gamezscan.datafetcher.apps.DatafetcherConfig",
+    "gamezscan.home.apps.HomeConfig",
     "crispy_forms",
     "djmoney",
     "debug_toolbar",

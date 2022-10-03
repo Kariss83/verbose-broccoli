@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<header class="masthead">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>	
+        {% endfor %}
+    {% endif %}
+    <br>
+    <div class="d-flex flex-column justify-content-center text-center">
+        <h2>About us :</h2>
+        <h5 class="mb-4 small">This app have been developped as a POC for a bigger project that is yet to come. If you want to participate in the project do not hesitate to send us a mail.</h5>
+        <h2>Contact :</h2>
+        <h5 class="mb-4 small">If you want to reach out to us, send a mail to : student.project3.0@gmail.com</h5>
+        
+</header>
+{% endblock content %}

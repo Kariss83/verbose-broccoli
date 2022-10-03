@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<header class="masthead">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>	
+        {% endfor %}
+    {% endif %}
+    <br>
+    <div class="d-flex flex-column justify-content-center text-center">
+        <h2>Hosted on :</h2>
+        <h5 class="mb-4 small">OVH France</h5>
+        <h2>Credits :</h2>
+        <p>Favicon found on thenounproject.com</p>
+
+        
+</header>
+{% endblock content %}

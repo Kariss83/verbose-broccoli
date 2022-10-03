@@ -16,13 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from gamezscan.home import views as home_views
 import gamezscan.accounts.urls
 import gamezscan.barcode.urls
 import gamezscan.collection.urls
 import gamezscan.datafetcher.urls
 
 urlpatterns = [
-    path("", gamezscan.barcode.views.home_view, name="home"),
+    path("", home_views.home_view, name="home"),
+    path("about", home_views.about_view, name="about"),
+    path("legal", home_views.legal_view, name="legal"),
     path("__debug__/", include("debug_toolbar.urls")),
     path("admin/", admin.site.urls),
     path("accounts/", include(gamezscan.accounts.urls, namespace="accounts")),
