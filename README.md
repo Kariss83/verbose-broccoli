@@ -101,9 +101,9 @@ TO DO dev - Version 0.2.0:
 - [ ] Make a complete check of datastructures used (are all barcode strings for instance)
 - [ ] Rework Database Models and check if the datastructure are coherent there
 - [ ] Add functionnality the allows user to see all previously scanned games and let them add it to their collection without having to scan it themselves
-- [ ] Web app design on non mobile browser
+- [x] Web app design on non mobile browser
 - [ ] Backing up security for file upload with NginX
-- [ ] Add contact info on About and Legal Pages
+- [x] Add contact info on About and Legal Pages
 - [x] Add a nice favicon
 - [ ] Add a Button to allow camera flip for mobile users
 - [ ] Switch all to Class Based Views
