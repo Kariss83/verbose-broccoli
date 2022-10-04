@@ -13,39 +13,47 @@ inputFields.forEach(field => {
 
 
 // Using cam on viewer device
-const webCamElement = document.getElementById('webCam');
-const canvasElement = document.getElementById('webCamCanvas');
-const webcam = new Webcam(webCamElement, "user", canvasElement);
-const cameraElement = document.querySelector('#my-camera')
-const notAuthorizedElement = document.querySelector('.not-yet-authorized')
-const scanButtonElement = document.querySelector('#scan-button')
-const imageDataInput = document.querySelector('#image-data')
-const scanForm = document.querySelector("form[name='scanform']")
+function getCurrentURL () {
+    return window.location.href
+  }
 
-const startWebCam = () => {
-    webcam.start()
-        .then(result =>{
-            // webCamElement.style = ""
-            console.log("webcam started");
-        })
-        .catch(err => {
-            console.log(err);
-        });
+const url = getCurrentURL()
+
+if (url.endsWith('/barcode/upload/')){
+    const webCamElement = document.getElementById('webCam');
+    const canvasElement = document.getElementById('webCamCanvas');
+    const webcam = new Webcam(webCamElement, "user", canvasElement);
+    const cameraElement = document.querySelector('#my-camera')
+    const notAuthorizedElement = document.querySelector('.not-yet-authorized')
+    const scanButtonElement = document.querySelector('#scan-button')
+    const imageDataInput = document.querySelector('#image-data')
+    const scanForm = document.querySelector("form[name='scanform']")
+    
+    const startWebCam = () => {
+        webcam.start()
+            .then(result =>{
+                // webCamElement.style = ""
+                console.log("webcam started");
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
+    
+    const takePicture = () => {
+        let picture = webcam.snap();
+        imageDataInput.value = picture;
     }
-
-const takePicture = () => {
-    let picture = webcam.snap();
-    imageDataInput.value = picture;
+    
+    cameraElement.addEventListener("click", () => {
+        notAuthorizedElement.classList.add('d-none');
+        startWebCam();
+    })
+    
+    scanButtonElement.addEventListener("click", (e) => {
+        e.preventDefault();
+        takePicture();
+        scanForm.requestSubmit(scanButtonElement);
+    })
 }
-
-cameraElement.addEventListener("click", () => {
-    notAuthorizedElement.classList.add('d-none');
-    startWebCam();
-})
-
-scanButtonElement.addEventListener("click", (e) => {
-    e.preventDefault();
-    takePicture();
-    scanForm.requestSubmit(scanButtonElement);
-})
 
