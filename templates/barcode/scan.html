@@ -13,9 +13,9 @@
         {% endif %}
         <br>
         <div class="d-flex flex-column justify-content-center">
-            <p>Use your phone or computer’s camera to capture your game’s barcode<p>
+            <p>Use your phone or computer’s camera to capture your game’s barcode.<p>
 
-            <form method=POST enctype="multipart/form-data" action="{% url 'barcode:upload' %}" name='scanform'>
+            <form method=POST enctype="multipart/form-data" action="{% url 'barcode:upload' %}" name='scanform' class="mb-5">
                 {% csrf_token %}
                 <div class="d-flex flex-column" id="my-camera">
                     <div class="not-yet-authorized">
@@ -28,6 +28,7 @@
                     
                 </div>
             </form>
+            <p class="text-centered">Or upload an image you already have on your system.</p>
             <form method=POST enctype="multipart/form-data" action="{% url 'barcode:upload' %}" name='uploadform'>
                 <div class="d-flex flex-column" id="my-upload">
                     {% csrf_token %}

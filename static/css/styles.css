@@ -6,14 +6,6 @@
     min-height: 3rem;
 }
 
-.masthead {
-    padding-top: 2rem;
-    padding-left: 3rem;
-    padding-right: 3rem;
-    padding-bottom: 3rem;
-    min-height: calc(100vh - 10rem);
-}
-
 .content {
     padding-top: 2rem;
     padding-left: 3rem;
@@ -59,14 +51,15 @@ video {
 }
 
 .not-yet-authorized {
-    background-color: lightgray;
+    background-color: RGBA(248, 249, 250, var(--bs-bg-opacity, 1));
     position: absolute;
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: dotted;
+    border: dotted 1px;
+    border-radius: 25px;
 
 }
 
@@ -132,8 +125,6 @@ video {
     .explanation {
         display: flex;
         flex-direction: row;
-        font-style: italic;
-        font-size: small;
         align-items: center;
         justify-content: center;
         background-color: RGBA(248, 249, 250, var(--bs-bg-opacity, 1));
@@ -158,13 +149,13 @@ video {
     .explanation-text {
         display: flex;
         font-style: italic;
-        font-size: small;
+        font-size: medium;
         align-items: center;
         height: 4rem;
     }
 
     .explanation-text>p {
-        margin: 0;
+        margin-top: 3rem;
     }
 }
 
@@ -181,7 +172,7 @@ video {
     .explanation-text {
         display: flex;
         font-style: italic;
-        font-size: small;
+        font-size: medium;
         align-items: center;
     }
 
@@ -222,7 +213,6 @@ video {
     }
 }
 
-
 .credits-list {
     text-align: initial !important;
 }
@@ -236,3 +226,8 @@ footer {
     --bs-text-opacity: 1;
     color: #c9d1e7;
 }
+
+.nav-link:hover {
+    color: #c9d1e7;
+}
+

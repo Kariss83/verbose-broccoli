@@ -3,7 +3,6 @@
 {% load static %}
 
 {% block content %}
-<div class="content">
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -12,16 +11,16 @@
             </div>	
         {% endfor %}
     {% endif %}
-    <br>
-    <div class="d-flex flex-column justify-content-center text-center">
-        <h2>Hosted on :</h2>
-        <h5 class="mb-4 small">OVH France</h5>
-        <h2>Credits :</h2>
-        <p>Favicon found on thenounproject.com</p>
-        <p>Image by <a href="https://pixabay.com/fr/users/clker-free-vector-images-3736/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=24157">OpenClipart-Vectors</a> from <a href="https://pixabay.com/fr//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=24157">Pixabay</a></p>
-        <p>Image by <a href="https://pixabay.com/fr/users/pexels-2286921/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1850170">Pexels</a> from <a href="https://pixabay.com/fr//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1850170">Pixabay</a></p>
-        <p>Image by <a href="https://pixabay.com/fr/users/shutterbug75-2077322/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1238598">Rob Owen-Wahl</a> from <a href="https://pixabay.com/fr//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1238598">Pixabay</a></p>
-
-        
-</div>
-{% endblock content %}
+    <div class="content">
+        <br>
+        <div class="d-flex flex-column justify-content-center text-center">
+            <h2>Hosted on :</h2>
+            <h5 class="mb-4 small">OVH France</h5>
+            <h2>Credits :</h2>
+            <p>Favicon found on thenounproject.com</p>
+            <p>Image by <a href="https://pixabay.com/fr/users/clker-free-vector-images-3736/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=24157">OpenClipart-Vectors</a> from <a href="https://pixabay.com/fr//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=24157">Pixabay</a></p>
+            <p>Image by <a href="https://pixabay.com/fr/users/pexels-2286921/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1850170">Pexels</a> from <a href="https://pixabay.com/fr//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1850170">Pixabay</a></p>
+            <p>Image by <a href="https://pixabay.com/fr/users/shutterbug75-2077322/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1238598">Rob Owen-Wahl</a> from <a href="https://pixabay.com/fr//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1238598">Pixabay</a></p>   
+        </div>
+    </div>
+{% endblock %}
