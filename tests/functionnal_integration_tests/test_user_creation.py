@@ -44,7 +44,7 @@ class UserCreationTest(StaticLiveServerTestCase):
         password_input = self.selenium.find_element(By.NAME, "password2")
         password_input.send_keys("monsupermotdepasse")
         self.selenium.find_element(
-            By.XPATH, "/html/body/header/div/form/div[5]/input"
+            By.XPATH, "/html/body/div[1]/div/div/form/div[5]/input"
         ).click()
 
         message = self.selenium.find_element(By.CLASS_NAME, "alert")
