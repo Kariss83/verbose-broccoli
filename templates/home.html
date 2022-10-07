@@ -3,47 +3,46 @@
 {% load static %}
 
 {% block content %}
-<header class="masthead">
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>	
-        {% endfor %}
-    {% endif %}
-    <br>
-    <div class="d-flex flex-column justify-content-center text-center">
-        <h2>Welcome,</h2>
-        <h5 class="mb-3 small">With GameZScan you can scan the barcode of your old physical games and obtain an approximation of the price you could sell it on the secondary market</h5>
-        <div>
-            <a href="/barcode/upload" class="btn btn-primary" id="home-cta">Scan a game</a>
-        </div>
+    <div class="content">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>	
+            {% endfor %}
+        {% endif %}
         <br>
-        <p>
-            See how it works below :
-        </p>
-        <div class="explanation">
-            <div class="d-flex explanation-block">
-                <img src="{% static 'assets/explanation_1.png' %}" alt="explanation_img_1" id="explanation-img">
-                <div class="explanation-text">
-                    <p>Use you camera or webcam to take a picture of a game's barcode and upload it,</p>
-                </div>
+        <div class="d-flex flex-column justify-content-center text-center">
+            <h2>Welcome,</h2>
+            <h5 class="mb-3 small">With GameZScan you can scan the barcode of your old physical games and obtain an approximation of the price you could sell it on the secondary market</h5>
+            <div>
+                <a href="/barcode/upload" class="btn btn-primary" id="home-cta">Scan a game</a>
             </div>
-            <div class="d-flex explanation-block-reversed">
-                <img src="{% static 'assets/explanation_2.png' %}" alt="explanation_img_2" id="explanation-img">
-                <div class="explanation-text">
-                    <p>The app will automatically detect which game it is and give you the average price at which it sells on eBay !</p>
+            <br>
+            <p>
+                See how it works below :
+            </p>
+            <div class="explanation">
+                <div class="d-flex explanation-block">
+                    <img src="{% static 'assets/barcode.png' %}" alt="game scan" id="explanation-img">
+                    <div class="explanation-text">
+                        <p>Use you camera or webcam to take a picture of a game's barcode and upload it.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="d-flex explanation-block">
-                <img src="{% static 'assets/explanation_3.png' %}" alt="explanation_img_3" id="explanation-img">
-                <div class="explanation-text">
-                    <p>If you are logged in, you can now add this game to one of your collection.</p>
+                <div class="d-flex explanation-block-reversed">
+                    <img src="{% static 'assets/estimation.jpg' %}" alt="game_estimation" id="explanation-img">
+                    <div class="explanation-text">
+                        <p>The app will automatically detect which game it is and give you the average price at which it sells on eBay!</p>
+                    </div>
+                </div>
+                <div class="d-flex explanation-block">
+                    <img src="{% static 'assets/collection.jpg' %}" alt="game collection" id="explanation-img">
+                    <div class="explanation-text">
+                        <p>If you are logged in, you can now add this game to one of your collections.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-</header>
 {% endblock content %}

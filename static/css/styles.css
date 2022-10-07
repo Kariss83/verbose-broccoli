@@ -12,6 +12,13 @@
     padding-bottom: 3rem;
     min-height: calc(100vh - 10rem);
 }
+.content {
+    padding-top: 2rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-bottom: 3rem;
+    min-height: calc(100vh - 10rem);
+}
 
 header {
     padding: 1rem;
@@ -112,37 +119,54 @@ video {
 
 .form-control:focus{
     border-color: rgb(73, 50, 204);
-    box-shadow: 0 0 0 0.25rem rgb(73, 50, 204);
+    box-shadow: 0 0 0 0.25rem rgb(121 113 167);
 }
 
 @media (min-width: 992px) {
-    .explanation{
+    .masthead {
+        width: 900px;
+    }
+    .explanation {
         display: flex;
         flex-direction: row;
         font-style: italic;
         font-size: small;
         align-items: center;
         justify-content: center;
+        background-color: RGBA(248, 249, 250, var(--bs-bg-opacity, 1));
+        border-radius: 25px;
     }
-    .explanation-block{
+    .explanation-block {
         display: flex !important;
         flex-direction: column !important;
         padding: 2rem;
     }
-    .explanation-block-reversed{
+    .explanation-block-reversed {
         flex-direction: column !important;
     }
     #explanation-img {
         object-fit: contain;
-        height: 15rem;
+        height: 10rem;
+    }
+    .explanation-text {
+        display: flex;
+        font-style: italic;
+        font-size: small;
+        align-items: center;
+        height: 4rem;
+    }
+    .explanation-text > p {
+        margin: 0;
     }
  }
 
- @media (max-width: 992px) {
+@media (max-width: 992px) {
     .explanation{
         display: flex;
         flex-direction: column;
         align-items: center;
+        background-color: RGBA(248, 249, 250, var(--bs-bg-opacity, 1));
+        border-radius: 25px;
         
     }
     .explanation-text{
@@ -153,16 +177,50 @@ video {
     }
     .explanation-block{
         flex-direction: row !important;
+        padding: 1rem;
     }
+
     .explanation-block-reversed{
         flex-direction: row-reverse !important;
+        padding: 1rem;
     }
     #explanation-img {
         object-fit: contain;
-        height: 15rem;
+        height: 12rem;
+        margin: .5rem;
     }
  }
 
+@media (max-width: 663px) {
+    .explanation-block{
+        flex-direction: column !important;
+        padding: 1rem;
+    }
+
+    .explanation-block-reversed{
+        flex-direction: column !important;
+        padding: 1rem;
+    }
+    #explanation-img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        object-position: bottom;
+        margin: 0cm;
+    }
+ }
+
+
 .credits-list{
     text-align: initial !important;
+}
+
+footer{
+    background-color: #282830;
+    --bs-bg-opacity: 1
+}
+
+.footer-text{
+    --bs-text-opacity: 1;
+    color: #c9d1e7;
 }
