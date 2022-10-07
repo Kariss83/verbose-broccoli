@@ -75,7 +75,8 @@ def register_user(request):
                 messages.success(request, ("You are now signed in..."))
                 return redirect("/accounts/profile")
         else:
-            errors = form.errors
+            errors = form.errors.as_text()
+
             messages.error(
                 request, (f"Account creation error ({errors})- Try Again...")
             )

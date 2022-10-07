@@ -1,11 +1,12 @@
 #expand-button {
     border-color: transparent;
 }
-.navbar{
-    min-height : 3rem;
+
+.navbar {
+    min-height: 3rem;
 }
 
-.masthead {
+.content {
     padding-top: 2rem;
     padding-left: 3rem;
     padding-right: 3rem;
@@ -34,7 +35,7 @@ footer {
 a {
     text-decoration: none;
     font-weight: bold;
-    color:rgb(73, 50, 204);
+    color: rgb(73, 50, 204);
 }
 
 body {
@@ -50,14 +51,15 @@ video {
 }
 
 .not-yet-authorized {
-    background-color: lightgray;
+    background-color: RGBA(248, 249, 250, var(--bs-bg-opacity, 1));
     position: absolute;
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: dotted;
+    border: dotted 1px;
+    border-radius: 25px;
 
 }
 
@@ -77,7 +79,7 @@ video {
     margin-bottom: 2rem;
 }
 
-#my-upload > input[type=file] {
+#my-upload>input[type=file] {
     font-size: smaller;
 }
 
@@ -87,7 +89,7 @@ video {
 }
 
 #game-img {
-    height : 200px;
+    height: 200px;
 }
 
 #game-info {
@@ -110,59 +112,122 @@ video {
     padding-top: 1rem;
 }
 
-.form-control:focus{
+.form-control:focus {
     border-color: rgb(73, 50, 204);
-    box-shadow: 0 0 0 0.25rem rgb(73, 50, 204);
+    box-shadow: 0 0 0 0.25rem rgb(121 113 167);
 }
 
 @media (min-width: 992px) {
-    .explanation{
+    .masthead {
+        width: 900px;
+    }
+
+    .explanation {
         display: flex;
         flex-direction: row;
-        font-style: italic;
-        font-size: small;
         align-items: center;
         justify-content: center;
+        background-color: RGBA(248, 249, 250, var(--bs-bg-opacity, 1));
+        border-radius: 25px;
     }
-    .explanation-block{
+
+    .explanation-block {
         display: flex !important;
         flex-direction: column !important;
         padding: 2rem;
     }
-    .explanation-block-reversed{
+
+    .explanation-block-reversed {
         flex-direction: column !important;
     }
+
     #explanation-img {
         object-fit: contain;
-        height: 15rem;
+        height: 10rem;
     }
- }
 
- @media (max-width: 992px) {
-    .explanation{
+    .explanation-text {
+        display: flex;
+        font-style: italic;
+        font-size: medium;
+        align-items: center;
+        height: 4rem;
+    }
+
+    .explanation-text>p {
+        margin-top: 3rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .explanation {
         display: flex;
         flex-direction: column;
         align-items: center;
-        
+        background-color: RGBA(248, 249, 250, var(--bs-bg-opacity, 1));
+        border-radius: 25px;
+
     }
-    .explanation-text{
+
+    .explanation-text {
         display: flex;
         font-style: italic;
-        font-size: small;
+        font-size: medium;
         align-items: center;
     }
-    .explanation-block{
+
+    .explanation-block {
         flex-direction: row !important;
+        padding: 1rem;
     }
-    .explanation-block-reversed{
+
+    .explanation-block-reversed {
         flex-direction: row-reverse !important;
+        padding: 1rem;
     }
+
     #explanation-img {
         object-fit: contain;
-        height: 15rem;
+        height: 12rem;
+        margin: .5rem;
     }
- }
+}
 
-.credits-list{
+@media (max-width: 663px) {
+    .explanation-block {
+        flex-direction: column !important;
+        padding: 1rem;
+    }
+
+    .explanation-block-reversed {
+        flex-direction: column !important;
+        padding: 1rem;
+    }
+
+    #explanation-img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        object-position: bottom;
+        margin: 0cm;
+    }
+}
+
+.credits-list {
     text-align: initial !important;
 }
+
+footer {
+    background-color: #282830;
+    --bs-bg-opacity: 1
+}
+
+.footer-text {
+    --bs-text-opacity: 1;
+    color: #c9d1e7;
+}
+
+.nav-link:hover {
+    color: #c9d1e7;
+}
+

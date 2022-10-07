@@ -72,14 +72,17 @@
             </div>
         </nav>
         
-        {% block content %}
-        {% endblock content %}
+        <div class="d-flex w-100 justify-content-center">
+            {% block content %}
+            {% endblock content %}
+        </div>
+        
 
-        <footer class="d-flex flex-column flex-wrap bg-light justify-content-between py-3 mt-4 border-top">
-            <p class="col-md-4 mb-0 text-muted">© 2022 GameZScan, Inc</p>
+        <footer class="d-flex flex-column flex-wrap justify-content-between py-3 mt-4 border-top">
+            <p class="col-md-4 mb-0 footer-text">© 2022 GameZScan, Inc</p>
             <ul class="nav col-md-4">
-                <li class="nav-item"><a href="{% url 'legal' %}" class="nav-link px-2 text-muted">Legal</a></li>
-                <li class="nav-item"><a href="{% url 'about' %}" class="nav-link px-2 text-muted">About</a></li>
+                <li class="nav-item"><a href="{% url 'legal' %}" class="nav-link px-2 footer-text">Legal</a></li>
+                <li class="nav-item"><a href="{% url 'about' %}" class="nav-link px-2 footer-text">About</a></li>
             </ul>
         </footer>
 

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<header class="masthead">
+<div class="content">
     <div class="d-flex text-center flex-column justify-content-center">
             {% if messages %}
                 {% for message in messages %}
@@ -22,5 +22,5 @@
             <a href="/accounts/logout" id="Logout"> Logout </a>
         </div>
     </div>
-</header>
+</div>
 {% endblock content %}

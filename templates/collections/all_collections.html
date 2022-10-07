@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<header class="masthead">
+<div class="content">
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -48,5 +48,5 @@
         <a href="{% url 'collection:create' %}" id="collec-creation-link">Create a new collection</a>
     </div>
 
-</header>
+</div>
 {% endblock content %}

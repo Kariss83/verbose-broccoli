@@ -103,7 +103,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "GameZScan",
+        "NAME": "gamezscan",
         "USER": os.environ["DB_GZS_USER"],
         "PASSWORD": os.environ["DB_GZS_PWD"],
         "HOST": "localhost",
