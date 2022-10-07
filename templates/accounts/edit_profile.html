@@ -2,7 +2,7 @@
 
 {% block content %}
 {% load crispy_forms_tags %}  
-<header class="masthead">
+<div class="content">
     {% if messages %}
         {% for message in messages %}
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -25,5 +25,5 @@
             {{ form.non_field_errors }}             
         </form>
     </div>
-</header>
+</div>
 {% endblock content %}
