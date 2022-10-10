@@ -35,7 +35,6 @@ def upload_barcode(request):
             else:
                 if form.is_valid():
                     barcode = parse_img_to_barcode(request.FILES["file"])
-
                     if barcode_not_found(barcode):
                         messages.error(request, ("No barcode detected - Try again..."))
                         return redirect("/barcode/upload")

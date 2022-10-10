@@ -35,7 +35,6 @@ def find_or_create_game_from_barcode(barcode, request):
                     request,
                     ("This item have not been found on eBay so price is set to 0."),
                 )
-
             game = Game.objects.get_or_create(
                 barcode=barcode[0],
                 defaults={
