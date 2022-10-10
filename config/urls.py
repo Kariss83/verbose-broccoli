@@ -33,3 +33,6 @@ urlpatterns = [
     path("collection/", include(gamezscan.collection.urls, namespace="collection")),
     path("datafetcher/", include(gamezscan.datafetcher.urls, namespace="datafetcher")),
 ]
+
+handler404 = "gamezscan.home.views.entry_not_found"
+handler500 = "gamezscan.home.views.internal_error"

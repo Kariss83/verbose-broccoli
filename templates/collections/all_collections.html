@@ -11,9 +11,8 @@
             </div>	
         {% endfor %}
     {% endif %}
-    <br>
-    <div class="d-flex flex-column justify-content-center">
-        {% for collection in game_collection %}
+    {% for collection in game_collection %}
+        <div class="collection">
             <h2 class="mb-3">{{ collection.name }}</h2>
             <h4>Total value : {{ collection.value }}</h4>
             {% for game in collection.game_list %}
@@ -44,9 +43,8 @@
                     Delete this collection
                 </button>
             </form>
-        {% endfor %}
-        <a href="{% url 'collection:create' %}" id="collec-creation-link">Create a new collection</a>
-    </div>
-
+        </div>
+    {% endfor %}
+    <a href="{% url 'collection:create' %}" id="collec-creation-link">Create a new collection</a>
 </div>
 {% endblock content %}

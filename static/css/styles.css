@@ -241,3 +241,9 @@ footer {
     color: #c9d1e7;
 }
 
+.collection{
+    background-color: RGBA(248, 249, 250, var(--bs-bg-opacity, 1));
+    border-radius: 25px;
+    margin-bottom: 2rem;
+    padding : 1rem;
+}
