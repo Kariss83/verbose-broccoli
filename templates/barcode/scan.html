@@ -28,7 +28,9 @@
                     
                 </div>
             </form>
+
             <p class="text-centered">Or upload an image you already have on your system.</p>
+            
             <form method=POST enctype="multipart/form-data" action="{% url 'barcode:upload' %}" name='uploadform'>
                 <div class="d-flex flex-column" id="my-upload">
                     {% csrf_token %}
