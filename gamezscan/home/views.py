@@ -17,5 +17,5 @@ def entry_not_found(request, exception, template_name="404.html"):
     return render(request, template_name)
 
 
-def internal_error(request, exception, template_name="500.html"):
+def internal_error(request, template_name="500.html"):
     return render(request, template_name)
