@@ -26,6 +26,9 @@ django-debug-toolbar = "*"
 flake8 = "*"
 coverage = "*"
 black = "*"
+django-extensions = "*"
+werkzeug = "*"
+pyopenssl = "*"
 
 [requires]
 python_version = "3.9"

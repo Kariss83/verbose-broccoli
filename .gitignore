@@ -139,3 +139,7 @@ ebay-config-sample.json
 ebay-config-sample-user.yaml
 test-config-sample.json
 ebay-config-sample.yaml
+
+# local ssl certs
+cert.crt
+cert.key

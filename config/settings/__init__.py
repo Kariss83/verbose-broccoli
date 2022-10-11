@@ -33,7 +33,7 @@ SECRET_KEY = "django-insecure-hx2+fbubt+!wb#$a&ha^skq+t#pn-3k8ovk3g3j^+2jaaeiju_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 INTERNAL_IPS = [
     # ...
@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "djmoney",
     "debug_toolbar",
+    "django_extensions",
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
