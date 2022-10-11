@@ -55,5 +55,9 @@ if (url.endsWith('/barcode/upload/')){
         takePicture();
         scanForm.requestSubmit(scanButtonElement);
     })
+
+    cameraElement.addEventListener("click", () =>{
+        webcam.snap();
+    })
 }
 
