@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "develop" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
 
 env:
   DJANGO_SETTINGS_MODULE: config.settings.github_action
