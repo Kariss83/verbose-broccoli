@@ -13,6 +13,7 @@ env:
   DB_GZS_USER: your_db_user
   DB_GZS_PWD: users_db_pwd
   DJANGO_KEY: your_secret_django_key
+  DB_GZS_NAME: your_db_name
 
 jobs:
   build:
