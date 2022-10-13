@@ -8,6 +8,8 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver import FirefoxOptions
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from gamezscan.accounts.models import CustomUser
 from gamezscan.collection.models import Collection
@@ -54,12 +56,26 @@ def mocked_credential_load(*args, **kwargs):
     pass
 
 
+def scroll_shim(passed_in_driver, object):
+    x = object.location["x"]
+    y = object.location["y"]
+    scroll_by_coord = f"window.scrollTo({x},{y});"
+    scroll_nav_out_of_way = "window.scrollBy(0, -10);"
+    passed_in_driver.execute_script(scroll_by_coord)
+    passed_in_driver.execute_script(scroll_nav_out_of_way)
+    WebDriverWait(passed_in_driver, 20).until(
+        EC.element_to_be_clickable((By.XPATH, '//*[@id="upload-button"]'))
+    )
+    object.click()
+
+
 class UserUploadTest(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         cls.selenium = webdriver.Firefox(options=opts)
         cls.selenium.implicitly_wait(10)
+        cls.selenium.set_window_size(1080, 3000)
         cls.user = create_an_user(1)
         cls.user.set_password("monsupermotdepasse")
         cls.user.save()
@@ -93,5 +109,11 @@ class UserUploadTest(StaticLiveServerTestCase):
         file_input = self.selenium.find_element(By.NAME, "file")
         file_input.send_keys(image_path)
 
-        self.selenium.find_element(By.XPATH, '//*[@id="upload-button"]').click()
+        # click on upload button
+        upload_button = WebDriverWait(self.selenium, 10).until(
+            EC.element_to_be_clickable(
+                (By.XPATH, "/html/body/div[1]/div/div/form[2]/div/input[2]")
+            )
+        )
+        upload_button.click()
         assert "Le Seigneur des anneaux" in self.selenium.page_source

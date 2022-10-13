@@ -157,6 +157,19 @@ video {
     .explanation-text>p {
         margin-top: 3rem;
     }
+
+    #my-camera {
+        height: 350px;
+        width: 100%;
+        position: relative;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+
+    video {
+        height: 300px;
+        width: 100%;
+    }
 }
 
 @media (max-width: 992px) {
