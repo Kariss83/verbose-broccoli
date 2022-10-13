@@ -2,49 +2,49 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="content">
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>	
-        {% endfor %}
-    {% endif %}
-    {% for collection in game_collection %}
-        <div class="collection">
-            <h2 class="mb-3">{{ collection.name }}</h2>
-            <h4>Total value : {{ collection.value }}</h4>
-            {% for game in collection.game_list %}
-                <div class="d-flex flex-row mb-4">
-                    <img src="{{ game.image }}" alt="game_img" class="game-img-collec">
-                    <div class="d-flex flex-column justify-content-center" id="game-info">
-                        <p>
-                            {{ game.name }}
-                        </p>
-                        <p>
-                            {{ game.avg_price }}
-                        </p>
-                        <form method=POST action="{% url 'collection:remove' %}">
-                            {% csrf_token %}
-                            <input type="hidden" value="{{ collection.name }}" name="collection">
-                            <input type="hidden" value="{{ game.barcode }}" name="barcode">
-                            <button type="submit" name="submit_param" value="Remove from collection" class="btn btn-link">
-                                Remove this game from collection
-                            </button>
-                        </form>
-                    </div> 
-                </div>
+    <div class="content">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>	
             {% endfor %}
-            <form method=POST action="{% url 'collection:delete_collection' %}">
-                {% csrf_token %}
-                <input type="hidden" value="{{ collection.name }}" name="collection">
-                <button type="submit" name="submit_param" value="Delete this collection" class="btn btn-link">
-                    Delete this collection
-                </button>
-            </form>
-        </div>
-    {% endfor %}
-    <a href="{% url 'collection:create' %}" id="collec-creation-link">Create a new collection</a>
-</div>
+        {% endif %}
+        {% for collection in game_collection %}
+            <div class="collection">
+                <h2 class="mb-3">{{ collection.name }}</h2>
+                <h4>Total value : {{ collection.value }}</h4>
+                {% for game in collection.game_list %}
+                    <div class="d-flex flex-row mb-4">
+                        <img src="{{ game.image }}" alt="game_img" class="game-img-collec">
+                        <div class="d-flex flex-column justify-content-center" id="game-info">
+                            <p>
+                                {{ game.name }}
+                            </p>
+                            <p>
+                                {{ game.avg_price }}
+                            </p>
+                            <form method=POST action="{% url 'collection:remove' %}">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{ collection.name }}" name="collection">
+                                <input type="hidden" value="{{ game.barcode }}" name="barcode">
+                                <button type="submit" name="submit_param" value="Remove from collection" class="btn btn-link">
+                                    Remove this game from collection
+                                </button>
+                            </form>
+                        </div> 
+                    </div>
+                {% endfor %}
+                <form method=POST action="{% url 'collection:delete_collection' %}">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ collection.name }}" name="collection">
+                    <button type="submit" name="submit_param" value="Delete this collection" class="btn btn-link">
+                        Delete this collection
+                    </button>
+                </form>
+            </div>
+        {% endfor %}
+        <a href="{% url 'collection:create' %}" id="collec-creation-link">Create a new collection</a>
+    </div>
 {% endblock content %}

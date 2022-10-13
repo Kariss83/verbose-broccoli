@@ -2,32 +2,31 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="content">
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>	
-        {% endfor %}
-    {% endif %}
-    <br>
-    <div class="d-flex flex-column justify-content-center">
-        <h2 class="mb-5">
-            Your collection :
-            <strong>{{ collection }}</strong>
-        </h2>
-        {% for game in games %}
-            <div class="d-flex justify-content-center">
-                <img src="{{ game.image }}" alt="game_img" class="game-img-collec">
-                <div class="d-flex flex-column justify-content-center" id="game-info">
-                    <p>{{ game.name }}</p>
-                    <p>{{ game.avg_price }}</p>
+    <div class="content">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>	
+            {% endfor %}
+        {% endif %}
+        <br>
+        <div class="d-flex flex-column justify-content-center">
+            <h2 class="mb-5">
+                Your collection :
+                <strong>{{ collection }}</strong>
+            </h2>
+            {% for game in games %}
+                <div class="d-flex justify-content-center">
+                    <img src="{{ game.image }}" alt="game_img" class="game-img-collec">
+                    <div class="d-flex flex-column justify-content-center" id="game-info">
+                        <p>{{ game.name }}</p>
+                        <p>{{ game.avg_price }}</p>
+                    </div>
                 </div>
-            </div>
-            
-        {% endfor %}
+                
+            {% endfor %}
+        </div>
     </div>
-
-</div>
-{% endblock content %}
+{% endblock %}

@@ -2,24 +2,24 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="content">
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>	
-        {% endfor %}
-    {% endif %}
-    <br>
-    <div class="d-flex flex-column justify-content-center">
-        <form class="mb-2" method=POST action="{% url 'collection:create' %}" name='collectionCreationForm'>
-            {% csrf_token %}
-            {{ form|crispy }}
-            <p>
-                <input type="submit" class="btn btn-primary" value='Create' disabled/>
-            </p>
-        </form>
+    <div class="content">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>	
+            {% endfor %}
+        {% endif %}
+        <br>
+        <div class="d-flex flex-column justify-content-center">
+            <form class="mb-2" method=POST action="{% url 'collection:create' %}" name='collectionCreationForm'>
+                {% csrf_token %}
+                {{ form|crispy }}
+                <p>
+                    <input type="submit" class="btn btn-primary" value='Create' disabled/>
+                </p>
+            </form>
+        </div>
     </div>
-</div>
 {% endblock content %}

@@ -2,15 +2,15 @@
 
 {% block content %}
 <div class="content">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>	
+        {% endfor %}
+    {% endif %}
     <div class="d-flex text-center flex-column justify-content-center">
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>	
-                {% endfor %}
-            {% endif %}
         <h1 class="font-weight-bold">Hello,</h1>
         <hr class="divider" />
         <h2 class="text-white-75 mb-5">{{ user.username }}</h2>
@@ -23,4 +23,4 @@
         </div>
     </div>
 </div>
-{% endblock content %}
+{% endblock %}

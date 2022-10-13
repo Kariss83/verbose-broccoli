@@ -2,36 +2,35 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="content">
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>	
-        {% endfor %}
-    {% endif %}
-    <br>
-    <div class="d-flex flex-column justify-content-center">
-        <h2 class="">Hello,</h2>
-        <h2 class="mb-5">Glad to see you !</h2>
-        <form class="mb-5" method=POST action="{% url 'accounts:login' %}" name='loginForm'>
-            {% csrf_token %}
-            {{ form|crispy }}
+    <div class="content">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>	
+            {% endfor %}
+        {% endif %}
+        <br>
+        <div class="d-flex flex-column justify-content-center">
+            <h2 class="">Hello,</h2>
+            <h2 class="mb-5">Glad to see you !</h2>
+            <form class="mb-5" method=POST action="{% url 'accounts:login' %}" name='loginForm'>
+                {% csrf_token %}
+                {{ form|crispy }}
+                <p>
+                    <a href="/accounts/password_reset">Forgot your password ?</a>
+                </p>
+                <p>
+                    <input type="submit" class="btn btn-primary" value='Login' disabled/>
+                </p>
+            </form>
             <p>
-                <a href="/accounts/password_reset">Forgot your password ?</a>
+                You do not have an account on GameZScan yet ?
             </p>
             <p>
-                <input type="submit" class="btn btn-primary" value='Login' disabled/>
+                <a href="/accounts/register">Create an account</a>
             </p>
-        </form>
-        <p>
-            You do not have an account on GameZScan yet ?
-        </p>
-        <p>
-            <a href="/accounts/register">Create an account</a>
-        </p>
+        </div>
     </div>
-
-</div>
-{% endblock content %}
+{% endblock %}
